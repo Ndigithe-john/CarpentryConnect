@@ -1,0 +1,8 @@
+CREATE TABLE WorkshopItems (
+    ItemID INT PRIMARY KEY IDENTITY(1,1),
+    ImageURL NVARCHAR(255) NOT NULL,
+    Description NVARCHAR(MAX) NOT NULL,
+    Category NVARCHAR(50) NOT NULL,
+    Material NVARCHAR(50) NOT NULL,
+    DateRequired DATE NOT NULL,
+    Status NVARCHAR(50) DEFAULT 'Pending' NOT NULL,
