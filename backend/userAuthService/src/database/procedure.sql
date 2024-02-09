@@ -1,4 +1,5 @@
 
+--Create a user
 CREATE OR ALTER PROCEDURE CreateUser
     @FirstName NVARCHAR(50),
     @LastName NVARCHAR(50),
@@ -57,3 +58,32 @@ EXEC CreateUser
 
 
 	Select * from Users
+
+    --procedure to get user by email
+
+    CREATE OR ALTER PROCEDURE GetUserByEmail
+    @Email NVARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        UserID,
+        FirstName,
+        LastName,
+        Email,
+        PhoneNumber,
+        Role,
+        Status,
+        QualificationLevel,
+        DocumentPath,
+        WorkshopName,
+        WorkshopLocation,
+        PasswordHash
+    FROM
+        Users
+    WHERE
+        Email = @Email;
+
+END;
+EXEC GetUserByEmail @Email = 'john@gmail.com';

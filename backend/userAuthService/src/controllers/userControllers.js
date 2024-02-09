@@ -47,4 +47,14 @@ async function signUp(req, res) {
     res.send(error.message);
   }
 }
+
+async function login(req, res, next) {
+  try {
+    const login_body = req.body;
+    const { pool } = req;
+    const { Email, PasswordHash } = login_body;
+  } catch (error) {
+    console.log(error);
+  }
+}
 module.exports = signUp;
