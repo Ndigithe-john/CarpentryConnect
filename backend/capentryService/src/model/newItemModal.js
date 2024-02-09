@@ -5,7 +5,7 @@ const newItemSchema = joi.object({
   Description: joi.string().required(),
   Category: joi.string().required(),
   Material: joi.string().required(),
-  DateRequired: joi.string().required(),
+  DateRequired: joi.date().required(),
   Price: joi.number().required(),
 });
 

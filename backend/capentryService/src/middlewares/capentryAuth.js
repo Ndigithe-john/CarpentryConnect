@@ -1,6 +1,6 @@
 const { createClient } = require("redis");
 
-async function capentyService() {
+async function capentyService(req, res, next) {
   try {
     const redis_client = createClient();
     redis_client.connect();

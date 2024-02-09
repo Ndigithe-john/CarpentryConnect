@@ -6,6 +6,7 @@ app.use(express.json());
 const AppError = require("./src/utils/appError");
 const globalErrorHandlers = require("./src/controllers/errorControllers");
 const config = require("./src/config/databaseConfig");
+const postroutes = require("./src/routes/capentryRoutes");
 
 async function capentryServer() {
   try {
@@ -16,6 +17,9 @@ async function capentryServer() {
       req.pool = pool;
       next();
     });
+
+    app.use("/users", postroutes);
+
     app.all("*", (req, res, next) => {
       next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
     });
