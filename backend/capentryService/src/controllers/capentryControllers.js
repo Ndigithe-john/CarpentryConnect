@@ -36,7 +36,18 @@ async function postItem(req, res, next) {
 
 async function getPendingItems(req, res, next) {
   try {
-  } catch (error) {}
+    const { pool } = req;
+    if (pool.connected) {
+      let results = await pool.request().execute("GetPendingItems");
+      res.status(200).json({
+        status: "success",
+        message: "data fetched successfully",
+        data: results.recordsets[0],
+      });
+    }
+  } catch (error) {
+    return next(new AppError("There is a problem with the server", 500));
+  }
 }
 
-module.exports = postItem;
+module.exports = { postItem, getPendingItems };
