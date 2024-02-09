@@ -65,7 +65,7 @@ async function login(req, res, next) {
         req.session.authorized = true;
         req.session.user = user;
         res.json({
-          status: success,
+          status: "success",
           message: "logged in successfully",
         });
       } else {
