@@ -1,6 +1,8 @@
 const AppError = require("../utils/appError");
 const createUserValidator = require("../validators/newUserValidator");
 const bcrypt = require("bcrypt");
+const User = require("../utils/getUser");
+const loginUserValidator = require("../validators/loginValidator");
 
 async function signUp(req, res) {
   try {
@@ -51,10 +53,39 @@ async function signUp(req, res) {
 async function login(req, res, next) {
   try {
     const login_body = req.body;
+    const { value } = loginUserValidator(login_body);
+    console.log(value);
     const { pool } = req;
-    const { Email, PasswordHash } = login_body;
+    const { Email, Password } = login_body;
+    let user = await User(Email, pool);
+    console.log(user);
+    if (user) {
+      let password_match = await bcrypt.compare(Password, user.PasswordHash);
+      if (password_match) {
+        req.session.authorized = true;
+        req.session.user = user;
+        res.json({
+          status: success,
+          message: "logged in successfully",
+        });
+      } else {
+        return next(new AppError("Incorrect Email or Password", 401));
+      }
+
+      if (!Email || !Password) {
+        return next(
+          new AppError("Please provide both email and password"),
+          400
+        );
+      }
+
+      if (!user) {
+        return next(new AppError("Incorrect email or password"), 401);
+      }
+    }
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
+    res.send(error.message);
   }
 }
-module.exports = signUp;
+module.exports = { signUp, login };
