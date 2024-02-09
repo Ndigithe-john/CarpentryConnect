@@ -3,6 +3,7 @@ const createUserValidator = require("../validators/newUserValidator");
 const bcrypt = require("bcrypt");
 const User = require("../utils/getUser");
 const loginUserValidator = require("../validators/loginValidator");
+const sendMail = require("../utils/email");
 
 async function signUp(req, res) {
   try {
@@ -43,6 +44,18 @@ async function signUp(req, res) {
         success: true,
         results: "New user created",
       });
+      if (results.recordsets[0]) {
+        let message = `Account created successfully, Wait for approval to login`;
+        await sendMail({
+          email: Email,
+          subject: `SignUp`,
+          message,
+        });
+        res.status(200).json({
+          status: "success",
+          message: "Email sent successfully",
+        });
+      }
     }
   } catch (error) {
     console.log(error.message);
@@ -88,4 +101,17 @@ async function login(req, res, next) {
     res.send(error.message);
   }
 }
-module.exports = { signUp, login };
+
+async function logout(req, res, next) {
+  try {
+    const user = req.session.user;
+    if (user) {
+      req.session.destroy();
+      res.send("logged out successfully");
+    }
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+}
+module.exports = { signUp, login, logout };
