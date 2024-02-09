@@ -1,10 +1,13 @@
 const AppError = require("../utils/appError");
+const createUserValidator = require("../validators/newUserValidator");
 const bcrypt = require("bcrypt");
 
 async function signUp(req, res) {
   try {
     let newUser = req.body;
     const { pool } = req;
+    const { value } = createUserValidator(newUser);
+    console.log(value);
 
     let {
       FirstName,
@@ -18,7 +21,7 @@ async function signUp(req, res) {
       WorkshopLocation,
       PasswordHash,
     } = newUser;
-    // let hashed_password = await bcrypt.hash(PasswordHash, 8);
+    let hashed_password = await bcrypt.hash(PasswordHash, 8);
     if (pool.connected) {
       let results = await pool
         .request()
@@ -31,7 +34,7 @@ async function signUp(req, res) {
         .input("DocumentPath", DocumentPath)
         .input("WorkshopName", WorkshopName)
         .input("WorkshopLocation", WorkshopLocation)
-        .input("PasswordHash", PasswordHash)
+        .input("PasswordHash", hashed_password)
         .execute("CreateUser");
 
       res.json({
@@ -39,12 +42,9 @@ async function signUp(req, res) {
         results: "New user created",
       });
     }
-    res.json({
-      success: false,
-      message: "an error occured",
-    });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
+    res.send(error.message);
   }
 }
 module.exports = signUp;
