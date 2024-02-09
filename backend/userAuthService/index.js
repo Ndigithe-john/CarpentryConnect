@@ -9,6 +9,7 @@ const sql = require("mssql");
 const config = require("./src/config/databaseConfig");
 const AppError = require("./src/utils/appError");
 const globalErrorHandlers = require("./src/controllers/errorControllers");
+const userRoutes = require("./src/routes/userRoutes");
 app.use(express.json());
 async function startServer() {
   const oneDay = 24 * 60 * 60 * 1000;
@@ -48,6 +49,7 @@ async function startServer() {
       console.log(req.sessionID);
       res.send("okay");
     });
+    app.use("/users", userRoutes);
     app.all("*", (req, res, next) => {
       next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
     });
