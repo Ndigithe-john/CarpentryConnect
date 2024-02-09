@@ -1,10 +1,12 @@
 const AppError = require("../utils/appError");
-
+const newItemValidator = require("../validators/newItemValidator");
 async function postItem(req, res, next) {
   try {
     const user = req.user;
     const { ImageURL, Description, Category, Material, DateRequired, Price } =
       req.body;
+    const { value } = newItemValidator(body);
+    console.log(value);
     const { pool } = req;
     if (pool.connected) {
       let new_posts = await pool
