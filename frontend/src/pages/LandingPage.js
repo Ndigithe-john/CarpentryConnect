@@ -1,24 +1,21 @@
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.jpg";
+import NavBar from "../components/NavBar";
 import backgroundImg from "../assets/background.jpg";
 import "./pages.css";
 
 const LandingPage = () => {
   return (
     <div className="landing_page">
-      <div className="landing_nav">
-        <img src={logo} alt="logo" />
-        <h5>WoodCraft Masters</h5>
-        <div className="landing_buttons">
+      <NavBar>
+        <div className="childrens">
           <Link to="/login">
             <button className="landing_button">login</button>
           </Link>
           <Link to="/signup">
-            {" "}
             <button className="landing_button">signup</button>
           </Link>
         </div>
-      </div>
+      </NavBar>
       <p className="landing_about">
         Providing Quality construction Within private and public sector
       </p>

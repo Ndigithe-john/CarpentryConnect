@@ -1,17 +1,14 @@
-import logo from "../assets/logo.jpg";
 import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 const LoginPage = () => {
   return (
     <div>
-      <div className="landing_nav">
-        <img src={logo} alt="logo" />
-        <h5>WoodCraft Masters</h5>
-        <div className="landing_buttons">
-          <Link to="/signup">
-            <button className="landing_button">signup</button>
-          </Link>
-        </div>
-      </div>
+      <NavBar>
+        {" "}
+        <Link to="/signup">
+          <button className="landing_button">signup</button>
+        </Link>
+      </NavBar>
       <div className="register_display">
         <div className="paragraph">
           <h1>Welcome back to WoodCraft Masters! 🌳</h1>
@@ -33,8 +30,7 @@ const LoginPage = () => {
           <p>
             Don't have an account?
             <Link to="/signup" style={{ textDecoration: "none" }}>
-              {" "}
-              signup{" "}
+              signup
             </Link>
           </p>
         </form>

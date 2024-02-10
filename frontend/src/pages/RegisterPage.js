@@ -1,18 +1,14 @@
-import logo from "../assets/logo.jpg";
 import { Link } from "react-router-dom";
 import "./pages.css";
+import NavBar from "../components/NavBar";
 const RegisterPage = () => {
   return (
     <div className="register_form_container">
-      <div className="landing_nav">
-        <img src={logo} alt="logo" />
-        <h5>WoodCraft Masters</h5>
-        <div className="landing_buttons">
-          <Link to="/login">
-            <button className="landing_button">login</button>
-          </Link>
-        </div>
-      </div>
+      <NavBar>
+        <Link to="/login">
+          <button className="landing_button">login</button>
+        </Link>
+      </NavBar>
       <div className="register_display">
         <div className="paragraph">
           <h1>Thank you for choosing WoodCraft Masters! 🌟</h1>
