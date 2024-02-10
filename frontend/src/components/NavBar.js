@@ -4,12 +4,7 @@ const NavBar = ({ children }) => {
     <div className="landing_nav">
       <img src={logo} alt="logo" />
       <h5>WoodCraft Masters</h5>
-      <div
-        className="land
-      ing_buttons"
-      >
-        {children}
-      </div>
+      <div className="landing_buttons">{children}</div>
     </div>
   );
 };
