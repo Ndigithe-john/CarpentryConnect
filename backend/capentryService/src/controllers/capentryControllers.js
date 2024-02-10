@@ -88,4 +88,49 @@ async function updateWorkshopItemStatus(req, res, next) {
   }
 }
 
-module.exports = { postItem, getPendingItems, updateWorkshopItemStatus };
+async function deleteWorkshopItem(req, res, next) {
+  try {
+    const delete_body = req.body;
+    const { ItemID } = delete_body;
+    const user = req.user;
+    const { pool } = req;
+    if (pool.connected) {
+      const checkPostQuery = `
+      SELECT ItemID
+      FROM WorkshopItems
+      WHERE ItemID = ${ItemID} and WorkshopOwnerID=${user.UserID}
+    `;
+      const checkPostResult = await pool
+        .request()
+        .input("ItemID", ItemID)
+        .query(checkPostQuery);
+      if (checkPostResult.recordset.length === 0) {
+        return next(new AppError("Post not found"), 404);
+      }
+      const delete_item = await pool
+        .request()
+        .input("ItemID", ItemID)
+        .execute("DeleteWorkshopItem");
+
+      res.status(200).json({
+        status: "success",
+        message: "item deleted successully",
+      });
+    } else {
+      res.status(201).json({
+        status: false,
+        message: "Error deleting post",
+      });
+    }
+  } catch (error) {
+    return next(
+      new AppError("Unable to process your request at the moment", 500)
+    );
+  }
+}
+module.exports = {
+  postItem,
+  getPendingItems,
+  updateWorkshopItemStatus,
+  deleteWorkshopItem,
+};
