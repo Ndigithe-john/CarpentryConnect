@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom";
 import "./pages.css";
 import NavBar from "../components/NavBar";
+import { useState } from "react";
 const RegisterPage = () => {
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phonenumber, setPhoneNumber] = useState(null);
+  const [role, setRole] = useState("Carpenter");
   return (
     <div className="register_form_container">
       <NavBar element={<h5>WoodCraft Masters</h5>}>
@@ -22,23 +28,31 @@ const RegisterPage = () => {
         </div>
         <form className="register_form">
           <p>Register Form </p>
-          <input placeholder="FirstName" />
-          <input placeholder="LastName" />
-          <input placeholder="Email" />
-          <input placeholder="PhoneNumber" />
-          <select>
+          <input placeholder="FirstName" type="text" />
+          <input placeholder="LastName" type="text" />
+          <input placeholder="Email" type="text" />
+          <input placeholder="PhoneNumber" type="number" />
+          <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option>Carpenter</option>
             <option>WorkshopOwner</option>
           </select>
-          <select>
-            <option>Diploma in Capentry and Renovation</option>
-            <option>Level 2 Diploma in Site Capentry</option>
-            <option>Level 3 Diploma in site Capentry</option>
-            <option>Cetificate in Capentry</option>
-          </select>
-          <input type="file" />
-          <input placeholder="WorkshopName" />
-          <input placeholder="location" />
+          {role === "Carpenter" ? (
+            <>
+              <select>
+                <option>Diploma in Capentry and Renovation</option>
+                <option>Level 2 Diploma in Site Capentry</option>
+                <option>Level 3 Diploma in site Capentry</option>
+                <option>Cetificate in Capentry</option>
+              </select>
+              <input type="file" />
+            </>
+          ) : (
+            <>
+              <input placeholder="WorkshopName" />
+              <input placeholder="location" />
+            </>
+          )}
+
           <input placeholder="password" />
           <input placeholder="confirm password" />
           <button>submit</button>
