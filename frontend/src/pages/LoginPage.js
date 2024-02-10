@@ -1,4 +1,5 @@
 import logo from "../assets/logo.jpg";
+import { Link } from "react-router-dom";
 const LoginPage = () => {
   return (
     <div>
@@ -6,7 +7,9 @@ const LoginPage = () => {
         <img src={logo} alt="logo" />
         <h5>WoodCraft Masters</h5>
         <div className="landing_buttons">
-          <button className="landing_button">signup</button>
+          <Link to="/signup">
+            <button className="landing_button">signup</button>
+          </Link>
         </div>
       </div>
       <div className="register_display">
@@ -26,7 +29,14 @@ const LoginPage = () => {
           <input placeholder="Email" />
           <input placeholder="Password" />
           <button>submit</button>
-          <p>Don't have an account? signup</p>
+
+          <p>
+            Don't have an account?
+            <Link to="/signup" style={{ textDecoration: "none" }}>
+              {" "}
+              signup{" "}
+            </Link>
+          </p>
         </form>
       </div>
     </div>

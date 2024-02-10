@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.jpg";
 import backgroundImg from "../assets/background.jpg";
 import "./pages.css";
@@ -9,8 +10,13 @@ const LandingPage = () => {
         <img src={logo} alt="logo" />
         <h5>WoodCraft Masters</h5>
         <div className="landing_buttons">
-          <button className="landing_button">login</button>
-          <button className="landing_button">signup</button>
+          <Link to="/login">
+            <button className="landing_button">login</button>
+          </Link>
+          <Link to="/signup">
+            {" "}
+            <button className="landing_button">signup</button>
+          </Link>
         </div>
       </div>
       <p className="landing_about">
