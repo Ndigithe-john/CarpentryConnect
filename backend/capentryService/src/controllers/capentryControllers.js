@@ -49,5 +49,43 @@ async function getPendingItems(req, res, next) {
     return next(new AppError("There is a problem with the server", 500));
   }
 }
+async function updateWorkshopItemStatus(req, res, next) {
+  try {
+    const user = req.user;
+    const { ItemID, NewStatus } = req.body;
+    const { pool } = req;
+    if (pool.connected) {
+      const checkPostQuery = `
+          SELECT ItemID
+          FROM WorkshopItems
+          WHERE ItemID = ${ItemID} and WorkshopOwnerID=${user.UserID}
+        `;
+      const checkPostResult = await pool
+        .request()
+        .input("ItemID", ItemID)
+        .query(checkPostQuery);
 
-module.exports = { postItem, getPendingItems };
+      if (checkPostResult.recordset.length === 0) {
+        return next(new AppError("Post not found"), 404);
+      }
+      let update = await pool
+        .request()
+        .input("ItemID", ItemID)
+        .input("NewStatus", NewStatus)
+        .execute("UpdateWorkshopItemStatus");
+      res.status(200).json({
+        status: "success",
+        message: "Item status updated successfully",
+      });
+    } else {
+      res.status(400).json({
+        status: false,
+        message: "Error updating state",
+      });
+    }
+  } catch (error) {
+    return next(new AppError("Internal Server Error", 500));
+  }
+}
+
+module.exports = { postItem, getPendingItems, updateWorkshopItemStatus };
