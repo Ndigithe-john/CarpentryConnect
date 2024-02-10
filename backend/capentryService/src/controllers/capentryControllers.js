@@ -49,6 +49,26 @@ async function getPendingItems(req, res, next) {
     return next(new AppError("There is a problem with the server", 500));
   }
 }
+async function getAllItems(req, res, next) {
+  try {
+    const { pool } = req;
+    if (pool.connected) {
+      let results = await pool.request().execute("GetAllWorkshopItems");
+      res.status(200).json({
+        status: "success",
+        message: "all items fetched successfully",
+        data: results.recordsets[0],
+      });
+    } else {
+      res.status(201).json({
+        status: false,
+        message: "error trying to fetch the items. Please try again later",
+      });
+    }
+  } catch (error) {
+    return next(new AppError("Server Error", 500));
+  }
+}
 async function updateWorkshopItemStatus(req, res, next) {
   try {
     const user = req.user;
@@ -133,4 +153,5 @@ module.exports = {
   getPendingItems,
   updateWorkshopItemStatus,
   deleteWorkshopItem,
+  getAllItems,
 };
