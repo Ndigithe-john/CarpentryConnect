@@ -1,3 +1,25 @@
 body {
   background-color: var(--color-background-100);
 }
+.profile_photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.search_form input {
+  height: 25px;
+  border-radius: 8px;
+  border-color: var(--color-text-dark);
+  width: 55em;
+  margin-right: 10px;
+}
+.search_form button {
+  height: 25px;
+  background-color: #39424b;
+  color: white;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  width: 10em;
+}

@@ -4,7 +4,7 @@ import NavBar from "../components/NavBar";
 const RegisterPage = () => {
   return (
     <div className="register_form_container">
-      <NavBar>
+      <NavBar element={<h5>WoodCraft Masters</h5>}>
         <Link to="/login">
           <button className="landing_button">login</button>
         </Link>

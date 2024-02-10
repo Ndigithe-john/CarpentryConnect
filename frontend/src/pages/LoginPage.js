@@ -3,8 +3,7 @@ import NavBar from "../components/NavBar";
 const LoginPage = () => {
   return (
     <div>
-      <NavBar>
-        {" "}
+      <NavBar element={<h5>WoodCraft Masters</h5>}>
         <Link to="/signup">
           <button className="landing_button">signup</button>
         </Link>
