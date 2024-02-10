@@ -53,9 +53,65 @@
 }
 .background-container {
   display: flex;
+  gap: 8px;
 }
 .background-container img {
   width: 50%;
   height: 60vh;
   object-fit: cover;
+}
+.background-container p {
+  color: var(--color-text-dark);
+  font-size: 30px;
+  font-style: italic;
+}
+
+.register_form {
+  margin-top: 3vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+.register_form p {
+  font-size: 20px;
+  color: var(--color-text-dark);
+  font-style: italic;
+}
+.register_form input {
+  height: 25px;
+  border-radius: 8px;
+  border-color: var(--color-text-dark);
+  width: 40em;
+}
+.register_form button {
+  height: 25px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  width: 40em;
+}
+.register_form select {
+  height: 25px;
+  border-radius: 8px;
+  border-color: var(--color-text-dark);
+  width: 40em;
+}
+.register_display {
+  display: flex;
+  justify-content: center;
+  gap: 15em;
+}
+.register_display .paragraph {
+  width: 50rem;
+  align-self: center;
+}
+.paragraph > h1 {
+  font-style: italic;
+  color: var(--color-text-dark);
+}
+.paragraph p {
+  font-size: 15px;
+  color: var(--color-text-dark);
 }
