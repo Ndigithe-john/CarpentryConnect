@@ -8,6 +8,15 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [phonenumber, setPhoneNumber] = useState(null);
   const [role, setRole] = useState("Carpenter");
+  const [qualification, setQualification] = useState("");
+  const [qualificationDocument, setQualificationDocument] = useState("");
+  const [workshopName, setWorkshopName] = useState("");
+  const [workshopLocation, setWorkshopLocation] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  function handleSignUp(e) {
+    e.preventDefault();
+  }
   return (
     <div className="register_form_container">
       <NavBar element={<h5>WoodCraft Masters</h5>}>
@@ -26,35 +35,80 @@ const RegisterPage = () => {
             having you as a part of our community! 🛠️✨
           </p>
         </div>
-        <form className="register_form">
+        <form className="register_form" onSubmit={handleSignUp}>
           <p>Register Form </p>
-          <input placeholder="FirstName" type="text" />
-          <input placeholder="LastName" type="text" />
-          <input placeholder="Email" type="text" />
-          <input placeholder="PhoneNumber" type="number" />
+          <input
+            placeholder="FirstName"
+            type="text"
+            value={firstname}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <input
+            placeholder="LastName"
+            type="text"
+            value={lastname}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <input
+            placeholder="Email"
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            placeholder="PhoneNumber"
+            type="number"
+            value={phonenumber}
+            onChange={(e) => setPhoneNumber(Number(e.target.value))}
+          />
           <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option>Carpenter</option>
             <option>WorkshopOwner</option>
           </select>
           {role === "Carpenter" ? (
             <>
-              <select>
+              <select
+                value={qualification}
+                onChange={(e) => setQualification(e.target.value)}
+              >
                 <option>Diploma in Capentry and Renovation</option>
                 <option>Level 2 Diploma in Site Capentry</option>
                 <option>Level 3 Diploma in site Capentry</option>
                 <option>Cetificate in Capentry</option>
               </select>
-              <input type="file" />
+              <input
+                type="file"
+                value={qualificationDocument}
+                onChange={(e) => setQualificationDocument(e.target.value)}
+              />
             </>
           ) : (
             <>
-              <input placeholder="WorkshopName" />
-              <input placeholder="location" />
+              <input
+                placeholder="WorkshopName"
+                value={workshopName}
+                onChange={(e) => setWorkshopName(e.target.value)}
+              />
+              <input
+                placeholder="location"
+                value={workshopLocation}
+                onChange={(e) => setWorkshopLocation(e.target.value)}
+              />
             </>
           )}
 
-          <input placeholder="password" />
-          <input placeholder="confirm password" />
+          <input
+            placeholder="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <input
+            placeholder="confirm password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
           <button>submit</button>
           <p>
             Already have an account?{" "}
