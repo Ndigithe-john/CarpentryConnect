@@ -1,8 +1,11 @@
+// RegisterPage.js
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./pages.css";
 import NavBar from "../components/NavBar";
-import { useState } from "react";
-import LocationMap from "../components/LocationMap";
+
+import LocationModal from "../components/LocationModal";
+
 const RegisterPage = () => {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -12,13 +15,29 @@ const RegisterPage = () => {
   const [qualification, setQualification] = useState("");
   const [qualificationDocument, setQualificationDocument] = useState("");
   const [workshopName, setWorkshopName] = useState("");
-  const [workshopLocation, setWorkshopLocation] = useState("");
+  const [workshopLocationCoords, setWorkshopLocationCoords] = useState(null);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showMap, setShowMap] = useState(false);
-  function handleSignUp(e) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSignUp = (e) => {
     e.preventDefault();
-  }
+  };
+
+  const handleLocationSelect = (location) => {
+    setWorkshopLocationCoords(location);
+    setShowMap(false);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="register_form_container">
       <NavBar element={<h5>WoodCraft Masters</h5>}>
@@ -59,7 +78,7 @@ const RegisterPage = () => {
           />
           <input
             placeholder="PhoneNumber"
-            type="number"
+            type="text"
             value={phonenumber}
             onChange={(e) => setPhoneNumber(Number(e.target.value))}
           />
@@ -76,7 +95,7 @@ const RegisterPage = () => {
                 <option>Diploma in Capentry and Renovation</option>
                 <option>Level 2 Diploma in Site Capentry</option>
                 <option>Level 3 Diploma in site Capentry</option>
-                <option>Cetificate in Capentry</option>
+                <option>Certificate in Capentry</option>
               </select>
               <input
                 type="file"
@@ -91,13 +110,17 @@ const RegisterPage = () => {
                 value={workshopName}
                 onChange={(e) => setWorkshopName(e.target.value)}
               />
-              <button type="button" onClick={() => setShowMap(!showMap)}>
+              <button type="button" onClick={openModal}>
                 Pick Workshop Location on Map
               </button>
-              {showMap && <LocationMap />}
+              {isModalOpen && (
+                <LocationModal
+                  onLocationSelect={handleLocationSelect}
+                  closeModal={closeModal}
+                />
+              )}
             </>
           )}
-
           <input
             placeholder="password"
             value={password}
@@ -112,7 +135,7 @@ const RegisterPage = () => {
           />
           <button>submit</button>
           <p>
-            Already have an account?{" "}
+            Already have an account?
             <Link to="/login" style={{ textDecoration: "none" }}>
               login
             </Link>
@@ -125,15 +148,3 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
-
-// FirstName NVARCHAR(50) NOT NULL,
-// LastName NVARCHAR(50) NOT NULL,
-// Email NVARCHAR(255) NOT NULL UNIQUE,
-// PhoneNumber NVARCHAR(20),
-// Role NVARCHAR(50) NOT NULL,
-// Status NVARCHAR(50) DEFAULT 'Waiting' NOT NULL,
-// QualificationLevel NVARCHAR(50),
-// DocumentPath NVARCHAR(255),
-// WorkshopName NVARCHAR(255),
-// WorkshopLocation NVARCHAR(255),
-// PasswordHash NVARCHAR(255) NOT NULL
