@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "./pages.css";
 import NavBar from "../components/NavBar";
 import { useState } from "react";
+import LocationMap from "../components/LocationMap";
 const RegisterPage = () => {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
@@ -14,6 +15,7 @@ const RegisterPage = () => {
   const [workshopLocation, setWorkshopLocation] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showMap, setShowMap] = useState(false);
   function handleSignUp(e) {
     e.preventDefault();
   }
@@ -89,11 +91,10 @@ const RegisterPage = () => {
                 value={workshopName}
                 onChange={(e) => setWorkshopName(e.target.value)}
               />
-              <input
-                placeholder="location"
-                value={workshopLocation}
-                onChange={(e) => setWorkshopLocation(e.target.value)}
-              />
+              <button type="button" onClick={() => setShowMap(!showMap)}>
+                Pick Workshop Location on Map
+              </button>
+              {showMap && <LocationMap />}
             </>
           )}
 
