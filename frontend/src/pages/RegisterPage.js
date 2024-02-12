@@ -17,7 +17,11 @@ const RegisterPage = () => {
   const [workshopName, setWorkshopName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isModaOpen,setIsModalOpen]=useState(false)
+  const [isModaOpen, setIsModalOpen] = useState(false);
+
+  function togleModal() {
+    setIsModalOpen((prev) => !prev);
+  }
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -95,7 +99,13 @@ const RegisterPage = () => {
                 value={workshopName}
                 onChange={(e) => setWorkshopName(e.target.value)}
               />
-              <button type="button" onClick={}>Pick Workshop Location on Map</button>
+              <button
+                className="registerform_button"
+                type="button"
+                onClick={togleModal}
+              >
+                Pick Workshop Location on Map
+              </button>
             </>
           )}
           <input
@@ -110,7 +120,12 @@ const RegisterPage = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <button>submit</button>
+          <button className="registerform_button">submit</button>
+          {isModaOpen && (
+            <Modal onClose={togleModal}>
+              <Maps />
+            </Modal>
+          )}
           <p>
             Already have an account?
             <Link to="/login" style={{ textDecoration: "none" }}>

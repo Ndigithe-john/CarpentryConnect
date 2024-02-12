@@ -85,7 +85,7 @@
   border-color: var(--color-text-dark);
   width: 40em;
 }
-.register_form button {
+.registerform_button {
   height: 25px;
   border-radius: 10px;
   outline: none;
