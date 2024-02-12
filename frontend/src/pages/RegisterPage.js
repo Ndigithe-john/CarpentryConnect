@@ -18,6 +18,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isModaOpen, setIsModalOpen] = useState(false);
+  const [selectPosition, setSelectPosition] = useState(null);
 
   function togleModal() {
     setIsModalOpen((prev) => !prev);
@@ -123,7 +124,10 @@ const RegisterPage = () => {
           <button className="registerform_button">submit</button>
           {isModaOpen && (
             <Modal onClose={togleModal}>
-              <Maps />
+              <Maps
+                selectPosition={selectPosition}
+                setSelectPosition={setSelectPosition}
+              />
             </Modal>
           )}
           <p>

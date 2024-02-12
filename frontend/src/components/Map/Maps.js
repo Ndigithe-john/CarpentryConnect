@@ -1,11 +1,8 @@
-import { useState } from "react";
 import Map from "./Map";
 import SearchBox from "./SearchBox";
 import "./mapstyles.css";
 
-const Maps = () => {
-  const [selectPosition, setSelectPosition] = useState(null);
-  console.log(selectPosition);
+const Maps = ({ selectPosition, setSelectPosition }) => {
   return (
     <div className="map_container">
       <div className="map_box">

@@ -11,7 +11,7 @@ import placeholder from "../../assets/placeholder.png";
 
 const NOMINATIM_BASE_URL = `https://nominatim.openstreetmap.org/search?`;
 
-const SearchBox = ({ selectPosition, setSelectPosition }) => {
+const SearchBox = ({ setSelectPosition }) => {
   const [searchText, setSearchText] = useState("");
   const [listPlace, setListPlace] = useState([]);
 
@@ -36,7 +36,6 @@ const SearchBox = ({ selectPosition, setSelectPosition }) => {
     fetch(corsAnywhereUrl, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log("Results:", result);
         setListPlace(result);
       })
       .catch((error) => {
