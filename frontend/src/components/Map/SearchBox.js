@@ -11,7 +11,7 @@ import placeholder from "../../assets/placeholder.png";
 
 const NOMINATIM_BASE_URL = `https://nominatim.openstreetmap.org/search?`;
 
-const SearchBox = ({ setSelectPosition }) => {
+const SearchBox = ({ selectPosition, setSelectPosition }) => {
   const [searchText, setSearchText] = useState("");
   const [listPlace, setListPlace] = useState([]);
 
