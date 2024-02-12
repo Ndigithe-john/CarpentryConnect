@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./pages.css";
 import NavBar from "../components/NavBar";
-
-import LocationModal from "../components/LocationModal";
+import Modal from "../components/Modal";
+import Maps from "../components/Map/Maps";
 
 const RegisterPage = () => {
   const [firstname, setFirstName] = useState("");
@@ -15,27 +15,12 @@ const RegisterPage = () => {
   const [qualification, setQualification] = useState("");
   const [qualificationDocument, setQualificationDocument] = useState("");
   const [workshopName, setWorkshopName] = useState("");
-  const [workshopLocationCoords, setWorkshopLocationCoords] = useState(null);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [showMap, setShowMap] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModaOpen,setIsModalOpen]=useState(false)
 
   const handleSignUp = (e) => {
     e.preventDefault();
-  };
-
-  const handleLocationSelect = (location) => {
-    setWorkshopLocationCoords(location);
-    setShowMap(false);
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
   };
 
   return (
@@ -110,15 +95,7 @@ const RegisterPage = () => {
                 value={workshopName}
                 onChange={(e) => setWorkshopName(e.target.value)}
               />
-              <button type="button" onClick={openModal}>
-                Pick Workshop Location on Map
-              </button>
-              {isModalOpen && (
-                <LocationModal
-                  onLocationSelect={handleLocationSelect}
-                  closeModal={closeModal}
-                />
-              )}
+              <button type="button" onClick={}>Pick Workshop Location on Map</button>
             </>
           )}
           <input

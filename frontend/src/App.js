@@ -3,6 +3,7 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Home from "./components/Home";
+import Maps from "./components/Map/Maps";
 
 function App() {
   const router = createBrowserRouter([
@@ -21,6 +22,10 @@ function App() {
     {
       path: "/signup",
       element: <RegisterPage />,
+    },
+    {
+      path: "/map",
+      element: <Maps />,
     },
   ]);
   return (
