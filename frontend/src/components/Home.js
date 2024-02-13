@@ -1,6 +1,7 @@
 import NavBar from "./NavBar";
 import profile from "../assets/profile.jpg";
 import SearchBar from "./SearchBar";
+import Products from "./Products";
 const Home = () => {
   return (
     <div>
@@ -9,6 +10,7 @@ const Home = () => {
           <img src={profile} alt="profilePhoto" />
         </div>
       </NavBar>
+      <Products />
     </div>
   );
 };
