@@ -2,6 +2,7 @@ import NavBar from "./NavBar";
 import profile from "../assets/profile.jpg";
 import SearchBar from "./SearchBar";
 import Products from "./Products";
+
 const Home = () => {
   return (
     <div>
