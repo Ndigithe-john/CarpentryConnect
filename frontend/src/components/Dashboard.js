@@ -16,6 +16,7 @@ const Dashboard = () => {
       </NavBar>
       <div className=" dashboard_container">
         <div className="dashboard_aside_container">
+          <h1>Dashboard</h1>
           <div className="about_items">
             <h5>Items</h5>
           </div>
