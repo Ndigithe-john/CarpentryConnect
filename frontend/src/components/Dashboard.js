@@ -1,7 +1,13 @@
+import { useState } from "react";
 import NavBar from "./NavBar";
 
 import profile from "../assets/profile.jpg";
+
 const Dashboard = () => {
+  const [openItems, setOpenItems] = useState(false);
+  function handleOpenItems() {
+    setOpenItems((prevState) => !prevState);
+  }
   return (
     <div className="container_dashboard">
       <NavBar element={<h5>WoodCraft Masters</h5>}>
@@ -18,7 +24,14 @@ const Dashboard = () => {
         <div className="dashboard_aside_container">
           <h1>Dashboard</h1>
           <div className="about_items">
-            <h5>Items</h5>
+            <h3 onClick={handleOpenItems}>Items</h3>
+            {openItems && (
+              <div className="items_properties">
+                <h5>App Item</h5>
+                <h5>pending</h5>
+                <h5>completed</h5>
+              </div>
+            )}
           </div>
         </div>
         <div className="dashboard_main_container"></div>
