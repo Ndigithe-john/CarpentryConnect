@@ -1,3 +1,14 @@
+:root {
+  --color-primary: #156504;
+  --color-primary-light: #7950f2;
+  --color-text: #dee2e6;
+  --color-text-dark: #717c87;
+  --color-background-100: #343a40;
+  --color-background-500: #2b3035;
+  --color-background-900: #212529;
+  --color-red: #fa5252;
+  --color-red-dark: #e03131;
+}
 body {
   background-color: var(--color-background-100);
 }
@@ -118,6 +129,33 @@ body {
 }
 
 .account-modal-content h4 {
+  text-decoration: none;
   margin-bottom: 10px;
   cursor: pointer;
+}
+.container_dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+.dashboard_container {
+  display: flex;
+  flex-direction: row;
+  height: 88vh;
+  gap: 2em;
+}
+.dashboard_aside_container {
+  background-color: var(--color-background-900);
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dashboard_main_container {
+}
+.about_items {
+  color: white;
+  font-size: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-style: italic;
 }

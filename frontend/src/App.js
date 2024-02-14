@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Home from "./components/Home";
 import Maps from "./components/Map/Maps";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   const router = createBrowserRouter([
@@ -15,6 +16,11 @@ function App() {
       path: "/home",
       element: <Home />,
     },
+    {
+      path: "dashboard",
+      element: <Dashboard />,
+    },
+
     {
       path: "/login",
       element: <LoginPage />,
