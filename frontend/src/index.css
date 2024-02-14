@@ -101,3 +101,23 @@ body {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
+.account-modal {
+  position: fixed;
+  right: 3em;
+  width: 15em;
+
+  z-index: 2;
+}
+
+.account-modal-content {
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.account-modal-content h4 {
+  margin-bottom: 10px;
+  cursor: pointer;
+}

@@ -1,9 +1,16 @@
+import { useState } from "react";
 import NavBar from "./NavBar";
 import profile from "../assets/profile.jpg";
 import SearchBar from "./SearchBar";
 import Products from "./Products";
+import AccountAboutModal from "./AccountAboutModal";
 
 const Home = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  function hanldeMouseEnter() {
+    setIsModalOpen((prev) => !prev);
+  }
+
   return (
     <div>
       <NavBar element={<SearchBar />}>
@@ -15,7 +22,7 @@ const Home = () => {
             <p>name</p>
           </div>
         </div>
-        <div className="navbar_hamburger">
+        <div className="navbar_hamburger" onMouseEnter={hanldeMouseEnter}>
           <div className="menu-icon">
             <div className="line"></div>
             <div className="line"></div>
@@ -23,6 +30,7 @@ const Home = () => {
           </div>
         </div>
       </NavBar>
+      {isModalOpen && <AccountAboutModal />}
       <Products />
     </div>
   );
