@@ -8,6 +8,7 @@
   --color-background-900: #212529;
   --color-red: #fa5252;
   --color-red-dark: #e03131;
+  --color-text-wheat: #f5deb3;
 }
 body {
   background-color: var(--color-background-100);
@@ -162,7 +163,7 @@ body {
 }
 .about_items h3 {
   color: var(--color-text-dark);
-  font-size: 30px;
+  font-size: 35px;
   font-style: italic;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   cursor: pointer;
@@ -174,8 +175,8 @@ body {
   align-items: center;
 }
 .items_properties h5 {
-  color: wheat;
-  font-size: 10px;
+  color: var(--color-text-wheat);
+  font-size: 15px;
   font-style: italic;
   cursor: pointer;
   margin-bottom: 6px;

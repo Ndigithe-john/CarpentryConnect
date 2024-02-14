@@ -27,9 +27,9 @@ const Dashboard = () => {
             <h3 onClick={handleOpenItems}>Items</h3>
             {openItems && (
               <div className="items_properties">
-                <h5>App Item</h5>
-                <h5>pending</h5>
-                <h5>completed</h5>
+                <h5>Add Item</h5>
+                <h5>Pending</h5>
+                <h5>Completed</h5>
               </div>
             )}
           </div>
