@@ -7,8 +7,20 @@ const Home = () => {
   return (
     <div>
       <NavBar element={<SearchBar />}>
-        <div className="profile_photo">
-          <img src={profile} alt="profilePhoto" />
+        <div className="added_profile">
+          <div className="profile_photo">
+            <img src={profile} alt="profilePhoto" />
+          </div>
+          <div className="profile_name">
+            <p>name</p>
+          </div>
+        </div>
+        <div className="navbar_hamburger">
+          <div className="menu-icon">
+            <div className="line"></div>
+            <div className="line"></div>
+            <div className="line"></div>
+          </div>
         </div>
       </NavBar>
       <Products />
