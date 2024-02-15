@@ -5,8 +5,12 @@ import profile from "../assets/profile.jpg";
 
 const Dashboard = () => {
   const [openItems, setOpenItems] = useState(false);
+  const [openOrders, setOpenOrders] = useState(false);
   function handleOpenItems() {
     setOpenItems((prevState) => !prevState);
+  }
+  function handleOpenOrders() {
+    setOpenOrders((prev) => !prev);
   }
   return (
     <div className="container_dashboard">
@@ -30,6 +34,15 @@ const Dashboard = () => {
                 <h5>Add Item</h5>
                 <h5>Pending</h5>
                 <h5>Completed</h5>
+              </div>
+            )}
+          </div>
+          <div className="about_items">
+            <h3 onClick={handleOpenOrders}>Orders</h3>
+            {openOrders && (
+              <div className="items_properties">
+                <h5>Pending Approval</h5>
+                <h5>Approved</h5>
               </div>
             )}
           </div>
