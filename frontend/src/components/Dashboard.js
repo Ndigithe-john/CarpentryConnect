@@ -46,6 +46,12 @@ const Dashboard = () => {
               </div>
             )}
           </div>
+          <div className="about_orders">
+            <h3>Carpenters</h3>
+          </div>
+          <div className="about_orders">
+            <h3>Reviews</h3>
+          </div>
         </div>
         <div className="dashboard_main_container"></div>
       </div>
