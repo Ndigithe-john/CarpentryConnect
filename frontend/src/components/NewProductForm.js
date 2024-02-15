@@ -4,8 +4,11 @@ const NewProductForm = () => {
   function handleItemUpload(e) {
     setItemUpload(URL.createObjectURL(e.target.files[0]));
   }
+  function handleAddItem(e) {
+    e.preventDefault();
+  }
   return (
-    <form>
+    <form onSubmit={handleAddItem}>
       <input type="file" onChange={handleItemUpload} />
       <img src={itemUpload} alt="itemupload" />
       <textarea rows="4" cols="50">
@@ -36,6 +39,7 @@ const NewProductForm = () => {
       </select>
       <input type="date" />
       <input type="text" />
+      <button type="submit">Add Item</button>
     </form>
   );
 };
