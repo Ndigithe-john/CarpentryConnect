@@ -2,7 +2,7 @@ import { useState } from "react";
 import NavBar from "./NavBar";
 
 import profile from "../assets/profile.jpg";
-
+import DashBoardContainer from "./DashBoardContainer";
 const Dashboard = () => {
   const [openItems, setOpenItems] = useState(false);
   const [openOrders, setOpenOrders] = useState(false);
@@ -53,7 +53,12 @@ const Dashboard = () => {
             <h3>Reviews</h3>
           </div>
         </div>
-        <div className="dashboard_main_container"></div>
+        <div className="dashboard_main_container">
+          <DashBoardContainer>Items</DashBoardContainer>
+          <DashBoardContainer>Orders</DashBoardContainer>
+          <DashBoardContainer>Carpenters</DashBoardContainer>
+          <DashBoardContainer>Reviews</DashBoardContainer>
+        </div>
       </div>
     </div>
   );

@@ -160,6 +160,11 @@ body {
   margin-bottom: -10px;
 }
 .dashboard_main_container {
+  margin-top: 5vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  gap: 2em;
 }
 .about_items h3 {
   color: var(--color-text-dark);
@@ -190,4 +195,12 @@ body {
   cursor: pointer;
   margin-bottom: -5px;
   margin-top: 0.5em;
+}
+.dashboard_div_container {
+  background-color: white;
+  border-radius: 4px;
+  text-align: center;
+  width: 25%;
+  height: 23vh;
+  cursor: pointer;
 }
