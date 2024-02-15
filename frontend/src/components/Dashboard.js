@@ -56,7 +56,9 @@ const Dashboard = () => {
         <div className="dashboard_main_container">
           <div className="top_dashboard_main_container">
             <h1>Dashboard</h1>
-            <DashBoardContainer>Total Amount</DashBoardContainer>
+            <DashBoardContainer className="dashboard_amount_container">
+              Total Amount
+            </DashBoardContainer>
           </div>
           <div className="down_dashboard_main_container">
             <DashBoardContainer className="dashboard_div_container dashbaord_main_one">
