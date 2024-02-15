@@ -1,6 +1,6 @@
-const DashBoardContainer = ({ children }) => {
+const DashBoardContainer = ({ children, className = "" }) => {
   return (
-    <div className="dashboard_div_container">
+    <div className={className}>
       {children}
       <hr />
     </div>
