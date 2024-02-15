@@ -182,3 +182,12 @@ body {
   margin-bottom: 6px;
   margin-top: 6px;
 }
+.about_orders h3 {
+  color: var(--color-text-dark);
+  font-size: 35px;
+  font-style: italic;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  cursor: pointer;
+  margin-bottom: -5px;
+  margin-top: -5px;
+}

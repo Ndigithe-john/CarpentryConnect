@@ -37,7 +37,7 @@ const Dashboard = () => {
               </div>
             )}
           </div>
-          <div className="about_items">
+          <div className="about_orders">
             <h3 onClick={handleOpenOrders}>Orders</h3>
             {openOrders && (
               <div className="items_properties">
