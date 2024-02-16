@@ -237,3 +237,29 @@ body {
   font-style: italic;
   font-size: 30px;
 }
+.add_product_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.add_product_form input {
+  height: 25px;
+  border-radius: 8px;
+  border-color: var(--color-text-dark);
+  width: 40em;
+}
+.add_product_form select {
+  height: 25px;
+  border-radius: 8px;
+  border-color: var(--color-text-dark);
+  width: 40em;
+}
+.add_product_form button {
+  height: 25px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  width: 40em;
+  cursor: pointer;
+}

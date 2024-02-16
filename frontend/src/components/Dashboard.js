@@ -1,6 +1,5 @@
 import { useState } from "react";
 import NavBar from "./NavBar";
-import NewProductForm from "./NewProductForm";
 import { Link, Outlet } from "react-router-dom";
 
 import profile from "../assets/profile.jpg";

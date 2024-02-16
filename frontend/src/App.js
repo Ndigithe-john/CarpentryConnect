@@ -5,7 +5,7 @@ import RegisterPage from "./pages/RegisterPage";
 import Home from "./components/Home";
 import Maps from "./components/Map/Maps";
 import Dashboard from "./components/Dashboard";
-
+import NewProductFrom from "./components/NewProductForm";
 function App() {
   const router = createBrowserRouter([
     {
@@ -22,7 +22,7 @@ function App() {
       element: <LoginPage />,
     },
     {
-      path: "dashboard",
+      path: "/dashboard",
       element: <Dashboard />,
     },
     {
@@ -32,6 +32,10 @@ function App() {
     {
       path: "/map",
       element: <Maps />,
+    },
+    {
+      path: "/addItem",
+      element: <NewProductFrom />,
     },
   ]);
   return (

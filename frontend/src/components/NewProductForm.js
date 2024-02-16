@@ -8,10 +8,9 @@ const NewProductForm = () => {
     e.preventDefault();
   }
   return (
-    <form onSubmit={handleAddItem}>
+    <form className="add_product_form" onSubmit={handleAddItem}>
       <input type="file" onChange={handleItemUpload} />
-      <img src={itemUpload} alt="itemupload" />
-      <textarea rows="4" cols="50">
+      <textarea rows="4" cols="65">
         Enter item Description
       </textarea>
       <select>
