@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = rquire("cors");
 require("dotenv").config();
 const sql = require("mssql");
 const app = express();
@@ -7,6 +8,12 @@ const AppError = require("./src/utils/appError");
 const globalErrorHandlers = require("./src/controllers/errorControllers");
 const config = require("./src/config/databaseConfig");
 const postroutes = require("./src/routes/capentryRoutes");
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 async function capentryServer() {
   try {

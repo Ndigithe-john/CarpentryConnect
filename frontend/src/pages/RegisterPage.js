@@ -1,7 +1,6 @@
-// RegisterPage.js
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./pages.css";
+import axios from "axios";
 import NavBar from "../components/NavBar";
 import Modal from "../components/Modal";
 import Maps from "../components/Map/Maps";
@@ -17,15 +16,47 @@ const RegisterPage = () => {
   const [workshopName, setWorkshopName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isModaOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectPosition, setSelectPosition] = useState(null);
 
-  function togleModal() {
+  function toggleModal() {
     setIsModalOpen((prev) => !prev);
   }
+  console.log(selectPosition.display_name);
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
+
+    const userData = {
+      FirstName: firstname,
+      LastName: lastname,
+      Email: email,
+      PhoneNumber: phonenumber,
+      Role: role,
+      Qualification: qualification,
+      QualificationDocument: qualificationDocument,
+      WorkshopName: workshopName,
+      PasswordHash: password,
+      Confirm_password: confirmPassword,
+      WorkshopLocation: selectPosition.display_name,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:4050/users/signup",
+        userData
+      );
+
+      if (response.status === 200) {
+        console.log("Registration successful");
+        // Additional logic for success if needed
+      } else {
+        console.error("Registration failed");
+        // Additional logic for failure if needed
+      }
+    } catch (error) {
+      console.error("Error during registration:", error.message);
+    }
   };
 
   return (
@@ -103,7 +134,7 @@ const RegisterPage = () => {
               <button
                 className="registerform_button"
                 type="button"
-                onClick={togleModal}
+                onClick={toggleModal}
               >
                 Pick Workshop Location on Map
               </button>
@@ -112,18 +143,18 @@ const RegisterPage = () => {
           <input
             placeholder="password"
             value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <input
             placeholder="confirm password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          <button className="registerform_button">submit</button>
-          {isModaOpen && (
-            <Modal onClose={togleModal}>
+          <button className="registerform_button" type="submit">
+            submit
+          </button>
+          {isModalOpen && (
+            <Modal onClose={toggleModal}>
               <Maps
                 selectPosition={selectPosition}
                 setSelectPosition={setSelectPosition}

@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const app = express();
+const cors = require("cors");
 const session = require("express-session");
 const RedisStore = require("connect-redis").default;
 const { v4 } = require("uuid");
@@ -13,6 +14,12 @@ const userRoutes = require("./src/routes/userRoutes");
 app.use(express.json());
 async function startServer() {
   const oneDay = 24 * 60 * 60 * 1000;
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
 
   try {
     const pool = await sql.connect(config);
