@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = rquire("cors");
+const cors = require("cors");
 require("dotenv").config();
 const sql = require("mssql");
 const app = express();

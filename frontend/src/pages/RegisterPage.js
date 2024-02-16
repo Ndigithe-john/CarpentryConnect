@@ -49,10 +49,8 @@ const RegisterPage = () => {
 
       if (response.status === 200) {
         console.log("Registration successful");
-        // Additional logic for success if needed
       } else {
         console.error("Registration failed");
-        // Additional logic for failure if needed
       }
     } catch (error) {
       console.error("Error during registration:", error.message);
