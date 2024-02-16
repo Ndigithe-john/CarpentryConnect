@@ -15,17 +15,15 @@ function App() {
     {
       path: "/home",
       element: <Home />,
-      children: [
-        {
-          path: "dashboard",
-          element: <Dashboard />,
-        },
-      ],
     },
 
     {
       path: "/login",
       element: <LoginPage />,
+    },
+    {
+      path: "dashboard",
+      element: <Dashboard />,
     },
     {
       path: "/signup",
