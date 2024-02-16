@@ -1,17 +1,21 @@
 import { useState } from "react";
 import NavBar from "./NavBar";
+import NewProductForm from "./NewProductForm";
+import { Link, Outlet } from "react-router-dom";
 
 import profile from "../assets/profile.jpg";
 import DashBoardContainer from "./DashBoardContainer";
 const Dashboard = () => {
   const [openItems, setOpenItems] = useState(false);
   const [openOrders, setOpenOrders] = useState(false);
+
   function handleOpenItems() {
     setOpenItems((prevState) => !prevState);
   }
   function handleOpenOrders() {
     setOpenOrders((prev) => !prev);
   }
+
   return (
     <div className="container_dashboard">
       <NavBar element={<h5>WoodCraft Masters</h5>}>
@@ -31,7 +35,9 @@ const Dashboard = () => {
             <h3 onClick={handleOpenItems}>Items</h3>
             {openItems && (
               <div className="items_properties">
-                <h5>Add Item</h5>
+                <h5>
+                  <Link to="/dashboard/addItem">add Item</Link>
+                </h5>
                 <h5>Pending</h5>
                 <h5>Completed</h5>
               </div>
