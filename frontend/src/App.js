@@ -8,6 +8,7 @@ import Dashboard from "./components/DashBoard/Dashboard";
 import DashboardMain from "./components/DashBoard/DashboardMain";
 import NewProductForm from "./components/NewProductForm";
 import ShowItems from "./components/Items/ShowItems";
+import PendingApproval from "./components/Items/PendingApproval";
 function App() {
   const router = createBrowserRouter([
     {
@@ -37,6 +38,10 @@ function App() {
         {
           path: "items",
           element: <ShowItems />,
+        },
+        {
+          path: "pendingApproval",
+          element: <PendingApproval />,
         },
       ],
     },

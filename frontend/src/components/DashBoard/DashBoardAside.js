@@ -30,8 +30,12 @@ const DashBoardAside = () => {
         <h3 onClick={handleOpenOrders}>Orders</h3>
         {openOrders && (
           <div className="items_properties">
-            <h5>Pending Approval</h5>
-            <h5>Approved</h5>
+            <h5>
+              <Link to="/dashboard/pendingapproval">Pending Approval</Link>
+            </h5>
+            <h5>
+              <Link to="/dashboard/approved">Approved</Link>
+            </h5>
           </div>
         )}
       </div>
