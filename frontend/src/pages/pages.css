@@ -14,7 +14,8 @@
 }
 
 .landing_nav {
-  margin-top: 10px;
+  margin-left: 0.2em;
+  border-radius: 0.5em;
   display: flex;
   height: 6rem;
   justify-content: space-around;

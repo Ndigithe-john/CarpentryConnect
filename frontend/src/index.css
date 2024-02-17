@@ -150,12 +150,14 @@ body {
 }
 .dashboard_aside_container {
   position: fixed;
+  margin-top: 10vh;
   height: 90vh;
   background-color: var(--color-background-900);
   width: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 3px;
 }
 .dashboard_aside_container h1 {
   color: var(--color-text-dark);
@@ -165,6 +167,8 @@ body {
   margin-bottom: -10px;
 }
 .dashboard_main_container {
+  margin-left: 21%;
+  margin-top: 11vh;
   width: 78%;
   display: flex;
   flex-direction: column;
@@ -268,4 +272,10 @@ body {
   border: none;
   width: 40em;
   cursor: pointer;
+}
+.fixed_nav {
+  position: fixed;
+  display: block;
+  margin-bottom: 10vh;
+  width: 99.7%;
 }
