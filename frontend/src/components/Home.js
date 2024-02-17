@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <>
-      <NavBar element={<SearchBar />}>
+      <NavBar element={<SearchBar />} className="landing_nav">
         <div className="added_profile">
           <div className="profile_photo">
             <img src={profile} alt="profilePhoto" />

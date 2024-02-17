@@ -7,7 +7,7 @@ import "./pages.css";
 const LandingPage = () => {
   return (
     <div className="landing_page">
-      <NavBar element={<h5>WoodCraft Masters</h5>}>
+      <NavBar element={<h5>WoodCraft Masters</h5>} className="landing_nav">
         <div className="childrens">
           <Link to="/login">
             <button className="landing_button">login</button>

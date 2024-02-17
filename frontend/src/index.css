@@ -149,6 +149,8 @@ body {
   gap: 2em;
 }
 .dashboard_aside_container {
+  position: fixed;
+  height: 90vh;
   background-color: var(--color-background-900);
   width: 20%;
   display: flex;

@@ -1,7 +1,7 @@
 import logo from "../assets/logo.jpg";
-const NavBar = ({ children, element }) => {
+const NavBar = ({ children, element, className = "" }) => {
   return (
-    <div className="landing_nav">
+    <div className={className}>
       <img src={logo} alt="logo" />
       {element}
       <div className="landing_buttons">{children}</div>
