@@ -4,8 +4,9 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Home from "./components/Home";
 import Maps from "./components/Map/Maps";
-import Dashboard from "./components/Dashboard";
-import NewProductFrom from "./components/NewProductForm";
+import Dashboard from "./components/DashBoard/Dashboard";
+import DashboardMain from "./components/DashBoard/DashboardMain";
+import NewProductForm from "./components/NewProductForm";
 import ShowItems from "./components/Items/ShowItems";
 function App() {
   const router = createBrowserRouter([
@@ -17,15 +18,34 @@ function App() {
       path: "/home",
       element: <Home />,
     },
+    {
+      path: "/dashboard",
+      element: <Dashboard />,
+      children: [
+        {
+          index: "index",
+          element: (
+            <>
+              <DashboardMain />
+            </>
+          ),
+        },
+        {
+          path: "addItem",
+          element: <NewProductForm />,
+        },
+        {
+          path: "items",
+          element: <ShowItems />,
+        },
+      ],
+    },
 
     {
       path: "/login",
       element: <LoginPage />,
     },
-    {
-      path: "/dashboard",
-      element: <Dashboard />,
-    },
+
     {
       path: "/signup",
       element: <RegisterPage />,
@@ -33,14 +53,6 @@ function App() {
     {
       path: "/map",
       element: <Maps />,
-    },
-    {
-      path: "/addItem",
-      element: <NewProductFrom />,
-    },
-    {
-      path: "/showItems",
-      element: <ShowItems />,
     },
   ]);
   return (

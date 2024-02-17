@@ -7,7 +7,7 @@ const AccountAboutModal = () => {
           <Link to="/account">Account</Link>
         </h4>
         <h4>
-          <Link to="/home/dashboard">Dashboard</Link>
+          <Link to="/dashboard">Dashboard</Link>
         </h4>
         <h4>
           <Link to="/">logout</Link>

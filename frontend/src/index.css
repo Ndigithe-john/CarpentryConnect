@@ -193,6 +193,10 @@ body {
   margin-bottom: 6px;
   margin-top: 6px;
 }
+.items_properties a {
+  color: var(--color-text-wheat);
+  text-decoration: none;
+}
 .about_orders h3 {
   color: var(--color-text-dark);
   font-size: 35px;

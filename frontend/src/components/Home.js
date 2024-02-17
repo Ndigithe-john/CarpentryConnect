@@ -12,7 +12,7 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <>
       <NavBar element={<SearchBar />}>
         <div className="added_profile">
           <div className="profile_photo">
@@ -32,7 +32,7 @@ const Home = () => {
       </NavBar>
       {isModalOpen && <AccountAboutModal />}
       <Products />
-    </div>
+    </>
   );
 };
 
