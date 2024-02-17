@@ -12,7 +12,17 @@ const DashBoardAside = () => {
   }
   return (
     <div className="dashboard_aside_container">
-      <h1>Dashboard</h1>
+      <h1>
+        <Link
+          to="/dashboard"
+          style={{
+            textDecoration: "none",
+            color: "#717c87",
+          }}
+        >
+          Dashboard
+        </Link>
+      </h1>
       <div className="about_items">
         <h3 onClick={handleOpenItems}>Items</h3>
         {openItems && (
