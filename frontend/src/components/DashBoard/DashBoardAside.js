@@ -53,7 +53,14 @@ const DashBoardAside = () => {
         )}
       </div>
       <div className="about_orders">
-        <h3>Carpenters</h3>
+        <h3>
+          <Link
+            to="/dashboard/capenterslist"
+            style={{ textDecoration: "none", color: "#717c87" }}
+          >
+            Capenters
+          </Link>
+        </h3>
       </div>
       <div className="about_orders">
         <h3>

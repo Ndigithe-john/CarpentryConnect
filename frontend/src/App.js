@@ -11,6 +11,7 @@ import ShowItems from "./components/Items/ShowItems";
 import PendingApproval from "./components/Items/PendingApproval";
 import Approved from "./components/Items/Approved";
 import Rejected from "./components/Items/Rejected";
+import CapenterList from "./components/Items/CapenterList";
 function App() {
   const router = createBrowserRouter([
     {
@@ -52,6 +53,10 @@ function App() {
         {
           path: "rejected",
           element: <Rejected />,
+        },
+        {
+          path: "capenterslist",
+          element: <CapenterList />,
         },
       ],
     },

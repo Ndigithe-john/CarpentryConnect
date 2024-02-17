@@ -1,10 +1,10 @@
 import "./showitemsStyles.css";
-const CapentryTable = () => {
+const CapenterList = () => {
   return (
     <div>
       <main className="table">
         <section className="table_header">
-          <h1>Pending Items</h1>
+          <h1>CapentersList</h1>
         </section>
         <section className="table_body">
           <table>
@@ -42,4 +42,4 @@ const CapentryTable = () => {
     </div>
   );
 };
-export default CapentryTable;
+export default CapenterList;
