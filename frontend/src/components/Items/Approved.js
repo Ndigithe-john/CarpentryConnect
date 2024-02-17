@@ -1,11 +1,13 @@
 import Data from "../Data/Data";
-import PendingItem from "./PendingItem";
+import ApprovedItem from "./ApprovedItem";
 const Approved = () => {
-  <div className="pending_container">
-    {Data.map((item) => (
-      <PendingItem item={item} />
-    ))}
-  </div>;
+  return (
+    <div className="pending_container">
+      {Data.map((item) => (
+        <ApprovedItem item={item} />
+      ))}
+    </div>
+  );
 };
 
 export default Approved;
