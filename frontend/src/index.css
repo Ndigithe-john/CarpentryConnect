@@ -247,32 +247,6 @@ body {
   font-style: italic;
   font-size: 30px;
 }
-.add_product_form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-.add_product_form input {
-  height: 25px;
-  border-radius: 8px;
-  border-color: var(--color-text-dark);
-  width: 40em;
-}
-.add_product_form select {
-  height: 25px;
-  border-radius: 8px;
-  border-color: var(--color-text-dark);
-  width: 40em;
-}
-.add_product_form button {
-  height: 25px;
-  border-radius: 10px;
-  outline: none;
-  border: none;
-  width: 40em;
-  cursor: pointer;
-}
 .fixed_nav {
   position: fixed;
   display: block;
@@ -282,4 +256,41 @@ body {
 .pending_container {
   margin-left: 21%;
   margin-top: 11vh;
+}
+
+.new-product-form {
+  width: 30vw;
+  margin-top: 11vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+.new_product_label {
+  color: var(--color-text-wheat);
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-style: italic;
+}
+
+.form_type {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  border: 1px solid var(--color-text-wheat);
+  border-radius: 4px;
+  font-size: 10px;
+}
+
+.add_item_button {
+  height: 25px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  color: var(--color-text-dark);
+  font-size: 10px;
+}
+
+button:hover {
+  background-color: var(--color-text-wheat);
 }
