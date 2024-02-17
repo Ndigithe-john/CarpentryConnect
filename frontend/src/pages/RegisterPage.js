@@ -22,7 +22,6 @@ const RegisterPage = () => {
   function toggleModal() {
     setIsModalOpen((prev) => !prev);
   }
-  console.log(selectPosition.display_name);
 
   const handleSignUp = async (e) => {
     e.preventDefault();

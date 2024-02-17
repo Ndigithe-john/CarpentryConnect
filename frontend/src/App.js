@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Maps from "./components/Map/Maps";
 import Dashboard from "./components/Dashboard";
 import NewProductFrom from "./components/NewProductForm";
+import ShowItems from "./components/Items/ShowItems";
 function App() {
   const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ function App() {
     {
       path: "/addItem",
       element: <NewProductFrom />,
+    },
+    {
+      path: "/showItems",
+      element: <ShowItems />,
     },
   ]);
   return (
