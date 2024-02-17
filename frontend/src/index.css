@@ -256,6 +256,7 @@ body {
 .pending_container {
   margin-left: 21%;
   margin-top: 11vh;
+  width: 78%;
 }
 
 .new-product-form {
@@ -293,4 +294,17 @@ body {
 
 button:hover {
   background-color: var(--color-text-wheat);
+}
+.pending_container_item {
+  display: flex;
+  gap: 2em;
+  margin-bottom: 1vh;
+}
+.item_image {
+  width: 30%;
+  height: 35vh;
+}
+.item_description {
+  width: 30%;
+  background-color: var(--color-background-200);
 }
