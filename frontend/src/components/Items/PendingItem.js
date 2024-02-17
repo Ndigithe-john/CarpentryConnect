@@ -14,10 +14,10 @@ const PendingItem = ({ item }) => {
       </div>
       <div className="capentryDetails">
         <h1>Capenter Details</h1>
-        <p>CapenterID:</p>
-        <p>CapenterName;</p>
-        <p>Qualification</p>
-        <div>
+        <h4>CapenterID:</h4>
+        <h4>CapenterName;</h4>
+        <h4>Qualification</h4>
+        <div className="pending_approval_buttons">
           <button>reject</button>
           <button>Approve</button>
         </div>
