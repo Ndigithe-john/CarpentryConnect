@@ -46,6 +46,9 @@ const DashBoardAside = () => {
             <h5>
               <Link to="/dashboard/approved">Approved</Link>
             </h5>
+            <h5>
+              <Link to="/dashboard/rejected">rejected</Link>
+            </h5>
           </div>
         )}
       </div>
