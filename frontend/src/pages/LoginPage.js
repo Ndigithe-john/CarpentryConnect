@@ -25,7 +25,7 @@ const LoginPage = () => {
       const response = await Axios.post(
         `http://localhost:4050/users/login`,
         userData,
-        { withCredentials: true } // Include credentials in the request
+        { withCredentials: true }
       );
 
       if (response.status === 200) {
@@ -76,7 +76,10 @@ const LoginPage = () => {
           </button>
           <p>
             Don't have an account?
-            <Link to="/signup" style={{ textDecoration: "none" }}>
+            <Link
+              to="/signup"
+              style={{ textDecoration: "none", color: "#f5deb3" }}
+            >
               signup
             </Link>
           </p>

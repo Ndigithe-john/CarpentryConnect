@@ -47,19 +47,18 @@ const RegisterPage = () => {
       Email: email,
       PhoneNumber: phonenumber,
       Role: role,
-      QualificationLevel: role === "Carpenter" ? qualification : "",
-      DocumentPath: role === "Carpenter" ? qualificationDocument : "",
-      WorkshopName: role === "WorkshopOwner" ? workshopName : "",
+      QualificationLevel: role === "Carpenter" ? qualification : "NULL",
+      DocumentPath: role === "Carpenter" ? qualificationDocument : "NULL",
+      WorkshopName: role === "WorkshopOwner" ? workshopName : "NULL",
+      WorkshopLocation:
+        role === "WorkshopOwner" ? selectPosition.display_name : "NULL",
       PasswordHash: password,
       Confirm_password: confirmPassword,
-      WorkshopLocation:
-        role === "WorkshopOwner" ? selectPosition.display_name : "",
     };
 
     try {
       const response = await axios.post(
         "http://localhost:4050/users/signup",
-        { withCredentials: true },
         userData
       );
 
@@ -114,7 +113,7 @@ const RegisterPage = () => {
           />
           <input
             placeholder="Email"
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className={error && !email ? "error" : ""}
@@ -168,12 +167,14 @@ const RegisterPage = () => {
           )}
           <input
             placeholder="password"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className={error && !password ? "error" : ""}
           />
           <input
             placeholder="confirm password"
+            type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             className={error && !confirmPassword ? "error" : ""}
@@ -191,9 +192,12 @@ const RegisterPage = () => {
             </Modal>
           )}
           <p>
-            Already have an account?
-            <Link to="/login" style={{ textDecoration: "none" }}>
-              login
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              style={{ textDecoration: "none", color: "#f5deb3" }}
+            >
+              login{" "}
             </Link>
             to proceed
           </p>
