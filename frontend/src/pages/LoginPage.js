@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import Axios from "axios";
 const LoginPage = () => {
   return (
     <div>
@@ -20,11 +21,13 @@ const LoginPage = () => {
           </p>
         </div>
         <form className="register_form">
-          <p>Login Form </p>
+          <p>Login Form</p>
 
           <input placeholder="Email" />
           <input placeholder="Password" />
-          <button>submit</button>
+          <button className="registerform_button" type="submit">
+            Login
+          </button>
 
           <p>
             Don't have an account?

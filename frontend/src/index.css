@@ -16,6 +16,10 @@
 body {
   background-color: var(--color-background-100);
 }
+.error {
+  border: 1px solid red;
+}
+
 .profile_photo {
   width: 40px;
   height: 40px;

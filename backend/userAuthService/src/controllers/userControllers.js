@@ -59,7 +59,7 @@ async function signUp(req, res) {
     }
   } catch (error) {
     console.log(error.message);
-    res.send(error.message);
+    res.status(400).send(error.message);
   }
 }
 

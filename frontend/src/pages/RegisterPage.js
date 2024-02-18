@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import NavBar from "../components/NavBar";
 import Modal from "../components/Modal";
@@ -18,7 +18,8 @@ const RegisterPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectPosition, setSelectPosition] = useState(null);
-
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
   function toggleModal() {
     setIsModalOpen((prev) => !prev);
   }
@@ -26,18 +27,33 @@ const RegisterPage = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
 
+    // Check if any required field is empty
+    if (
+      !firstname ||
+      !lastname ||
+      !email ||
+      !phonenumber ||
+      !password ||
+      !confirmPassword
+    ) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
+    // Your existing userData object
     const userData = {
       FirstName: firstname,
       LastName: lastname,
       Email: email,
       PhoneNumber: phonenumber,
       Role: role,
-      Qualification: qualification,
-      QualificationDocument: qualificationDocument,
-      WorkshopName: workshopName,
+      QualificationLevel: role === "Carpenter" ? qualification : "",
+      DocumentPath: role === "Carpenter" ? qualificationDocument : "",
+      WorkshopName: role === "WorkshopOwner" ? workshopName : "",
       PasswordHash: password,
       Confirm_password: confirmPassword,
-      WorkshopLocation: selectPosition.display_name,
+      WorkshopLocation:
+        role === "WorkshopOwner" ? selectPosition.display_name : "",
     };
 
     try {
@@ -48,11 +64,16 @@ const RegisterPage = () => {
 
       if (response.status === 200) {
         console.log("Registration successful");
+        navigate("/login");
       } else {
         console.error("Registration failed");
+        setError(
+          "Registration failed. Please check your details and try again."
+        );
       }
     } catch (error) {
       console.error("Error during registration:", error.message);
+      setError("Error during registration. Please try again later.");
     }
   };
 
@@ -81,24 +102,28 @@ const RegisterPage = () => {
             type="text"
             value={firstname}
             onChange={(e) => setFirstName(e.target.value)}
+            className={error && !firstname ? "error" : ""}
           />
           <input
             placeholder="LastName"
             type="text"
             value={lastname}
             onChange={(e) => setLastName(e.target.value)}
+            className={error && !lastname ? "error" : ""}
           />
           <input
             placeholder="Email"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className={error && !email ? "error" : ""}
           />
           <input
             placeholder="PhoneNumber"
             type="text"
             value={phonenumber}
             onChange={(e) => setPhoneNumber(Number(e.target.value))}
+            className={error && !phonenumber ? "error" : ""}
           />
           <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option>Carpenter</option>
@@ -109,6 +134,7 @@ const RegisterPage = () => {
               <select
                 value={qualification}
                 onChange={(e) => setQualification(e.target.value)}
+                className={error && !qualification ? "error" : ""}
               >
                 <option>Diploma in Capentry and Renovation</option>
                 <option>Level 2 Diploma in Site Capentry</option>
@@ -119,6 +145,7 @@ const RegisterPage = () => {
                 type="file"
                 value={qualificationDocument}
                 onChange={(e) => setQualificationDocument(e.target.value)}
+                className={error && !qualificationDocument ? "error" : ""}
               />
             </>
           ) : (
@@ -127,6 +154,7 @@ const RegisterPage = () => {
                 placeholder="WorkshopName"
                 value={workshopName}
                 onChange={(e) => setWorkshopName(e.target.value)}
+                className={error && !workshopName ? "error" : ""}
               />
               <button
                 className="registerform_button"
@@ -141,15 +169,18 @@ const RegisterPage = () => {
             placeholder="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className={error && !password ? "error" : ""}
           />
           <input
             placeholder="confirm password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            className={error && !confirmPassword ? "error" : ""}
           />
           <button className="registerform_button" type="submit">
             submit
           </button>
+          {error && <p style={{ color: "red" }}>{error}</p>}
           {isModalOpen && (
             <Modal onClose={toggleModal}>
               <Maps
