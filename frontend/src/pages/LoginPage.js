@@ -1,7 +1,39 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Axios from "axios";
+
 const LoginPage = () => {
+  const [error, setError] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassoword] = useState("");
+  const navigate = useNavigate();
+  async function handleLogin(e) {
+    e.preventDefault();
+    if (!email || !password) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+    const userData = {
+      Email: email,
+      Password: password,
+    };
+    try {
+      const response = await Axios.post(
+        `http://localhost:4050/users/login`,
+        userData
+      );
+      if (response.status === 200) {
+        console.log("Logged in successfully");
+        navigate("/home");
+      } else {
+        console.error("Login failed");
+        setError("Login failed. Please check your details and try again.");
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  }
   return (
     <div>
       <NavBar element={<h5>WoodCraft Masters</h5>} className="landing_nav">
@@ -20,11 +52,19 @@ const LoginPage = () => {
             enter your credentials, and let's continue crafting together! 🛠️💡
           </p>
         </div>
-        <form className="register_form">
+        <form className="register_form" onSubmit={handleLogin}>
           <p>Login Form</p>
 
-          <input placeholder="Email" />
-          <input placeholder="Password" />
+          <input
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassoword(e.target.value)}
+          />
           <button className="registerform_button" type="submit">
             Login
           </button>
