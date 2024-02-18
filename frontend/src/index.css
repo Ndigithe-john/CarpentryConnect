@@ -262,12 +262,24 @@ body {
   margin-top: 11vh;
   width: 73%;
 }
-
-.new-product-form {
+.div_form_display {
   width: 30vw;
   margin-top: 11vh;
   margin-left: auto;
   margin-right: auto;
+}
+.new-product-form {
+  width: 30vw;
+  margin-top: 1vh;
+}
+
+.success-message {
+  background-color: rgb(145, 218, 37);
+  width: 100%;
+  height: 5vh;
+  color: white;
+  font-style: italic;
+  text-align: center;
 }
 .new_product_label {
   color: var(--color-text-wheat);

@@ -7,7 +7,9 @@ async function capentyService(req, res, next) {
     redis_client.on("connect", () => console.log("connected to redis"));
     let cookie = req.headers["cookie"];
     if (cookie) {
+      console.log(cookie);
       let sessionID = cookie.substring(16, 52);
+      console.log(sessionID);
       let session = await redis_client.get(sessionID);
       let current_session = JSON.parse(session);
       const authorized = current_session?.authorized;

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const NewProductForm = () => {
   const [image, setImage] = useState(null);
@@ -8,9 +8,19 @@ const NewProductForm = () => {
   const [woodType, setWoodType] = useState("oak");
   const [date, setDate] = useState("");
   const [price, setPrice] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState(null);
   const present_key = "wechatApp";
   const cloud_name = "demowwhy5";
+  useEffect(() => {
+    if (successMessage) {
+      const timeoutId = setTimeout(() => {
+        setSuccessMessage(null);
+      }, 5000); // 5000 milliseconds (5 seconds)
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [successMessage]);
   const handleFileChange = async (e) => {
     const selectedImage = e.target.files[0];
     const formData = new FormData();
@@ -57,10 +67,19 @@ const NewProductForm = () => {
       };
       const newItem = await axios.post(
         `http://localhost:5050/users/post`,
-        itemData
+        itemData,
+        { withCredentials: true }
       );
       if (newItem.status === 200) {
         console.log("Image added successfully");
+
+        setImage(null);
+        setDescription("");
+        setCategory("seating");
+        setWoodType("oak");
+        setDate("");
+        setPrice("");
+        setSuccessMessage("Item created successfully");
       }
     } catch (error) {
       console.error("Error Creating an Item:", error.message);
@@ -69,87 +88,90 @@ const NewProductForm = () => {
   };
 
   return (
-    <form className="new-product-form" onSubmit={handleAddItem}>
-      <label className="new_product_label">Choose File</label>
-      <input
-        className="form_type"
-        type="file"
-        id="fileInput"
-        name="fileInput"
-        accept=".jpg, .jpeg, .png"
-        onChange={handleFileChange}
-      />
-      <label className="new_product_label">Description</label>
-      <textarea
-        className="form_type"
-        id="description"
-        name="description"
-        rows="4"
-        placeholder="Enter a description"
-        value={description}
-        onChange={handleDescriptionChange}
-      ></textarea>
-      <label className="new_product_label">Choose Item Category</label>
-      <select
-        className="form_type"
-        id="category"
-        name="category"
-        value={category}
-        onChange={handleCategoryChange}
-      >
-        <option>Seating</option>
-        <option>Sleeping</option>
-        <option>Storage</option>
-        <option>Dinning</option>
-        <option>Office</option>
-        <option>Outdoor</option>
-        <option>Accent</option>
-        <option>Industrial</option>
-        <option>Entryway</option>
-      </select>
-      <label className="new_product_label">Choose Wood type</label>
-      <select
-        className="form_type"
-        id="woodType"
-        name="woodType"
-        value={woodType}
-        onChange={handleWoodTypeChange}
-      >
-        <option>Oak</option>
-        <option>Maple</option>
-        <option>Hemlock</option>
-        <option>Mahogany</option>
-        <option>Ash</option>
-        <option>Cypress</option>
-        <option>Walnut</option>
-        <option>Spruce</option>
-        <option>Cedar</option>
-        <option>Cherry</option>
-      </select>
-      <label className="new_product_label">Required Date</label>
-      <input
-        className="form_type"
-        type="date"
-        id="date"
-        name="date"
-        value={date}
-        onChange={handleDateChange}
-      />
-      <label className="new_product_label">Item Price</label>
-      <input
-        className="form_type"
-        type="number"
-        id="price"
-        name="price"
-        placeholder="Enter the price"
-        value={price}
-        onChange={handlePriceChange}
-      />
+    <div className="div_form_display">
+      {successMessage && <h2 className="success-message">{successMessage}</h2>}
+      <form className="new-product-form" onSubmit={handleAddItem}>
+        <label className="new_product_label">Choose File</label>
+        <input
+          className="form_type"
+          type="file"
+          id="fileInput"
+          name="fileInput"
+          accept=".jpg, .jpeg, .png"
+          onChange={handleFileChange}
+        />
+        <label className="new_product_label">Description</label>
+        <textarea
+          className="form_type"
+          id="description"
+          name="description"
+          rows="4"
+          placeholder="Enter a description"
+          value={description}
+          onChange={handleDescriptionChange}
+        ></textarea>
+        <label className="new_product_label">Choose Item Category</label>
+        <select
+          className="form_type"
+          id="category"
+          name="category"
+          value={category}
+          onChange={handleCategoryChange}
+        >
+          <option>Seating</option>
+          <option>Sleeping</option>
+          <option>Storage</option>
+          <option>Dinning</option>
+          <option>Office</option>
+          <option>Outdoor</option>
+          <option>Accent</option>
+          <option>Industrial</option>
+          <option>Entryway</option>
+        </select>
+        <label className="new_product_label">Choose Wood type</label>
+        <select
+          className="form_type"
+          id="woodType"
+          name="woodType"
+          value={woodType}
+          onChange={handleWoodTypeChange}
+        >
+          <option>Oak</option>
+          <option>Maple</option>
+          <option>Hemlock</option>
+          <option>Mahogany</option>
+          <option>Ash</option>
+          <option>Cypress</option>
+          <option>Walnut</option>
+          <option>Spruce</option>
+          <option>Cedar</option>
+          <option>Cherry</option>
+        </select>
+        <label className="new_product_label">Required Date</label>
+        <input
+          className="form_type"
+          type="date"
+          id="date"
+          name="date"
+          value={date}
+          onChange={handleDateChange}
+        />
+        <label className="new_product_label">Item Price</label>
+        <input
+          className="form_type"
+          type="number"
+          id="price"
+          name="price"
+          placeholder="Enter the price"
+          value={price}
+          onChange={handlePriceChange}
+        />
 
-      <button type="submit" className="add_item_button">
-        Add Item
-      </button>
-    </form>
+        <button type="submit" className="add_item_button">
+          Add Item
+        </button>
+      </form>
+    </div>
   );
 };
 
