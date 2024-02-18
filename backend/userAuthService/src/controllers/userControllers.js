@@ -110,6 +110,7 @@ async function login(req, res, next) {
 
 async function logout(req, res, next) {
   try {
+    console.log("logging out");
     const user = req.session.user;
     if (user) {
       req.session.destroy();

@@ -59,6 +59,7 @@ const RegisterPage = () => {
     try {
       const response = await axios.post(
         "http://localhost:4050/users/signup",
+        { withCredentials: true },
         userData
       );
 

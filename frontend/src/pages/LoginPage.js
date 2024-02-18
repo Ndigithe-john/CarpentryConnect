@@ -6,23 +6,28 @@ import Axios from "axios";
 const LoginPage = () => {
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
-  const [password, setPassoword] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
   async function handleLogin(e) {
     e.preventDefault();
     if (!email || !password) {
       setError("Please fill in all required fields.");
       return;
     }
+
     const userData = {
       Email: email,
       Password: password,
     };
+
     try {
       const response = await Axios.post(
         `http://localhost:4050/users/login`,
-        userData
+        userData,
+        { withCredentials: true } // Include credentials in the request
       );
+
       if (response.status === 200) {
         console.log("Logged in successfully");
         navigate("/home");
@@ -31,9 +36,10 @@ const LoginPage = () => {
         setError("Login failed. Please check your details and try again.");
       }
     } catch (error) {
-      setError(error.message);
+      setError("An error occurred during login. Please try again.");
     }
   }
+
   return (
     <div>
       <NavBar element={<h5>WoodCraft Masters</h5>} className="landing_nav">
@@ -54,7 +60,6 @@ const LoginPage = () => {
         </div>
         <form className="register_form" onSubmit={handleLogin}>
           <p>Login Form</p>
-
           <input
             placeholder="Email"
             value={email}
@@ -62,13 +67,13 @@ const LoginPage = () => {
           />
           <input
             placeholder="Password"
+            type="password"
             value={password}
-            onChange={(e) => setPassoword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button className="registerform_button" type="submit">
             Login
           </button>
-
           <p>
             Don't have an account?
             <Link to="/signup" style={{ textDecoration: "none" }}>
