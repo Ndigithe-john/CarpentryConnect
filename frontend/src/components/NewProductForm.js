@@ -1,18 +1,29 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 const NewProductForm = () => {
-  const [file, setFile] = useState(null);
+  const [image, setImage] = useState(null);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("seating");
   const [woodType, setWoodType] = useState("oak");
   const [date, setDate] = useState("");
   const [price, setPrice] = useState("");
-
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
+  const [error, setError] = useState(null);
+  const present_key = "wechatApp";
+  const cloud_name = "demowwhy5";
+  const handleFileChange = async (e) => {
+    const selectedImage = e.target.files[0];
+    const formData = new FormData();
+    formData.append("file", selectedImage);
+    formData.append("upload_preset", present_key);
+    const response = await axios.post(
+      `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+      formData
+    );
+    const secure_url = response.data.secure_url;
+    console.log(secure_url);
+    setImage(secure_url);
   };
-
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
   };
@@ -33,9 +44,28 @@ const NewProductForm = () => {
     setPrice(e.target.value);
   };
 
-  const handleAddItem = (e) => {
+  const handleAddItem = async (e) => {
     e.preventDefault();
-    alert("Item added!");
+    try {
+      const itemData = {
+        ImageURL: image,
+        Description: description,
+        Category: category,
+        Material: woodType,
+        DateRequired: date,
+        Price: price,
+      };
+      const newItem = await axios.post(
+        `http://localhost:5050/users/post`,
+        itemData
+      );
+      if (newItem.status === 200) {
+        console.log("Image added successfully");
+      }
+    } catch (error) {
+      console.error("Error Creating an Item:", error.message);
+      setError("Error during item upload. Please try again later.");
+    }
   };
 
   return (
