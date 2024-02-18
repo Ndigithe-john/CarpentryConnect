@@ -71,6 +71,12 @@ async function login(req, res, next) {
     const { pool } = req;
     const { Email, Password } = login_body;
     let user = await User(Email, pool);
+    if (!user) {
+      return next(
+        new AppError("Email Account does not exist! Please Register"),
+        401
+      );
+    }
     console.log(user);
     if (user) {
       let password_match = await bcrypt.compare(Password, user.PasswordHash);
