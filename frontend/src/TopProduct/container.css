@@ -16,6 +16,7 @@
 .home_main_top_container {
   margin-top: 11vh;
   display: flex;
+  gap: 1em;
 }
 .category_aside_container {
   display: flex;
@@ -25,8 +26,40 @@
   margin-left: 1vw;
   height: 60vh;
   background-color: white;
+  border-radius: 5px;
 }
 .category_aside_container p {
   font-size: 20px;
   margin-left: 1em;
+}
+.banner1 {
+  height: 60vh;
+  width: 40vw;
+  overflow: hidden;
+}
+.banner_images {
+  width: 100%;
+}
+.text-box {
+  width: 600px;
+  position: absolute;
+  top: 200px;
+  left: 300px;
+  color: white;
+}
+.text-box h1 {
+  margin-bottom: 10px;
+  color: var(--color-text-wheat);
+}
+.text-box p {
+  font-size: 10px;
+  line-height: 10px;
+  margin-top: 3px;
+}
+.text-box span {
+  background-color: red;
+  height: 1px;
+  width: 100px;
+  position: absolute;
+  left: 0;
 }

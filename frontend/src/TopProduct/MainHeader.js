@@ -6,6 +6,7 @@ const MainHeader = () => {
         <img src={office} alt="officeFurniture" className="banner_images" />
         <div className="text-box">
           <h1>Office Furniture</h1>
+          <span></span>
           <p>The best dealers in office furniture installaion.</p>
         </div>
       </div>
