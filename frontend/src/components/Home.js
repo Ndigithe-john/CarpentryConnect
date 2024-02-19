@@ -4,6 +4,7 @@ import profile from "../assets/profile.jpg";
 import SearchBar from "./SearchBar";
 import Products from "./Products";
 import AccountAboutModal from "./AccountAboutModal";
+import DisplayContainer from "../TopProduct/DisplayContainer";
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,7 +14,10 @@ const Home = () => {
 
   return (
     <>
-      <NavBar element={<SearchBar />} className="landing_nav">
+      <NavBar
+        element={<SearchBar />}
+        className="landing_nav fixed_nav home_nav"
+      >
         <div className="added_profile">
           <div className="profile_photo">
             <img src={profile} alt="profilePhoto" />
@@ -31,6 +35,9 @@ const Home = () => {
         </div>
       </NavBar>
       {isModalOpen && <AccountAboutModal />}
+
+      <DisplayContainer />
+
       <Products />
     </>
   );

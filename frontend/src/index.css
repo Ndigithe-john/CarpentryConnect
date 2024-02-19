@@ -125,7 +125,6 @@ body {
   position: fixed;
   right: 3em;
   width: 15em;
-
   z-index: 2;
 }
 
@@ -371,4 +370,7 @@ button:hover {
   outline: none;
   border: none;
   border-radius: 3px;
+}
+.home_nav {
+  margin-top: -12vh;
 }
