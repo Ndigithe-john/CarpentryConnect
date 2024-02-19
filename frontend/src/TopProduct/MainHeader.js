@@ -4,7 +4,7 @@ import dining from "../assets/dining.jpg";
 
 const MainHeader = () => {
   return (
-    <div>
+    <div className="middle_container">
       <div className="banner1">
         <img src={office} alt="officeFurniture" className="banner_images" />
         <div className="text-box">
