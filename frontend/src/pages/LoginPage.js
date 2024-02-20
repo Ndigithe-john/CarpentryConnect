@@ -27,10 +27,16 @@ const LoginPage = () => {
         userData,
         { withCredentials: true }
       );
-
+      console.log(response);
       if (response.status === 200) {
         console.log("Logged in successfully");
-        navigate("/home");
+
+        const userRole = response.data;
+        if (userRole === "WorkshopOwner") {
+          navigate("/workshop");
+        } else if (userRole === "Carpenter") {
+          navigate("/carpenter");
+        }
       } else {
         console.error("Login failed");
         setError("Login failed. Please check your details and try again.");

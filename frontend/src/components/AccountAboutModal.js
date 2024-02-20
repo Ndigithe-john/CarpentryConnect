@@ -10,7 +10,6 @@ const AccountAboutModal = () => {
         `http://localhost:4050/users/logout`,
         { withCredentials: true }
       );
-
       if (response.status === 200) {
         console.log("Logged out successfully");
         navigate("/");

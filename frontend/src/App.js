@@ -20,8 +20,12 @@ function App() {
       element: <LandingPage />,
     },
     {
-      path: "/home",
+      path: "/carpenter",
       element: <CarpenterHome />,
+    },
+    {
+      path: "/workshop",
+      element: <WorkshopHome />,
     },
     {
       path: "/dashboard",
