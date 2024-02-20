@@ -5,8 +5,7 @@ import SearchBar from "../components/SearchBar";
 import Products from "../components/Products";
 import AccountAboutModal from "../components/AccountAboutModal";
 import DisplayContainer from "../TopProduct/DisplayContainer";
-
-const CarpenterHome = () => {
+const WorkshopHome = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   function hanldeMouseEnter() {
     setIsModalOpen((prev) => !prev);
@@ -38,9 +37,9 @@ const CarpenterHome = () => {
 
       <DisplayContainer />
 
-      {/* <Products /> */}
+      <Products />
     </>
   );
 };
 
-export default CarpenterHome;
+export default WorkshopHome;

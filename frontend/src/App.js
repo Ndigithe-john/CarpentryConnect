@@ -2,7 +2,6 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import Home from "./components/Home";
 import Maps from "./components/Map/Maps";
 import Dashboard from "./components/DashBoard/Dashboard";
 import DashboardMain from "./components/DashBoard/DashboardMain";
@@ -12,6 +11,8 @@ import PendingApproval from "./components/Items/PendingApproval";
 import Approved from "./components/Items/Approved";
 import Rejected from "./components/Items/Rejected";
 import CapenterList from "./components/Items/CapenterList";
+import CarpenterHome from "./Home/CarpenterHome";
+import WorkshopHome from "./Home/WorkshopHome";
 function App() {
   const router = createBrowserRouter([
     {
@@ -20,7 +21,7 @@ function App() {
     },
     {
       path: "/home",
-      element: <Home />,
+      element: <CarpenterHome />,
     },
     {
       path: "/dashboard",
