@@ -7,6 +7,7 @@ const LoginPage = () => {
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
   async function handleLogin(e) {
@@ -29,9 +30,8 @@ const LoginPage = () => {
       );
       console.log(response);
       if (response.status === 200) {
-        const userRole = response.data.role;
+        setUserRole(response.data.role);
         console.log("Logged in successfully");
-        console.log(userRole);
         if (userRole === "WorkshopOwner") {
           navigate("/workshop");
         } else if (userRole === "Carpenter") {

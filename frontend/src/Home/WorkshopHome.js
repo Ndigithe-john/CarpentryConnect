@@ -5,7 +5,6 @@ import SearchBar from "../components/SearchBar";
 import Products from "../components/Products";
 import AccountAboutModal from "../components/AccountAboutModal";
 import DisplayContainer from "../TopProduct/DisplayContainer";
-import { Outlet } from "react-router-dom";
 const WorkshopHome = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   function hanldeMouseEnter() {
@@ -34,9 +33,7 @@ const WorkshopHome = () => {
           </div>
         </div>
       </NavBar>
-      <Outlet />
       {isModalOpen && <AccountAboutModal />}
-
       <DisplayContainer />
 
       <Products />

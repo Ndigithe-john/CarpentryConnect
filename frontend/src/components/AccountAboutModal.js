@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Outlet } from "react-router-dom";
 import axios from "axios";
 const AccountAboutModal = () => {
   const [error, setError] = useState("");
@@ -29,11 +29,7 @@ const AccountAboutModal = () => {
         <h4>
           <Link to="/account">Account</Link>
         </h4>
-        <h4>
-          <Link to="/workshop/dashboard" style={{ textDecoration: "none" }}>
-            Dashboard
-          </Link>
-        </h4>
+        <h4 onClick={() => navigate("/workshop/dashboard")}>Dashboard</h4>
         <h4 onClick={handleLogout}>logout</h4>
       </div>
     </div>
