@@ -62,51 +62,90 @@ async function signUp(req, res) {
     res.status(400).send(error.message);
   }
 }
-
 async function login(req, res, next) {
   try {
     const login_body = req.body;
     const { value } = loginUserValidator(login_body);
     console.log(value);
+
     const { pool } = req;
     const { Email, Password } = login_body;
+
     let user = await User(Email, pool);
+    console.log(user);
     if (!user) {
       return next(
         new AppError("Email Account does not exist! Please Register"),
         401
       );
     }
-    console.log(user);
-    if (user) {
-      let password_match = await bcrypt.compare(Password, user.PasswordHash);
-      if (password_match) {
-        req.session.authorized = true;
-        req.session.user = user;
-        res.json({
-          status: "success",
-          message: "logged in successfully",
-        });
-      } else {
-        return next(new AppError("Incorrect Email or Password", 401));
-      }
 
-      if (!Email || !Password) {
-        return next(
-          new AppError("Please provide both email and password"),
-          400
-        );
-      }
+    let password_match = await bcrypt.compare(Password, user.PasswordHash);
 
-      if (!user) {
-        return next(new AppError("Incorrect email or password"), 401);
-      }
+    if (password_match) {
+      req.session.authorized = true;
+      req.session.user = {
+        id: user.UserID,
+        role: user.Role,
+      };
+
+      res.json({
+        status: "success",
+        message: "Logged in successfully",
+      });
+    } else {
+      return next(new AppError("Incorrect Email or Password", 401));
     }
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
     res.send(error.message);
   }
 }
+
+// async function login(req, res, next) {
+//   try {
+//     const login_body = req.body;
+//     const { value } = loginUserValidator(login_body);
+//     console.log(value);
+//     const { pool } = req;
+//     const { Email, Password } = login_body;
+//     let user = await User(Email, pool);
+//     if (!user) {
+//       return next(
+//         new AppError("Email Account does not exist! Please Register"),
+//         401
+//       );
+//     }
+//     console.log(user);
+//     if (user) {
+//       let password_match = await bcrypt.compare(Password, user.PasswordHash);
+//       if (password_match) {
+//         req.session.authorized = true;
+//         req.session.user = user;
+//         res.json({
+//           status: "success",
+//           message: "logged in successfully",
+//         });
+//       } else {
+//         return next(new AppError("Incorrect Email or Password", 401));
+//       }
+
+//       if (!Email || !Password) {
+//         return next(
+//           new AppError("Please provide both email and password"),
+//           400
+//         );
+//       }
+
+//       if (!user) {
+//         return next(new AppError("Incorrect email or password"), 401);
+//       }
+//     }
+//   } catch (error) {
+//     console.log(error.message);
+//     res.send(error.message);
+//   }
+// }
 
 async function logout(req, res, next) {
   try {

@@ -134,7 +134,12 @@
   height: 28vh;
   background-color: white;
   border-radius: 8px;
+  text-align: center;
 }
+.secondContainer h1 {
+  align-self: center;
+}
+
 /* @keyframes slide1 {
   0% {
     visibility: visible;

@@ -72,7 +72,6 @@ const NewProductForm = () => {
       );
       if (newItem.status === 200) {
         console.log("Image added successfully");
-
         setImage(null);
         setDescription("");
         setCategory("seating");
