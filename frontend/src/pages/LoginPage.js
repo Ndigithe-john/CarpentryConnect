@@ -29,9 +29,9 @@ const LoginPage = () => {
       );
       console.log(response);
       if (response.status === 200) {
+        const userRole = response.data.role;
         console.log("Logged in successfully");
-
-        const userRole = response.data;
+        console.log(userRole);
         if (userRole === "WorkshopOwner") {
           navigate("/workshop");
         } else if (userRole === "Carpenter") {

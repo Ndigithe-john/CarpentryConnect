@@ -92,7 +92,7 @@ async function login(req, res, next) {
       res.json({
         status: "success",
         message: "Logged in successfully",
-        data: user.Role,
+        role: user.Role,
       });
     } else {
       return next(new AppError("Incorrect Email or Password", 401));

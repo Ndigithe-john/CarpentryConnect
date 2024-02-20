@@ -13,6 +13,7 @@ import Rejected from "./components/Items/Rejected";
 import CapenterList from "./components/Items/CapenterList";
 import CarpenterHome from "./Home/CarpenterHome";
 import WorkshopHome from "./Home/WorkshopHome";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -26,51 +27,51 @@ function App() {
     {
       path: "/workshop",
       element: <WorkshopHome />,
-    },
-    {
-      path: "/dashboard",
-      element: <Dashboard />,
       children: [
         {
-          index: "index",
-          element: (
-            <>
-              <DashboardMain />
-            </>
-          ),
-        },
-        {
-          path: "addItem",
-          element: <NewProductForm />,
-        },
-        {
-          path: "items",
-          element: <ShowItems />,
-        },
-        {
-          path: "pendingApproval",
-          element: <PendingApproval />,
-        },
-        {
-          path: "approved",
-          element: <Approved />,
-        },
-        {
-          path: "rejected",
-          element: <Rejected />,
-        },
-        {
-          path: "capenterslist",
-          element: <CapenterList />,
+          path: "dashboard", // Adjust the path as needed
+          element: <Dashboard />,
+          children: [
+            {
+              index: "index",
+              element: (
+                <>
+                  <DashboardMain />
+                </>
+              ),
+            },
+            {
+              path: "addItem",
+              element: <NewProductForm />,
+            },
+            {
+              path: "items",
+              element: <ShowItems />,
+            },
+            {
+              path: "pendingApproval",
+              element: <PendingApproval />,
+            },
+            {
+              path: "approved",
+              element: <Approved />,
+            },
+            {
+              path: "rejected",
+              element: <Rejected />,
+            },
+            {
+              path: "capenterslist",
+              element: <CapenterList />,
+            },
+          ],
         },
       ],
     },
-
     {
       path: "/login",
       element: <LoginPage />,
     },
-
     {
       path: "/signup",
       element: <RegisterPage />,
@@ -80,6 +81,7 @@ function App() {
       element: <Maps />,
     },
   ]);
+
   return (
     <>
       <RouterProvider router={router} />

@@ -30,7 +30,7 @@ const AccountAboutModal = () => {
           <Link to="/account">Account</Link>
         </h4>
         <h4>
-          <Link to="/dashboard" style={{ textDecoration: "none" }}>
+          <Link to="/workshop/dashboard" style={{ textDecoration: "none" }}>
             Dashboard
           </Link>
         </h4>
