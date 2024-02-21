@@ -7,6 +7,7 @@ const {
   getPendingItems,
   updateWorkshopItemStatus,
   deleteWorkshopItem,
+  carpenterPostItem,
 } = require("../controllers/capentryControllers");
 const capentyService = require("../middlewares/capentryAuth");
 
@@ -16,4 +17,5 @@ postroutes.get("/Pending", getPendingItems);
 postroutes.get("/allItems", getAllItems);
 postroutes.patch("/update", updateWorkshopItemStatus);
 postroutes.delete("/delete", deleteWorkshopItem);
+postroutes.post("/post", carpenterPostItem);
 module.exports = postroutes;
