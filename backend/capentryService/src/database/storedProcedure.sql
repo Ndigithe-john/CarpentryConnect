@@ -149,3 +149,35 @@ BEGIN
 
 END;
 EXEC GetAllWorkshopItems;
+
+
+-- Carpenter Create Items
+
+CREATE PROCEDURE CarpenterItemAdd
+    @CarpenterID INT,
+    @ImageURL NVARCHAR(255),
+    @Description NVARCHAR(MAX),
+    @Category NVARCHAR(50),
+    @Material NVARCHAR(50),
+  
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+  
+    INSERT INTO CarpentersItems (
+        CarpenterID,
+        ImageURL,
+        Description,
+        Category,
+        Material,
+    )
+    VALUES (
+        @CarpenterID,
+        @ImageURL,
+        @Description,
+        @Category,
+        @Material,
+    );
+
+END;

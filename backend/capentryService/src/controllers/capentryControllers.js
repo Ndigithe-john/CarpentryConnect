@@ -148,7 +148,36 @@ async function deleteWorkshopItem(req, res, next) {
     );
   }
 }
+async function carpenterPostItem(req, res, next) {
+  try {
+    const item_body = req.body;
+    const { ImageURL, Description, Category, Material } = item_body;
+    const { pool } = req;
+    const user = req.user;
+    if (pool.connected) {
+      let carpenter_post = await pool
+        .request()
+        .input("CarpenterID", user.UserID)
+        .input("ImageURL", ImageURL)
+        .input("Description", Description)
+        .input("Category", Category)
+        .input("Material", Material)
+        .execute("CarpenterPost");
+      res.status(200).json({
+        status: "success",
+        message: "Post Created Successfully",
+        results: carpenter_post,
+      });
+    } else {
+      return next(new AppError("There is a problem updating the item", 401));
+    }
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+}
+
 module.exports = {
+  carpenterPostItem,
   postItem,
   getPendingItems,
   updateWorkshopItemStatus,
