@@ -22,15 +22,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 16vw;
+  width: 14vw;
   margin-left: 2vw;
-  height: 60vh;
+  height: 80vh;
   background-color: white;
   border-radius: 5px;
 }
 .category_aside_container p {
   font-size: 20px;
   margin-left: 1em;
+  cursor: pointer;
 }
 .middle_container {
   width: 55vw;
@@ -38,7 +39,7 @@
 .banner1,
 .banner2,
 .banner3 {
-  height: 60vh;
+  height: 78vh;
   width: 55vw;
   overflow: hidden;
   position: absolute;
@@ -116,28 +117,20 @@
     opacity: 1;
   }
 }
-.rightSideContainer {
+.right_side_container {
   display: flex;
   flex-direction: column;
-  width: 16vw;
-  gap: 2em;
-}
-.firstContainer {
+  justify-content: space-around;
+  width: 14vw;
+  margin-left: 2vw;
+  height: 78vh;
   background-color: white;
-  width: 100%;
-  height: 28vh;
-  border-radius: 6px;
+  border-radius: 5px;
 }
-.secondContainer {
-  width: 100%;
-  color: var(--color-text-wheat);
-  height: 28vh;
-  background-color: white;
-  border-radius: 8px;
-  text-align: center;
-}
-.secondContainer h1 {
-  align-self: center;
+.right_side_container p {
+  font-size: 20px;
+  margin-left: 1em;
+  cursor: pointer;
 }
 
 /* @keyframes slide1 {

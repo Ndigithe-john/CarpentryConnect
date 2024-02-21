@@ -26,7 +26,7 @@ function App() {
     },
     {
       path: "/home",
-      element: <Home />,
+      element: <Home userRole={userRole} />,
     },
     {
       path: "/dashboard",
@@ -42,7 +42,7 @@ function App() {
         },
         {
           path: "addItem",
-          element: <NewProductForm />,
+          element: <NewProductForm userRole={userRole} />,
         },
         {
           path: "items",

@@ -6,7 +6,7 @@ import Products from "./Products";
 import AccountAboutModal from "./AccountAboutModal";
 import DisplayContainer from "../TopProduct/DisplayContainer";
 
-const Home = () => {
+const Home = ({ userRole }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   function hanldeMouseEnter() {
     setIsModalOpen((prev) => !prev);
@@ -37,8 +37,7 @@ const Home = () => {
       {isModalOpen && <AccountAboutModal />}
 
       <DisplayContainer />
-
-      <Products />
+      {userRole === "Carpenter" ? <Products /> : ""}
     </>
   );
 };
