@@ -29,7 +29,10 @@ const AccountAboutModal = () => {
         <h4>
           <Link to="/account">Account</Link>
         </h4>
-        <h4 onClick={() => navigate("/workshop/dashboard")}>Dashboard</h4>
+        <h4>
+          <Link to="/dashboard">dashboard</Link>
+        </h4>
+
         <h4 onClick={handleLogout}>logout</h4>
       </div>
     </div>
