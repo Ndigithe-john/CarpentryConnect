@@ -10,3 +10,11 @@ CREATE TABLE WorkshopItems (
     Status NVARCHAR(50) DEFAULT 'Pending' NOT NULL,
     Price DECIMAL(18, 2) NOT NULL
 );
+
+CREATE TABLE CarpentersItems(
+    ItemID INT PRIMARY KEY IDENTITY(1,1)
+    CarpenterID INT FOREIGN KEY REFERENCES Users(UserID),
+    Description NVARCHAR(MAX) NOT NULL,
+    Category NVARCHAR(50) NOT NULL,
+    Material NVARCHAR(50) NOT NULL,
+);

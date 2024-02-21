@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-const NewProductForm = () => {
+const NewProductForm = ({ userRole }) => {
   const [image, setImage] = useState(null);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("seating");
@@ -146,25 +146,29 @@ const NewProductForm = () => {
           <option>Cedar</option>
           <option>Cherry</option>
         </select>
-        <label className="new_product_label">Required Date</label>
-        <input
-          className="form_type"
-          type="date"
-          id="date"
-          name="date"
-          value={date}
-          onChange={handleDateChange}
-        />
-        <label className="new_product_label">Item Price</label>
-        <input
-          className="form_type"
-          type="number"
-          id="price"
-          name="price"
-          placeholder="Enter the price"
-          value={price}
-          onChange={handlePriceChange}
-        />
+        {userRole === "workshopOwner" && (
+          <>
+            <label className="new_product_label">Required Date</label>
+            <input
+              className="form_type"
+              type="date"
+              id="date"
+              name="date"
+              value={date}
+              onChange={handleDateChange}
+            />
+            <label className="new_product_label">Item Price</label>
+            <input
+              className="form_type"
+              type="number"
+              id="price"
+              name="price"
+              placeholder="Enter the price"
+              value={price}
+              onChange={handlePriceChange}
+            />
+          </>
+        )}
 
         <button type="submit" className="add_item_button">
           Add Item
