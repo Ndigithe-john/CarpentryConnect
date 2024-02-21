@@ -17,6 +17,7 @@
   margin-top: 11vh;
   display: flex;
   gap: 3em;
+  margin-bottom: 7vh;
 }
 .category_aside_container {
   display: flex;
@@ -34,13 +35,13 @@
   cursor: pointer;
 }
 .middle_container {
-  width: 55vw;
+  width: 58vw;
 }
 .banner1,
 .banner2,
 .banner3 {
-  height: 78vh;
-  width: 55vw;
+  height: 80vh;
+  width: 58vw;
   overflow: hidden;
   position: absolute;
 }
@@ -123,7 +124,7 @@
   justify-content: space-around;
   width: 14vw;
   margin-left: 2vw;
-  height: 78vh;
+  height: 80vh;
   background-color: white;
   border-radius: 5px;
 }
