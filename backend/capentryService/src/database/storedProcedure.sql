@@ -181,3 +181,54 @@ BEGIN
     );
 
 END;
+
+
+
+
+-- New test
+CREATE PROCEDURE CarpenterItemAdd
+    @CarpenterID INT,
+    @ImageURL NVARCHAR(255),
+    @Description NVARCHAR(MAX),
+    @Category NVARCHAR(50),
+    @Material NVARCHAR(50)
+  
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO CarpentersItems (
+        CarpenterID,
+        ImageURL,
+        Description,
+        Category,
+        Material
+    )
+    VALUES (
+        @CarpenterID,
+        @ImageURL,
+        @Description,
+        @Category,
+        @Material
+    );
+
+END;
+DROP TABLE CarpentersItems
+CREATE TABLE CarpentersItems(
+    ItemID INT PRIMARY KEY IDENTITY(1,1),
+    CarpenterID INT FOREIGN KEY REFERENCES Users(UserID),
+    ImageURL NVARCHAR(255) NOT NULL, 
+    Description NVARCHAR(MAX) NOT NULL,
+    Category NVARCHAR(50) NOT NULL,
+    Material NVARCHAR(50) NOT NULL,
+);
+
+EXEC CarpenterItemAdd
+    @CarpenterID = 1034,
+    @ImageURL = '/images/item1.jpg',
+    @Description = 'A description of the item',
+    @Category = 'Tools',
+    @Material = 'Metal'
+
+	Select * from CarpentersItems
+	Select * from Users
