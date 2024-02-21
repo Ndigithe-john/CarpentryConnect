@@ -8,6 +8,7 @@ const AppError = require("./src/utils/appError");
 const globalErrorHandlers = require("./src/controllers/errorControllers");
 const config = require("./src/config/databaseConfig");
 const postroutes = require("./src/routes/capentryRoutes");
+
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -26,18 +27,14 @@ async function capentryServer() {
     });
 
     app.use("/users", postroutes);
-
     app.all("*", (req, res, next) => {
       next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
     });
     app.use(globalErrorHandlers);
-    const port = process.env.PORT || 5000;
-
-    app.listen(port, () => {
-      console.log(`App running on port ${port}`);
-    });
+    const port = process.env.PORT || 4000;
+    app.listen(port, () => console.log(`Server running on port ${port}`));
   } catch (error) {
-    return next(new AppError(`Unable to access the server`, 500));
+    console.log(error);
   }
 }
 

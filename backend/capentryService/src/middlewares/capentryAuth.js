@@ -6,8 +6,9 @@ async function capentyService(req, res, next) {
     redis_client.connect();
     redis_client.on("connect", () => console.log("connected to redis"));
     let cookie = req.headers["cookie"];
+    console.log(cookie);
+
     if (cookie) {
-      console.log(cookie);
       let sessionID = cookie.substring(16, 52);
       console.log(sessionID);
       let session = await redis_client.get(sessionID);
@@ -18,7 +19,6 @@ async function capentyService(req, res, next) {
         const userSession = JSON.parse(session);
         const { user } = userSession;
         req.user = user;
-
         next();
       } else {
         res.status(403).json({
@@ -27,6 +27,7 @@ async function capentyService(req, res, next) {
         });
       }
     }
+    next();
   } catch (error) {
     console.log(error);
   }
