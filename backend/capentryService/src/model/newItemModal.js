@@ -8,5 +8,10 @@ const newItemSchema = joi.object({
   DateRequired: joi.date().required(),
   Price: joi.number().required(),
 });
-
-module.exports = { newItemSchema };
+const capenterItemSchema = joi.object({
+  ImageURL: joi.string().required(),
+  Description: joi.string().required(),
+  Category: joi.string().required(),
+  Material: joi.string().required(),
+});
+module.exports = { newItemSchema, capenterItemSchema };

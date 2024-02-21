@@ -1,5 +1,8 @@
 const AppError = require("../utils/appError");
-const newItemValidator = require("../validators/newItemValidator");
+const {
+  newItemValidator,
+  newCapenterItemValidator,
+} = require("../validators/newItemValidator");
 async function postItem(req, res, next) {
   try {
     const item_body = req.body;
@@ -150,8 +153,11 @@ async function deleteWorkshopItem(req, res, next) {
 }
 async function carpenterPostItem(req, res, next) {
   try {
+    console.log("here we go");
     const item_body = req.body;
     const { ImageURL, Description, Category, Material } = item_body;
+    const { value } = newCapenterItemValidator(item_body);
+    console.log(value);
     const { pool } = req;
     const user = req.user;
     if (pool.connected) {
@@ -172,6 +178,7 @@ async function carpenterPostItem(req, res, next) {
       return next(new AppError("There is a problem updating the item", 401));
     }
   } catch (error) {
+    console.log(error);
     res.status(400).send(error.message);
   }
 }

@@ -17,5 +17,5 @@ postroutes.get("/Pending", getPendingItems);
 postroutes.get("/allItems", getAllItems);
 postroutes.patch("/update", updateWorkshopItemStatus);
 postroutes.delete("/delete", deleteWorkshopItem);
-postroutes.post("/post", carpenterPostItem);
+postroutes.post("/carpenterPost", carpenterPostItem);
 module.exports = postroutes;
