@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import Axios from "axios";
 
-const LoginPage = () => {
+const LoginPage = ({ updateUserRole }) => {
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,13 +30,12 @@ const LoginPage = () => {
       );
       console.log(response);
       if (response.status === 200) {
-        setUserRole(response.data.role);
+        const role = response.data.role;
+        setUserRole(role); // Set the state in LoginPage (optional)
+        updateUserRole(role); // Call the callback function to update state in App
         console.log("Logged in successfully");
-        if (userRole === "WorkshopOwner") {
-          navigate("/workshop");
-        } else if (userRole === "Carpenter") {
-          navigate("/carpenter");
-        }
+        console.log(userRole);
+        navigate("/home");
       } else {
         console.error("Login failed");
         setError("Login failed. Please check your details and try again.");

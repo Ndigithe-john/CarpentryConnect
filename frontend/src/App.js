@@ -12,7 +12,13 @@ import Rejected from "./components/Items/Rejected";
 import CapenterList from "./components/Items/CapenterList";
 import Home from "./components/Home";
 import Dashboard from "./components/DashBoard/Dashboard";
+import { useState } from "react";
+
 function App() {
+  const [userRole, setUserRole] = useState("");
+  const updateUserRole = (role) => {
+    setUserRole(role);
+  };
   const router = createBrowserRouter([
     {
       path: "/",
@@ -63,7 +69,7 @@ function App() {
 
     {
       path: "/login",
-      element: <LoginPage />,
+      element: <LoginPage updateUserRole={updateUserRole} />,
     },
     {
       path: "/signup",
