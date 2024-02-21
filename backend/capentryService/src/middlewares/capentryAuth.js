@@ -26,8 +26,9 @@ async function capentyService(req, res, next) {
           message: "login to proceed",
         });
       }
+    } else {
+      next();
     }
-    next();
   } catch (error) {
     console.log(error);
   }

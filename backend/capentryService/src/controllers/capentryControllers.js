@@ -161,14 +161,15 @@ async function carpenterPostItem(req, res, next) {
     const { pool } = req;
     const user = req.user;
     if (pool.connected) {
+      console.log(user);
       let carpenter_post = await pool
         .request()
-        .input("CarpenterID", user.UserID)
+        .input("CarpenterID", user.id)
         .input("ImageURL", ImageURL)
         .input("Description", Description)
         .input("Category", Category)
         .input("Material", Material)
-        .execute("CarpenterPost");
+        .execute("CarpenterItemAdd");
       res.status(200).json({
         status: "success",
         message: "Post Created Successfully",
