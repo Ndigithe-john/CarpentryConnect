@@ -266,3 +266,43 @@ EXEC DeleteItem @ItemID = 4, @ItemType = 'Carpenter';
 
 -- Example: Delete from WorkshopItems
 EXEC DeleteItem @ItemID = 456, @ItemType = 'Workshop';
+
+
+CREATE OR ALTER PROCEDURE GetItemsByUserID
+    @UserID INT,
+    @UserType NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @UserType = 'WorkshopOwner' -- Assuming WorkshopOwnerID is used in WorkshopItems
+    BEGIN
+        SELECT
+            ItemID,
+            ImageURL,
+            Description,
+            Category,
+            Material,
+            DateRequired,
+            price,
+            Status
+        FROM
+            WorkshopItems
+        WHERE
+            WorkshopOwnerID = @UserID;
+    END
+    ELSE IF @UserType = 'Carpenter' -- Assuming CarpenterID is used in CarpentersItems
+    BEGIN
+        SELECT
+            ItemID,
+            ImageURL,
+            Description,
+            Category,
+            Material
+        FROM
+            CarpentersItems
+        WHERE
+            CarpenterID = @UserID;
+    END
+    
+END;
