@@ -306,3 +306,9 @@ BEGIN
     END
     
 END;
+
+-- Example: Get WorkshopItems for a user
+EXEC GetItemsByUserID @UserID = 1033, @UserType = 'WorkshopOwner';
+
+-- Example: Get CarpentersItems for a user
+EXEC GetItemsByUserID @UserID = 456, @ItemType = 'Carpenter';
