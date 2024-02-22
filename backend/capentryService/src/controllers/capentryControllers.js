@@ -124,6 +124,11 @@ async function deleteItems(req, res, next) {
       console.log(user.id);
       if (user.role === "WorkshopOwner") {
         ItemType = "Workshop";
+        checkPostQuery = `
+        SELECT ItemID
+        FROM ${ItemType}Items
+        WHERE ItemID = @ItemID AND ${ItemType}OwnerID = @UserID;
+      `;
       } else if (user.role === "Carpenter") {
         ItemType = "Carpenter";
         checkPostQuery = `
