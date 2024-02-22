@@ -23,6 +23,28 @@ const ShowItems = ({ userRole }) => {
     fetchData();
   }, []);
 
+  const handleDelete = async (itemId) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+    if (isConfirmed) {
+      try {
+        const response = await axios.delete(
+          "http://localhost:5050/users/delete",
+          { withCredentials: true },
+          { ItemID: itemId }
+        );
+        console.log(response);
+
+        setItems((prevItems) =>
+          prevItems.filter((item) => item.ItemID !== itemId)
+        );
+      } catch (error) {
+        console.error("Error deleting item:", error.message);
+      }
+    }
+  };
+
   return (
     <div>
       <main className="table">
@@ -58,6 +80,7 @@ const ShowItems = ({ userRole }) => {
                       src={deleteIcon}
                       alt="deleteIcon"
                       style={{ width: "3em", height: "4vh", cursor: "pointer" }}
+                      onClick={() => handleDelete(item.ItemID)}
                     />
                   </td>
                 </tr>

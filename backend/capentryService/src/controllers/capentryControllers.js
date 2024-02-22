@@ -148,7 +148,7 @@ async function deleteItems(req, res, next) {
         .input("ItemID", ItemID)
         .input("UserID", user.id)
         .query(checkPostQuery);
-
+      console.log(ItemID);
       if (checkPostResult.recordset.length === 0) {
         return res.status(404).json({
           status: false,
