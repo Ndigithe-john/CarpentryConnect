@@ -222,8 +222,31 @@ async function getItemsByUserID(req, res, next) {
     const user = req.user;
     const { pool } = req;
     if (pool.connected) {
+      console.log(user);
+      // let UserType;
+      // if ((user.role = "Carpenter")) {
+      //   UserType = "Carpenter";
+      // } else if (user.role === "WorkshopOwner") {
+      //   UserType = "WorkshopOwner";
+      // }
+      let results = await pool
+        .request()
+        .input("UserId", user.id)
+        .input("UserType", user.role)
+        .execute("GetItemsByUserID");
+      res.status(200).json({
+        status: "success",
+        message: "Items fetched successfully",
+        data: results.recordset,
+      });
+    } else {
+      res.status(500).json({
+        status: false,
+        message: "error connecting to the database",
+      });
     }
   } catch (error) {
+    console.log(error);
     return next(new AppError("There is a problem getting products", 400));
   }
 }
