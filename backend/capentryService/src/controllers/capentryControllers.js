@@ -117,40 +117,68 @@ async function deleteItems(req, res, next) {
     const { ItemID } = delete_body;
     const user = req.user;
     const { pool } = req;
+
     if (pool.connected) {
-      const checkPostQuery = `
-      SELECT ItemID
-      FROM WorkshopItems
-      WHERE ItemID = ${ItemID} and WorkshopOwnerID=${user.UserID}
-    `;
+      let ItemType;
+      let checkPostQuery;
+      console.log(user.id);
+      if (user.role === "WorkshopOwner") {
+        ItemType = "Workshop";
+      } else if (user.role === "Carpenter") {
+        ItemType = "Carpenter";
+        checkPostQuery = `
+        SELECT ItemID
+        FROM ${ItemType}sItems
+        WHERE ItemID = @ItemID AND ${ItemType}ID = @UserID;
+      `;
+      } else {
+        return res.status(400).json({
+          status: false,
+          message: "Invalid user role.",
+        });
+      }
+
       const checkPostResult = await pool
         .request()
         .input("ItemID", ItemID)
+        .input("UserID", user.id)
         .query(checkPostQuery);
+
       if (checkPostResult.recordset.length === 0) {
-        return next(new AppError("Post not found"), 404);
+        return res.status(404).json({
+          status: false,
+          message: "Item not found.",
+        });
       }
-      const delete_item = await pool
+
+      const deleteItemQuery = `
+        EXEC DeleteItem @ItemID = @ItemID, @ItemType = @ItemType;
+      `;
+
+      const delete_item_result = await pool
         .request()
         .input("ItemID", ItemID)
-        .execute("DeleteWorkshopItem");
+        .input("ItemType", ItemType)
+        .execute("DeleteItem");
 
-      res.status(200).json({
-        status: "success",
-        message: "item deleted successully",
+      return res.status(200).json({
+        status: true,
+        message: "Item deleted successfully.",
       });
     } else {
-      res.status(201).json({
+      return res.status(500).json({
         status: false,
-        message: "Error deleting post",
+        message: "Error deleting item. Database connection issue.",
       });
     }
   } catch (error) {
+    console.log(error);
     return next(
       new AppError("Unable to process your request at the moment", 500)
     );
   }
 }
+
 async function carpenterPostItem(req, res, next) {
   try {
     console.log("here we go");
