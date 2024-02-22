@@ -29,12 +29,10 @@ const ShowItems = ({ userRole }) => {
     );
     if (isConfirmed) {
       try {
-        const response = await axios.delete(
-          "http://localhost:5050/users/delete",
-          { withCredentials: true },
-          { ItemID: itemId }
-        );
-        console.log(response);
+        await axios.delete("http://localhost:5050/users/delete", {
+          withCredentials: true,
+          data: { ItemID: itemId },
+        });
 
         setItems((prevItems) =>
           prevItems.filter((item) => item.ItemID !== itemId)
