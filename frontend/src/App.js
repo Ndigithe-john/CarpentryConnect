@@ -46,7 +46,7 @@ function App() {
         },
         {
           path: "items",
-          element: <ShowItems />,
+          element: <ShowItems userRole={userRole} />,
         },
         {
           path: "pendingApproval",

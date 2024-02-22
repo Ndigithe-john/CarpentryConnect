@@ -1,11 +1,14 @@
 import deleteIcon from "../../assets/delete.png";
 import "./showitemsStyles.css";
-const ShowItems = () => {
+
+const ShowItems = ({ userRole }) => {
+  const isWorkshopOwner = userRole === "WorkshopOwner";
+
   return (
     <div>
       <main className="table">
         <section className="table_header">
-          <h1>Pending Items</h1>
+          <h1>Items</h1>
         </section>
         <section className="table_body">
           <table>
@@ -13,9 +16,9 @@ const ShowItems = () => {
               <tr>
                 <th>ItemID</th>
                 <th>Category</th>
-                <th>Status</th>
                 <th>Description</th>
-                <th>Amount</th>
+                {isWorkshopOwner && <th>Status</th>}
+                {isWorkshopOwner && <th>Amount</th>}
                 <th>Delete</th>
               </tr>
             </thead>
@@ -24,10 +27,12 @@ const ShowItems = () => {
                 <td>12</td>
                 <td>Sleeping</td>
                 <td>pending</td>
-                <td>New item</td>
-                <td>
-                  <strong>Ksh. 400</strong>
-                </td>
+                {isWorkshopOwner && <td>New item</td>}
+                {isWorkshopOwner && (
+                  <td>
+                    <strong>Ksh. 400</strong>
+                  </td>
+                )}
                 <td>
                   <img
                     src={deleteIcon}
@@ -40,10 +45,12 @@ const ShowItems = () => {
                 <td>12</td>
                 <td>Sleeping</td>
                 <td>pending</td>
-                <td>New item</td>
-                <td>
-                  <strong>Ksh. 300</strong>
-                </td>
+                {isWorkshopOwner && <td>New item</td>}
+                {isWorkshopOwner && (
+                  <td>
+                    <strong>Ksh. 300</strong>
+                  </td>
+                )}
                 <td>
                   <img
                     src={deleteIcon}
