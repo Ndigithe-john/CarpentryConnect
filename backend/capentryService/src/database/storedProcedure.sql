@@ -111,7 +111,7 @@ EXEC UpdateWorkshopItemStatus
     @ItemID = 1,
     @NewStatus = 'Approved';
 
-    CREATE PROCEDURE DeleteWorkshopItem
+ CREATE PROCEDURE DeleteWorkshopItem
     @ItemID INT
 AS
 BEGIN

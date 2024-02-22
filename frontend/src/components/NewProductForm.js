@@ -12,6 +12,7 @@ const NewProductForm = ({ userRole }) => {
   const [error, setError] = useState(null);
   const present_key = "wechatApp";
   const cloud_name = "demowwhy5";
+
   useEffect(() => {
     if (successMessage) {
       const timeoutId = setTimeout(() => {
@@ -56,6 +57,7 @@ const NewProductForm = ({ userRole }) => {
 
   const handleAddItem = async (e) => {
     e.preventDefault();
+
     try {
       const WorkshopitemData = {
         ImageURL: image,
