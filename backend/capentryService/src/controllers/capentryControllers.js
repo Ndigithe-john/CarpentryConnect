@@ -217,6 +217,17 @@ async function carpenterPostItem(req, res, next) {
   }
 }
 
+async function getItemsByUserID(req, res, next) {
+  try {
+    const user = req.user;
+    const { pool } = req;
+    if (pool.connected) {
+    }
+  } catch (error) {
+    return next(new AppError("There is a problem getting products", 400));
+  }
+}
+
 module.exports = {
   carpenterPostItem,
   postItem,
@@ -224,4 +235,5 @@ module.exports = {
   updateWorkshopItemStatus,
   deleteItems,
   getAllItems,
+  getItemsByUserID,
 };
