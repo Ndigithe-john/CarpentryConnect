@@ -57,7 +57,7 @@ const NewProductForm = ({ userRole }) => {
   const handleAddItem = async (e) => {
     e.preventDefault();
     try {
-      const itemData = {
+      const WorkshopitemData = {
         ImageURL: image,
         Description: description,
         Category: category,
@@ -65,20 +65,42 @@ const NewProductForm = ({ userRole }) => {
         DateRequired: date,
         Price: price,
       };
-      const newItem = await axios.post(
-        `http://localhost:5050/users/post`,
-        itemData,
-        { withCredentials: true }
-      );
-      if (newItem.status === 200) {
-        console.log("Image added successfully");
-        setImage(null);
-        setDescription("");
-        setCategory("seating");
-        setWoodType("oak");
-        setDate("");
-        setPrice("");
-        setSuccessMessage("Item created successfully");
+      const carpenteritemData = {
+        ImageURL: image,
+        Description: description,
+        Category: category,
+        Material: woodType,
+      };
+      if (userRole === "WorkshopOwner") {
+        const workshopNewItem = await axios.post(
+          `http://localhost:5050/users/post`,
+          WorkshopitemData,
+          { withCredentials: true }
+        );
+        if (workshopNewItem.status === 200) {
+          console.log("Image added successfully");
+          setImage(null);
+          setDescription("");
+          setCategory("seating");
+          setWoodType("oak");
+          setDate("");
+          setPrice("");
+          setSuccessMessage("Item created successfully");
+        }
+      } else if (userRole === "Carpenter") {
+        const carpenterNewItem = await axios.post(
+          "http://localhost:5050/users/carpenterPost",
+          carpenteritemData,
+          { withCredentials: true }
+        );
+        if (carpenterNewItem.status === 200) {
+          console.log("Image added successfully");
+          setImage(null);
+          setDescription("");
+          setCategory("seating");
+          setWoodType("oak");
+          setSuccessMessage("Item created successfully");
+        }
       }
     } catch (error) {
       console.error("Error Creating an Item:", error.message);
@@ -146,7 +168,7 @@ const NewProductForm = ({ userRole }) => {
           <option>Cedar</option>
           <option>Cherry</option>
         </select>
-        {userRole === "workshopOwner" && (
+        {userRole === "WorkshopOwner" && (
           <>
             <label className="new_product_label">Required Date</label>
             <input
