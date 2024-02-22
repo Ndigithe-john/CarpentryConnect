@@ -111,7 +111,7 @@ async function updateWorkshopItemStatus(req, res, next) {
   }
 }
 
-async function deleteItem(req, res, next) {
+async function deleteItems(req, res, next) {
   try {
     const delete_body = req.body;
     const { ItemID } = delete_body;
@@ -189,6 +189,6 @@ module.exports = {
   postItem,
   getPendingItems,
   updateWorkshopItemStatus,
-  deleteItem,
+  deleteItems,
   getAllItems,
 };
