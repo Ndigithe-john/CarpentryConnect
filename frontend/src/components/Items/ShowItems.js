@@ -1,8 +1,27 @@
+import React, { useState, useEffect } from "react";
 import deleteIcon from "../../assets/delete.png";
 import "./showitemsStyles.css";
+import axios from "axios";
 
 const ShowItems = ({ userRole }) => {
   const isWorkshopOwner = userRole === "WorkshopOwner";
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5050/users/userItems",
+          { withCredentials: true }
+        );
+        setItems(response.data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -23,42 +42,26 @@ const ShowItems = ({ userRole }) => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>12</td>
-                <td>Sleeping</td>
-                <td>pending</td>
-                {isWorkshopOwner && <td>New item</td>}
-                {isWorkshopOwner && (
+              {items.map((item) => (
+                <tr key={item.ItemID}>
+                  <td>{item.ItemID}</td>
+                  <td>{item.Category}</td>
+                  <td>{item.Description}</td>
+                  {isWorkshopOwner && <td>{item.Status}</td>}
+                  {isWorkshopOwner && (
+                    <td>
+                      <strong>{`Ksh. ${item.price}`}</strong>
+                    </td>
+                  )}
                   <td>
-                    <strong>Ksh. 400</strong>
+                    <img
+                      src={deleteIcon}
+                      alt="deleteIcon"
+                      style={{ width: "3em", height: "4vh", cursor: "pointer" }}
+                    />
                   </td>
-                )}
-                <td>
-                  <img
-                    src={deleteIcon}
-                    alt="deleteIcon"
-                    style={{ width: "3em", height: "4vh" }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>12</td>
-                <td>Sleeping</td>
-                <td>pending</td>
-                {isWorkshopOwner && <td>New item</td>}
-                {isWorkshopOwner && (
-                  <td>
-                    <strong>Ksh. 300</strong>
-                  </td>
-                )}
-                <td>
-                  <img
-                    src={deleteIcon}
-                    alt="deleteIcon"
-                    style={{ width: "3em", height: "4vh" }}
-                  />
-                </td>
-              </tr>
+                </tr>
+              ))}
             </tbody>
           </table>
         </section>
