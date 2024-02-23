@@ -25,7 +25,12 @@ const ProfilePage = () => {
           </div>
           <button>Edit Profile</button>
         </div>
-        <div></div>
+        <div className="right_side_profile">
+          <h1>Full Name</h1>
+          <h4>Name comes here</h4>
+          <h1>Email Address</h1>
+          <h4>Email comes here</h4>
+        </div>
       </div>
     </div>
   );
