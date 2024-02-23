@@ -27,7 +27,7 @@ const AccountAboutModal = () => {
     <div className="account-modal">
       <div className="account-modal-content">
         <h4>
-          <Link to="/profile">Account</Link>
+          <Link to="/profile">Profile</Link>
         </h4>
         <h4>
           <Link to="/dashboard">dashboard</Link>
