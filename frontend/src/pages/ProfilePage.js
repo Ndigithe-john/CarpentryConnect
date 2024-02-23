@@ -10,7 +10,7 @@ const ProfilePage = () => {
       >
         <div className="added_profile">
           <div className="profile_photo">
-            <img src={profile} alt="profilePhoto" />
+            <img src={profile} alt="profilePhoto" className="prof_image" />
           </div>
           <div className="profile_name">
             <p>name</p>
@@ -18,11 +18,12 @@ const ProfilePage = () => {
         </div>
       </NavBar>
       <div className="profile_page">
-        <div>
+        <div className="profile_page_aside">
           <h3> My Profile</h3>
           <div className="prof_pic_div">
             <img src={profile} alt="profile_photo" />
           </div>
+          <button>Edit Profile</button>
         </div>
         <div></div>
       </div>

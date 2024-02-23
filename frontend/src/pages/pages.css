@@ -118,14 +118,41 @@
   color: var(--color-text-dark);
 }
 .profile_page {
-  margin-top: 15vh;
-  margin-left: 15vw;
+  display: flex;
+  flex-direction: row;
+
+  margin-top: 17vh;
+  margin-left: 17vw;
+}
+.profile_page_aside {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+.profile_page_aside h3 {
+  font-size: 20px;
+  color: var(--color-text);
+  margin-bottom: 2vh;
+  margin-left: 3.5vw;
+}
+.profile_page_aside button {
+  margin-top: 2vh;
+  height: 3.5vh;
+  border-radius: 4px;
+  background-color: var(--color-background-500);
+  color: white;
+  background-color: --color-text;
 }
 .prof_nav {
-  margin-top: -14vh;
+  margin-top: -17vh;
 }
 .prof_pic_div {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+.prof_pic_div img {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
 }
