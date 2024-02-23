@@ -7,7 +7,6 @@ const ProfilePage = () => {
         element={<h5>WoodCraft Masters</h5>}
         className="landing_nav fixed_nav"
       >
-        {" "}
         <div className="added_profile">
           <div className="profile_photo">
             <img src={profile} alt="profilePhoto" />
