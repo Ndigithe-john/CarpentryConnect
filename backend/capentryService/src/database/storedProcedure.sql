@@ -411,3 +411,23 @@ EXEC RequestJob
     @AdditionalNotes = 'Please complete the job as soon as possible.'; 
 
 
+--Procedure to approve work request
+CREATE PROCEDURE ApproveWorkRequest
+    @RequestID INT
+AS
+BEGIN
+   
+    DECLARE @CarpenterID INT, @ItemID INT;
+
+    
+    SELECT @CarpenterID = CarpenterID, @ItemID = ItemID
+    FROM WorkRequests
+    WHERE RequestID = @RequestID;
+
+   
+    UPDATE WorkRequests
+    SET Status = 'Approved'
+    WHERE RequestID = @RequestID;
+END;
+
+EXEC ApproveWorkRequest @RequestID = 2;

@@ -23,7 +23,9 @@ async function workCarpenterRequest(req, res, next) {
         );
 
       if (existingRequest.recordset && existingRequest.recordset.length > 0) {
-        return next(new AppError("You have already requested this job", 400));
+        return next(
+          new AppError("You have already requested for this job", 400)
+        );
       }
 
       const itemExists = await pool
