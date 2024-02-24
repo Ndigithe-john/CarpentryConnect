@@ -250,31 +250,48 @@ async function getItemsByUserID(req, res, next) {
     return next(new AppError("There is a problem getting products", 400));
   }
 }
-async function getCapenterItemByID(req, res, next) {
+async function getCarpenterItemByID(req, res, next) {
   try {
     const { id } = req.params;
     const { pool } = req;
+
+    if (!/^[1-9]\d*$/.test(id)) {
+      return res.status(400).json({
+        status: false,
+        message: "Invalid ItemID. ItemID must be a positive integer.",
+      });
+    }
     if (pool.connected) {
       const item_data = await pool
         .request()
         .input("ItemID", id)
-        .execute("getItem");
-      res.status(200).json({
-        status: true,
-        message: "item Fetched successfully",
-        data: item_data.recordsets,
-      });
+        .execute("GetCarpenterItemDetails");
+
+      if (item_data?.recordset?.length > 0) {
+        return res.status(200).json({
+          status: true,
+          message: "Item fetched successfully",
+          data: item_data.recordset[0],
+        });
+      } else {
+        return res.status(404).json({
+          status: false,
+          message: "Item not found",
+        });
+      }
     } else {
-      res.status(401).json({
+      return res.status(401).json({
         status: false,
         message: "Can't get your item at the moment",
       });
     }
   } catch (error) {
     console.log(error);
+
     return next(new AppError("There is a problem getting the Item", 500));
   }
 }
+
 module.exports = {
   carpenterPostItem,
   postItem,
@@ -283,5 +300,5 @@ module.exports = {
   deleteItems,
   getAllItems,
   getItemsByUserID,
-  getCapenterItemByID,
+  getCarpenterItemByID,
 };

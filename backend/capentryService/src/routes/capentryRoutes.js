@@ -9,6 +9,7 @@ const {
   deleteItems,
   carpenterPostItem,
   getItemsByUserID,
+  getCarpenterItemByID,
 } = require("../controllers/capentryControllers");
 const capentyService = require("../middlewares/capentryAuth");
 
@@ -20,4 +21,5 @@ postroutes.get("/userItems", getItemsByUserID);
 postroutes.patch("/update", updateWorkshopItemStatus);
 postroutes.delete("/delete", deleteItems);
 postroutes.post("/carpenterPost", carpenterPostItem);
+postroutes.get(`/item/:id`, getCarpenterItemByID);
 module.exports = postroutes;
