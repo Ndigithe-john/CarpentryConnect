@@ -275,7 +275,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF @UserType = 'WorkshopOwner' -- Assuming WorkshopOwnerID is used in WorkshopItems
+    IF @UserType = 'WorkshopOwner' 
     BEGIN
         SELECT
             ItemID,
@@ -291,7 +291,7 @@ BEGIN
         WHERE
             WorkshopOwnerID = @UserID;
     END
-    ELSE IF @UserType = 'Carpenter' -- Assuming CarpenterID is used in CarpentersItems
+    ELSE IF @UserType = 'Carpenter' 
     BEGIN
         SELECT
             ItemID,
