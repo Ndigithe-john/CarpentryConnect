@@ -346,3 +346,68 @@ END;
 EXEC GetCarpenterItemDetails @ItemID = 7;
 
 EXEC GetWorkshopItemDetails @ItemID = 7;
+
+
+
+CREATE PROCEDURE RequestJob
+    @CarpenterID INT,
+    @ItemID INT,
+    @EstimatedCompletionDate DATE,
+    @AdditionalNotes NVARCHAR(MAX)
+AS
+BEGIN
+    -- Check if CarpenterID and ItemID are valid
+    IF NOT EXISTS (SELECT 1 FROM Users WHERE UserID = @CarpenterID)
+    BEGIN
+        PRINT 'Invalid CarpenterID';
+        RETURN;
+    END
+
+    IF NOT EXISTS (SELECT 1 FROM WorkshopItems WHERE ItemID = @ItemID)
+    BEGIN
+        PRINT 'Invalid ItemID';
+        RETURN;
+    END
+
+    -- Insert the request into WorkRequests table
+    INSERT INTO WorkRequests (
+        CarpenterID,
+        ItemID,
+        EstimatedCompletionDate,
+        AdditionalNotes,
+        QualificationLevel,
+        CarpenterEmail,
+        CarpenterPhoneNumber,
+        ImageURL,
+        ItemDescription,
+        Category,
+        Material,
+        ItemPrice,
+        RequiredDate
+    )
+    SELECT
+        @CarpenterID,
+        @ItemID,
+        @EstimatedCompletionDate,
+        @AdditionalNotes,
+        Users.QualificationLevel,
+        Users.Email,
+        Users.PhoneNumber,
+        WorkshopItems.ImageURL,
+        WorkshopItems.Description,
+        WorkshopItems.Category,
+        WorkshopItems.Material,
+        WorkshopItems.Price,
+        WorkshopItems.DateRequired
+    FROM Users
+    JOIN WorkshopItems ON @ItemID = WorkshopItems.ItemID
+    WHERE Users.UserID = @CarpenterID;
+END;
+
+EXEC RequestJob
+    @CarpenterID = 1034,
+    @ItemID = 7,      
+    @EstimatedCompletionDate = '2024-03-10',  
+    @AdditionalNotes = 'Please complete the job as soon as possible.'; 
+
+
