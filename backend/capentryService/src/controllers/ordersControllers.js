@@ -14,6 +14,18 @@ async function workCarpenterRequest(req, res, next) {
     }
 
     if (pool.connected) {
+      const existingRequest = await pool
+        .request()
+        .input("CarpenterID", user.id)
+        .input("ItemID", ItemID)
+        .query(
+          "SELECT TOP 1 1 FROM WorkRequests WHERE CarpenterID = @CarpenterID AND ItemID = @ItemID"
+        );
+
+      if (existingRequest.recordset && existingRequest.recordset.length > 0) {
+        return next(new AppError("You have already requested this job", 400));
+      }
+
       const itemExists = await pool
         .request()
         .input("ItemID", ItemID)
