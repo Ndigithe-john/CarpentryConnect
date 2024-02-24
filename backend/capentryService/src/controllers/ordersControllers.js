@@ -61,5 +61,8 @@ async function workCarpenterRequest(req, res, next) {
     return next(new AppError("Internal server error", 500));
   }
 }
-
-module.exports = { workCarpenterRequest };
+async function approveJobRequest(req, res, next) {
+  try {
+  } catch (error) {}
+}
+module.exports = { workCarpenterRequest, approveJobRequest };
