@@ -250,7 +250,12 @@ async function getItemsByUserID(req, res, next) {
     return next(new AppError("There is a problem getting products", 400));
   }
 }
-
+async function getItemByID(req, res, next) {
+  try {
+    const user = req.user;
+    const { pool } = req;
+  } catch (error) {}
+}
 module.exports = {
   carpenterPostItem,
   postItem,
@@ -259,4 +264,5 @@ module.exports = {
   deleteItems,
   getAllItems,
   getItemsByUserID,
+  getItemByID,
 };
