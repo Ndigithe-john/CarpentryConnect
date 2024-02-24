@@ -78,24 +78,3 @@ FROM WorkRequests
 JOIN WorkshopItems ON WorkRequests.ItemID = WorkshopItems.ItemID;
 
 
--- Stored procedure to ApproveWork
-CREATE PROCEDURE ApproveWorkRequest
-    @RequestID INT
-AS
-BEGIN
-   
-    DECLARE @CarpenterID INT, @ItemID INT;
-
-    
-    SELECT @CarpenterID = CarpenterID, @ItemID = ItemID
-    FROM WorkRequests
-    WHERE RequestID = @RequestID;
-
-   
-    UPDATE WorkRequests
-    SET Status = 'Approved'
-    WHERE RequestID = @RequestID;
-END;
-
-EXEC ApproveWorkRequest @RequestID = 2;
-
