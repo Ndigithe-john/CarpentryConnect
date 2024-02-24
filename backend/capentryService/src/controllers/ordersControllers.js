@@ -63,6 +63,22 @@ async function workCarpenterRequest(req, res, next) {
 }
 async function approveJobRequest(req, res, next) {
   try {
-  } catch (error) {}
+    const { pool } = req;
+
+    const { RequestID } = req.body;
+    if (pool.connected) {
+      const job_approve = await pool
+        .request()
+        .input("RequestID", RequestID)
+        .execute("ApproveWorkRequest");
+      res.status(200).json({
+        status: true,
+        message: "Job Request Apporved successfully",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Internal Server error", 500));
+  }
 }
 module.exports = { workCarpenterRequest, approveJobRequest };
