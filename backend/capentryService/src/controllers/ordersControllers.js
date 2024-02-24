@@ -5,9 +5,8 @@ async function workCarpenterRequest(req, res, next) {
     const job_body = req.body;
     const { pool } = req;
     const user = req.user;
-    const {} = job_body;
+    const { ItemID, EstimatedCompletionDate, AdditionalNotes } = job_body;
     if (pool.connected) {
-      console.log("Make a job request");
       const job_request = await pool
         .request()
         .input("CarpenterID", user.UserID)
@@ -28,4 +27,4 @@ async function workCarpenterRequest(req, res, next) {
   }
 }
 
-exports.module = { workCarpenterRequest };
+module.exports = { workCarpenterRequest };

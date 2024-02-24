@@ -12,6 +12,7 @@ const {
   getCarpenterItemByID,
   getWorkshoItemByID,
 } = require("../controllers/capentryControllers");
+const { workCarpenterRequest } = require("../controllers/ordersControllers");
 const capentyService = require("../middlewares/capentryAuth");
 
 postroutes.use(capentyService);
@@ -24,4 +25,5 @@ postroutes.delete("/delete", deleteItems);
 postroutes.post("/carpenterPost", carpenterPostItem);
 postroutes.get(`/carpenterItem/:id`, getCarpenterItemByID);
 postroutes.get("/workshopItem/:item_id", getWorkshoItemByID);
+postroutes.post("/jobRequest", workCarpenterRequest);
 module.exports = postroutes;
