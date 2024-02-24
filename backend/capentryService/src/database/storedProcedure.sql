@@ -54,7 +54,6 @@ BEGIN
 
     SELECT
         ItemID,
-     WorkshopOwnerID
         ImageURL,
         Description,
         Category,
@@ -431,3 +430,22 @@ BEGIN
 END;
 
 EXEC ApproveWorkRequest @RequestID = 2;
+
+---Procedure to get all carpenter Items
+
+CREATE PROCEDURE GetAllCarpenterItems
+AS
+BEGIN
+    SELECT 
+        ItemID,
+        CarpenterID,
+        ImageURL,
+        Description,
+        Category,
+        Material
+    FROM CarpentersItems;
+END;
+
+
+-- Execute the stored procedure to get all items
+EXEC GetAllCarpenterItems;
