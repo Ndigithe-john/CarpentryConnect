@@ -6,4 +6,8 @@ const jobRequestSchema = joi.object({
   AdditionalNotes: joi.string().optional(),
 });
 
-module.exports = { jobRequestSchema };
+const jobApprovalSchema = joi.object({
+  RequestID: joi.number().required(),
+});
+
+module.exports = { jobRequestSchema, jobApprovalSchema };

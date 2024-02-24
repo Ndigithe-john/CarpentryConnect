@@ -1,4 +1,7 @@
-const { jobRequestSchema } = require("../model/jobRequestModal");
+const {
+  jobRequestSchema,
+  jobApprovalSchema,
+} = require("../model/jobRequestModal");
 
 function jobRequestValidator(body) {
   const new_job_request = jobRequestSchema.validate(body, {
@@ -11,5 +14,16 @@ function jobRequestValidator(body) {
     return new_job_request;
   }
 }
+function jobApprovalValidator(body) {
+  const job_request_approval = jobApprovalSchema.validate(body, {
+    abortEarly: false,
+  });
+  if (job_request_approval.error?.details?.length) {
+    let message = job_request_approval.error.details.map((err) => err.message);
+    throw new Error(message.join("\n"));
+  } else {
+    return job_request_approval;
+  }
+}
 
-module.exports = jobRequestValidator;
+module.exports = { jobRequestValidator, jobApprovalValidator };

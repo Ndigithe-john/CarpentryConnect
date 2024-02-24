@@ -1,5 +1,8 @@
 const AppError = require("../utils/appError");
-const jobRequestValidator = require("../validators/jobRequestValidator");
+const {
+  jobRequestValidator,
+  jobApprovalValidator,
+} = require("../validators/jobRequestValidator");
 
 async function workCarpenterRequest(req, res, next) {
   try {
@@ -61,26 +64,46 @@ async function workCarpenterRequest(req, res, next) {
     return next(new AppError("Internal server error", 500));
   }
 }
+
 async function approveJobRequest(req, res, next) {
   try {
     const { pool } = req;
-
     const { RequestID } = req.body;
+
+    // Validate the request body
+    const { Error } = jobApprovalValidator(req.body);
+    if (Error) {
+      return next(new AppError(Error.details[0].message, 400));
+    }
+
     if (pool.connected) {
       const job_approve = await pool
         .request()
         .input("RequestID", RequestID)
         .execute("ApproveWorkRequest");
+
+      if (job_approve.rowsAffected[0] === 0) {
+        return next(
+          new AppError("Job request not found or couldn't be approved", 404)
+        );
+      }
+
       res.status(200).json({
         status: true,
-        message: "Job Request Apporved successfully",
+        message: "Job Request Approved successfully",
       });
     } else {
-      return next(new AppError("Error appoving job request", 401));
+      return next(new AppError("Error connecting to the database", 500));
     }
   } catch (error) {
-    console.log(error);
-    return next(new AppError("Internal Server error", 500));
+    console.error(error);
+    if (error.message.includes("some_specific_error_condition")) {
+      return next(new AppError("Specific error message", 400));
+    }
+    res.status(500).send(error.message);
   }
 }
+
+module.exports = { approveJobRequest };
+
 module.exports = { workCarpenterRequest, approveJobRequest };
