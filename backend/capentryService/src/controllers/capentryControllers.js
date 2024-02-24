@@ -250,9 +250,8 @@ async function getItemsByUserID(req, res, next) {
     return next(new AppError("There is a problem getting products", 400));
   }
 }
-async function getItemByID(req, res, next) {
+async function getCapenterItemByID(req, res, next) {
   try {
-    const user = req.user;
     const { id } = req.params;
     const { pool } = req;
     if (pool.connected) {
@@ -260,6 +259,16 @@ async function getItemByID(req, res, next) {
         .request()
         .input("ItemID", id)
         .execute("getItem");
+      res.status(200).json({
+        status: true,
+        message: "item Fetched successfully",
+        data: item_data.recordsets,
+      });
+    } else {
+      res.status(401).json({
+        status: false,
+        message: "Can't get your item at the moment",
+      });
     }
   } catch (error) {
     console.log(error);
@@ -274,5 +283,5 @@ module.exports = {
   deleteItems,
   getAllItems,
   getItemsByUserID,
-  getItemByID,
+  getCapenterItemByID,
 };
