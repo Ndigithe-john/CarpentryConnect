@@ -75,6 +75,8 @@ async function approveJobRequest(req, res, next) {
         status: true,
         message: "Job Request Apporved successfully",
       });
+    } else {
+      return next(new AppError("Error appoving job request", 401));
     }
   } catch (error) {
     console.log(error);
