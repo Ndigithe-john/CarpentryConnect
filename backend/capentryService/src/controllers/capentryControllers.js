@@ -250,6 +250,44 @@ async function getItemsByUserID(req, res, next) {
     return next(new AppError("There is a problem getting products", 400));
   }
 }
+async function getWorkshoItemByID(req, res, next) {
+  try {
+    const { item_id } = req.params;
+    const { pool } = req;
+    if (!/^[1-9]\d*$/.test(item_id)) {
+      return res.status(400).json({
+        status: false,
+        message: "Invalid ItemID. ItemID must be of type int",
+      });
+    }
+    if (pool.connected) {
+      const item_data = await pool
+        .request()
+        .input("ItemID", item_id)
+        .execute("GetWorkshopItemDetails");
+      if (item_data.recordset?.length > 0) {
+        return res.status(200).json({
+          status: true,
+          message: "Item data fetched successfully",
+          data: item_data.recordset,
+        });
+      } else {
+        return res.status(404).json({
+          status: false,
+          message: "Item not found",
+        });
+      }
+    } else {
+      return res.status(404).json({
+        status: false,
+        message: "Get get the item at the moment. Please try again later",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Internal Server Error", 500));
+  }
+}
 async function getCarpenterItemByID(req, res, next) {
   try {
     const { id } = req.params;
@@ -288,7 +326,7 @@ async function getCarpenterItemByID(req, res, next) {
   } catch (error) {
     console.log(error);
 
-    return next(new AppError("There is a problem getting the Item", 500));
+    return next(new AppError("Internal Server Error", 500));
   }
 }
 
@@ -301,4 +339,5 @@ module.exports = {
   getAllItems,
   getItemsByUserID,
   getCarpenterItemByID,
+  getWorkshoItemByID,
 };
