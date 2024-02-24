@@ -14,6 +14,7 @@ import Home from "./components/Home";
 import Dashboard from "./components/DashBoard/Dashboard";
 import { useState } from "react";
 import ProfilePage from "./pages/ProfilePage";
+import ProductDetails from "./components/ProductDetails";
 function App() {
   const [userRole, setUserRole] = useState("");
   const updateUserRole = (role) => {
@@ -27,6 +28,10 @@ function App() {
     {
       path: "/home",
       element: <Home userRole={userRole} />,
+    },
+    {
+      path: "/item/id",
+      element: <ProductDetails />,
     },
     {
       path: "/profile",
