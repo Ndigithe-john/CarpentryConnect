@@ -253,8 +253,18 @@ async function getItemsByUserID(req, res, next) {
 async function getItemByID(req, res, next) {
   try {
     const user = req.user;
+    const { id } = req.params;
     const { pool } = req;
-  } catch (error) {}
+    if (pool.connected) {
+      const item_data = await pool
+        .request()
+        .input("ItemID", id)
+        .execute("getItem");
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("There is a problem getting the Item", 500));
+  }
 }
 module.exports = {
   carpenterPostItem,

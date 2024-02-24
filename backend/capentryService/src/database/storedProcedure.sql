@@ -312,3 +312,37 @@ EXEC GetItemsByUserID @UserID = 1033, @UserType = 'WorkshopOwner';
 
 -- Example: Get CarpentersItems for a user
 EXEC GetItemsByUserID @UserID = 456, @ItemType = 'Carpenter';
+
+-- Procedure to get Carpenter Item Details by Id
+
+CREATE PROCEDURE GetCarpenterItemDetails
+    @ItemID INT
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM CarpentersItems WHERE ItemID = @ItemID)
+    BEGIN
+        SELECT * FROM CarpentersItems WHERE ItemID = @ItemID;
+    END
+    ELSE
+    BEGIN
+        PRINT 'ItemID not found in CarpentersItems.';
+    END
+END;
+--Procedure to Get Workshop Items by ID
+CREATE PROCEDURE GetWorkshopItemDetails
+    @ItemID INT
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM WorkshopItems WHERE ItemID = @ItemID)
+    BEGIN
+        SELECT * FROM WorkshopItems WHERE ItemID = @ItemID;
+    END
+    ELSE
+    BEGIN
+        PRINT 'ItemID not found in WorkshopItems.';
+    END
+END;
+
+EXEC GetCarpenterItemDetails @ItemID = 7;
+
+EXEC GetWorkshopItemDetails @ItemID = 7;
