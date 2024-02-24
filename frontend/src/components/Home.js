@@ -37,7 +37,13 @@ const Home = ({ userRole }) => {
       {isModalOpen && <AccountAboutModal />}
 
       <DisplayContainer />
-      {userRole === "Carpenter" ? <Products /> : ""}
+      {userRole === "Carpenter" ? (
+        <h3 className="job_listing">Job Listing</h3>
+      ) : (
+        <h3 className="job_listing">Carpenters Posts</h3>
+      )}
+
+      <Products userRole={userRole} />
     </>
   );
 };

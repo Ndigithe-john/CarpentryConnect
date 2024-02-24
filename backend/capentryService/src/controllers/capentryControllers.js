@@ -330,6 +330,29 @@ async function getCarpenterItemByID(req, res, next) {
   }
 }
 
+async function getCarpenterPosts(req, res, next) {
+  try {
+    const { pool } = req;
+    if (pool.connected) {
+      const results = await pool.request().execute("GetAllCarpenterItems");
+      res.status(200).json({
+        status: true,
+        message: "Fetched carpenter's posts successfully",
+        data: results.recordset,
+      });
+    } else {
+      return res.status(404).json({
+        status: false,
+        message:
+          "Unable to process your request at the moment. Please try again later",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Internal Server Error", 500));
+  }
+}
+
 module.exports = {
   carpenterPostItem,
   postItem,
@@ -340,4 +363,5 @@ module.exports = {
   getItemsByUserID,
   getCarpenterItemByID,
   getWorkshoItemByID,
+  getCarpenterPosts,
 };

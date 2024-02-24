@@ -374,3 +374,10 @@ button:hover {
 .home_nav {
   margin-top: -12vh;
 }
+
+.job_listing {
+  font-style: italic;
+  color: var(--color-text-wheat);
+  font-size: 20px;
+  text-align: center;
+}
