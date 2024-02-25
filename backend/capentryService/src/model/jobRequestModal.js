@@ -10,4 +10,8 @@ const jobApprovalSchema = joi.object({
   RequestID: joi.number().required(),
 });
 
-module.exports = { jobRequestSchema, jobApprovalSchema };
+const jobRejectSchema = joi.object({
+  RequestID: joi.number().required(),
+});
+
+module.exports = { jobRequestSchema, jobApprovalSchema, jobRejectSchema };

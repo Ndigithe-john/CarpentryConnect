@@ -106,7 +106,9 @@ async function approveJobRequest(req, res, next) {
 
 async function rejectJobRequest(req, res, next) {
   try {
+    const { pool } = req;
+    const { RequestID } = req.body;
   } catch (error) {}
 }
 
-module.exports = { workCarpenterRequest, approveJobRequest };
+module.exports = { workCarpenterRequest, approveJobRequest, rejectJobRequest };
