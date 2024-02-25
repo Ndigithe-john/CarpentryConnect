@@ -17,10 +17,12 @@ const AboutItem = ({ item, children }) => {
       <div className="capentryDetails">
         <h1>Capenter Details</h1>
         <h4>RequestDate: {item.RequestDate}</h4>
+        <h4>EstimatedCompletionDate: {item.EstimatedCompletionDate}</h4>
         <h4>CapenterID: {item.CarpenterID}</h4>
         <h4>CapenterName: {item.CarpenterName}</h4>
         <h4>Email: {item.CarpenterEmail}</h4>
         <h4>Qualification: {item.QualificationLevel}</h4>
+        <h4>CarpenterNote: {item.AdditionalNotes}</h4>
 
         {children}
       </div>

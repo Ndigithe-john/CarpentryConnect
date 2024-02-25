@@ -361,7 +361,6 @@ button:hover {
 .pending_approval_buttons {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 15vh;
 }
 .pending_approval_buttons button {
   height: 4vh;
