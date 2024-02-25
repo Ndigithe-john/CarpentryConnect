@@ -7,6 +7,8 @@ const ProductDetails = () => {
   const [productDetails, setProductDetails] = useState({});
   const [minDate, setMinDate] = useState(getCurrentDate());
   const [selectedDate, setSelectedDate] = useState("");
+  const [additionalNotes, setAdditionalNotes] = useState("");
+  const [applicationSuccess, setApplicationSuccess] = useState(false);
 
   function getCurrentDate() {
     const currentDate = new Date().toISOString().split("T")[0];
@@ -35,6 +37,29 @@ const ProductDetails = () => {
       setSelectedDate(selected);
     } else {
       setSelectedDate("");
+    }
+  };
+
+  const handleNotesChange = (e) => {
+    setAdditionalNotes(e.target.value);
+  };
+
+  const applyForJob = async () => {
+    const apply_data = {
+      ItemID: productDetails.ItemID,
+      EstimatedCompletionDate: selectedDate,
+      AdditionalNotes: additionalNotes,
+    };
+    try {
+      await axios.post(`http://localhost:5050/users/jobRequest`, apply_data, {
+        withCredentials: true,
+      });
+
+      setApplicationSuccess(true);
+      setSelectedDate("");
+      setAdditionalNotes("");
+    } catch (error) {
+      console.error("Error applying for job:", error.message);
     }
   };
 
@@ -69,8 +94,15 @@ const ProductDetails = () => {
             type="text"
             className="input_item_specific"
             placeholder="Input a Short Description to be noted"
+            onChange={handleNotesChange}
           />
-          <button className="button_item_specific">Apply For Job</button>
+          {applicationSuccess ? (
+            <h5 className="success_message">Application successful</h5>
+          ) : (
+            <button className="button_item_specific" onClick={applyForJob}>
+              Apply For Job
+            </button>
+          )}
         </div>
       </div>
     </div>
