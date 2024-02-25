@@ -365,15 +365,13 @@ async function getWorkShopPending(req, res, next) {
       res.status(200).json({
         status: true,
         message: "Pending items fetched successfully",
-        data: results.recordsets,
+        data: results.recordsets[0],
       });
     } else {
-      return res
-        .status(404)
-        .json({
-          status: false,
-          message: "An error occured while fetching pending items",
-        });
+      return res.status(404).json({
+        status: false,
+        message: "An error occured while fetching pending items",
+      });
     }
   } catch (error) {
     console.log(error);

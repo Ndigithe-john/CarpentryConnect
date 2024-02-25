@@ -503,3 +503,35 @@ BEGIN
         AND wi.WorkshopOwnerID = @WorkshopOwnerID;
 END;
 EXEC GetPendingWorkRequestsForWorkshopOwner @WorkshopOwnerID=1033;
+
+
+CREATE PROCEDURE GetApprovedWorkRequestsForWorkshopOwner
+    @WorkshopOwnerID INT
+AS
+BEGIN
+    SELECT
+        wr.RequestID,
+        wr.CarpenterID,
+        wr.ItemID,
+        wr.RequestDate,
+        wr.EstimatedCompletionDate,
+        wr.AdditionalNotes,
+        wr.QualificationLevel,
+        wr.CarpenterEmail,
+        wr.CarpenterPhoneNumber,
+        wr.ImageURL,
+        wr.ItemDescription,
+        wr.Category,
+        wr.Material,
+        wr.ItemPrice,
+        wr.RequiredDate
+    FROM
+        WorkRequests wr
+    JOIN
+        WorkshopItems wi ON wr.ItemID = wi.ItemID
+    WHERE
+        wr.Status = 'Approved'
+        AND wi.WorkshopOwnerID = @WorkshopOwnerID;
+END;
+
+EXEC GetApprovedWorkRequestsForWorkshopOwner @WorkshopOwnerID=1033;

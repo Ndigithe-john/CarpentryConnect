@@ -12,6 +12,7 @@ const {
   getCarpenterItemByID,
   getWorkshoItemByID,
   getCarpenterPosts,
+  getWorkShopPending,
 } = require("../controllers/capentryControllers");
 const {
   workCarpenterRequest,
@@ -30,6 +31,7 @@ postroutes.post("/carpenterPost", carpenterPostItem);
 postroutes.get(`/carpenterItem/:id`, getCarpenterItemByID);
 postroutes.get("/workshopItem/:item_id", getWorkshoItemByID);
 postroutes.get("/carpenterPosts", getCarpenterPosts);
+postroutes.get("/workshopPending", getWorkShopPending);
 postroutes.post("/jobRequest", workCarpenterRequest);
 postroutes.post("/approveJobRequest", approveJobRequest);
 module.exports = postroutes;
