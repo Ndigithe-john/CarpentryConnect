@@ -353,6 +353,34 @@ async function getCarpenterPosts(req, res, next) {
   }
 }
 
+async function getWorkShopPending(req, res, next) {
+  try {
+    const { pool } = req;
+    const user = req.user;
+    if (pool.connected) {
+      const results = await pool
+        .request()
+        .input("WorkshopOwnerID", user.id)
+        .execute("GetPendingWorkRequestsForWorkshopOwner");
+      res.status(200).json({
+        status: true,
+        message: "Pending items fetched successfully",
+        data: results.recordsets,
+      });
+    } else {
+      return res
+        .status(404)
+        .json({
+          status: false,
+          message: "An error occured while fetching pending items",
+        });
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Internal Server Error", 500));
+  }
+}
+
 module.exports = {
   carpenterPostItem,
   postItem,
@@ -364,4 +392,5 @@ module.exports = {
   getCarpenterItemByID,
   getWorkshoItemByID,
   getCarpenterPosts,
+  getWorkShopPending,
 };
