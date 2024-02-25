@@ -22,9 +22,27 @@ const ProductDetails = () => {
   }, [ItemID]);
 
   return (
-    <div>
-      <h2>Item Details</h2>
-      <img src={productDetails.ImageURL} alt="item_image" />
+    <div className="item_specific_container">
+      <div className="item_specific_heading">
+        <h1>Item Details</h1>
+      </div>
+      <div className="item_specific_body">
+        <div>
+          <img
+            src={productDetails.ImageURL}
+            alt="item_image"
+            className="item_specific_image"
+          />
+        </div>
+        <div className="item_specific_about">
+          <h2>Item Category: {productDetails.Category}</h2>
+          <h2>Item Material: {productDetails.Material}</h2>
+          <h2>Item Description: {productDetails.Description}</h2>
+          <h2>Item DateRequired: {productDetails.DateRequired}</h2>
+          <h2>Item Price: Ksh {productDetails.Price}</h2>
+          <div></div>
+        </div>
+      </div>
     </div>
   );
 };

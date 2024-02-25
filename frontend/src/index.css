@@ -381,3 +381,39 @@ button:hover {
   font-size: 20px;
   text-align: center;
 }
+.item_specific_container {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  align-items: center;
+  margin-top: 4vh;
+}
+.item_specific_heading h1 {
+  color: var(--color-text-wheat);
+  font-size: 35px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-style: italic;
+}
+.item_specific_body {
+  display: flex;
+  flex-direction: row;
+  gap: 3vw;
+  width: 95vw;
+}
+.item_specific_image {
+  width: 50vw;
+  height: 70vh;
+  border-radius: 20px;
+}
+.item_specific_about {
+  margin-top: 3vh;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+.item_specific_about h2 {
+  color: var(--color-text-wheat);
+  font-style: italic;
+  font-size: 20px;
+  font-family: sans-serif;
+}
