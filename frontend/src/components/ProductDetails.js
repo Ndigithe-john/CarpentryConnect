@@ -8,7 +8,9 @@ const ProductDetails = () => {
   const [minDate, setMinDate] = useState(getCurrentDate());
   const [selectedDate, setSelectedDate] = useState("");
   const [additionalNotes, setAdditionalNotes] = useState("");
-  const [applicationSuccess, setApplicationSuccess] = useState(false);
+  const [applicationSuccess, setApplicationSuccess] = useState(
+    localStorage.getItem(`applicationSuccess-${ItemID}`) === "true"
+  );
 
   function getCurrentDate() {
     const currentDate = new Date().toISOString().split("T")[0];
@@ -56,6 +58,7 @@ const ProductDetails = () => {
       });
 
       setApplicationSuccess(true);
+      localStorage.setItem(`applicationSuccess-${ItemID}`, "true");
       setSelectedDate("");
       setAdditionalNotes("");
     } catch (error) {
@@ -97,7 +100,9 @@ const ProductDetails = () => {
             onChange={handleNotesChange}
           />
           {applicationSuccess ? (
-            <h5 className="success_message">Application successful</h5>
+            <h5 className="success_message">
+              Applied for the Job successfully
+            </h5>
           ) : (
             <button className="button_item_specific" onClick={applyForJob}>
               Apply For Job

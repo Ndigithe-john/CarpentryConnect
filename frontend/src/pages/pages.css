@@ -163,3 +163,9 @@
   color: white;
   font-style: italic;
 }
+.success_message {
+  color: green;
+  font-style: italic;
+  font-size: 20px;
+  text-align: center;
+}
