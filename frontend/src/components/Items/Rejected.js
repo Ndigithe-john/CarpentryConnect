@@ -8,9 +8,10 @@ const Rejected = () => {
     const fetchRejectedItems = async () => {
       try {
         const response = await axios.get(
-          "localhost:5050/users/workshopRejected",
+          "http://localhost:5050/users/workshopRejected",
           { withCredentials: true }
         );
+
         setRejectedItems(response.data.data);
       } catch (error) {
         console.log("Error fetching rejected items:", error.message);

@@ -16,6 +16,7 @@ const AboutItem = ({ item, children }) => {
       </div>
       <div className="capentryDetails">
         <h1>Capenter Details</h1>
+        <h4>RequestID: {item.RequestID}</h4>
         <h4>RequestDate: {item.RequestDate}</h4>
         <h4>EstimatedCompletionDate: {item.EstimatedCompletionDate}</h4>
         <h4>CapenterID: {item.CarpenterID}</h4>

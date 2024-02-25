@@ -4,6 +4,7 @@ import AboutItem from "./AboutItem";
 
 const PendingItem = ({ item }) => {
   const [isApproved, setIsApproved] = useState(false);
+  const [isRejected, setIsRejected] = useState(false);
 
   const handleApprove = async () => {
     try {
@@ -18,13 +19,30 @@ const PendingItem = ({ item }) => {
     }
   };
 
+  const handleReject = async () => {
+    try {
+      await axios.post(
+        "http://localhost:5050/users/rejectJobRequest",
+        { RequestID: item.RequestID },
+        { withCredentials: true }
+      );
+      setIsRejected(true);
+    } catch (error) {
+      console.error("Error rejecting job request:", error.message);
+    }
+  };
+
   return (
     <AboutItem item={item}>
       {isApproved ? (
         <p className="approval_status">Job Request Approved</p>
+      ) : isRejected ? (
+        <p className="rejection_status">Job Request Rejected</p>
       ) : (
         <div className="pending_approval_buttons">
-          <button style={{ cursor: "pointer" }}>reject</button>
+          <button onClick={handleReject} style={{ cursor: "pointer" }}>
+            Reject
+          </button>
           <button onClick={handleApprove} style={{ cursor: "pointer" }}>
             Approve
           </button>

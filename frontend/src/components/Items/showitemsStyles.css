@@ -58,3 +58,17 @@ tbody tr:nth-child(even) {
 tbody tr:hover {
   background-color: rgb(248, 251, 251);
 }
+.rejection_status {
+  color: red;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  font-style: italic;
+}
+.approval_status {
+  color: green;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  font-style: italic;
+}
