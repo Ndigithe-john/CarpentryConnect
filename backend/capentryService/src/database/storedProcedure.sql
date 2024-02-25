@@ -535,3 +535,39 @@ BEGIN
 END;
 
 EXEC GetApprovedWorkRequestsForWorkshopOwner @WorkshopOwnerID=1033;
+
+
+--Get rejected 
+CREATE PROCEDURE GetRejectedWorkRequestsForWorkshopOwner
+    @WorkshopOwnerID INT
+AS
+BEGIN
+    SELECT
+        wr.RequestID,
+        wr.CarpenterID,
+        wr.ItemID,
+        wr.RequestDate,
+        wr.EstimatedCompletionDate,
+        wr.AdditionalNotes,
+        wr.QualificationLevel,
+        wr.CarpenterEmail,
+        wr.CarpenterPhoneNumber,
+        wr.ImageURL,
+        wr.ItemDescription,
+        wr.Category,
+        wr.Material,
+        wr.ItemPrice,
+        wr.RequiredDate
+    FROM
+        WorkRequests wr
+    JOIN
+        WorkshopItems wi ON wr.ItemID = wi.ItemID
+    WHERE
+        wr.Status = 'Rejected'
+        AND wi.WorkshopOwnerID = @WorkshopOwnerID;
+END;
+
+
+
+EXEC GetRejectedWorkRequestsForWorkshopOwner @WorkshopOwnerID=1033;
+
