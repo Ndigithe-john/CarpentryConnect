@@ -2,6 +2,7 @@ const AppError = require("../utils/appError");
 const {
   jobRequestValidator,
   jobApprovalValidator,
+  jobRejectValidator,
 } = require("../validators/jobRequestValidator");
 
 async function workCarpenterRequest(req, res, next) {
@@ -108,7 +109,32 @@ async function rejectJobRequest(req, res, next) {
   try {
     const { pool } = req;
     const { RequestID } = req.body;
-  } catch (error) {}
+    const { value, error } = jobRejectValidator(req.body);
+    console.log(value);
+    if (error) {
+      return next(new AppError(Error.details[0].message, 400));
+    }
+    if (pool.connected) {
+      const job_reject = await pool
+        .request()
+        .input("RequestID", RequestID)
+        .execute("RejectWorkRequest");
+      if (job_reject.rowsAffected[0] === 0) {
+        return next(
+          new AppError("Job reject not found or couldn't be approved", 404)
+        );
+      }
+      res.status(200).json({
+        status: true,
+        message: "Job Request Rejected successfully",
+      });
+    } else {
+      return next(new AppError("Error connecting to the database", 500));
+    }
+  } catch (error) {
+    console.log(error.message);
+    return next(new AppError("Internal Server Error", 500));
+  }
 }
 
 module.exports = { workCarpenterRequest, approveJobRequest, rejectJobRequest };
