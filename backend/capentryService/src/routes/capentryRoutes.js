@@ -19,6 +19,7 @@ const {
 const {
   workCarpenterRequest,
   approveJobRequest,
+  rejectJobRequest,
 } = require("../controllers/ordersControllers");
 const capentyService = require("../middlewares/capentryAuth");
 
@@ -36,6 +37,7 @@ postroutes.get("/carpenterPosts", getCarpenterPosts);
 postroutes.get("/workshopPending", getWorkShopPending);
 postroutes.post("/jobRequest", workCarpenterRequest);
 postroutes.post("/approveJobRequest", approveJobRequest);
+postroutes.post("/rejectJobRequest", rejectJobRequest);
 postroutes.get("/workshopApproved", getWorkshopApproved);
 postroutes.get("/workshopRejected", getRejectedApproval);
 module.exports = postroutes;

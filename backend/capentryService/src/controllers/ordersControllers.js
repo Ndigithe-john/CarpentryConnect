@@ -133,7 +133,7 @@ async function rejectJobRequest(req, res, next) {
     }
   } catch (error) {
     console.log(error.message);
-    return next(new AppError("Internal Server Error", 500));
+    return next(new AppError(error.message, 500));
   }
 }
 
