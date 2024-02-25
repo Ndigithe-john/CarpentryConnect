@@ -15,7 +15,7 @@ async function postItem(req, res, next) {
     if (pool.connected) {
       let new_posts = await pool
         .request()
-        .input("WorkshopOwnerID", user.UserID)
+        .input("WorkshopOwnerID", user.id)
         .input("ImageURL", ImageURL)
         .input("Description", Description)
         .input("Category", Category)
