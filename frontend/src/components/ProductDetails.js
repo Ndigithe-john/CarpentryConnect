@@ -40,7 +40,14 @@ const ProductDetails = () => {
           <h2>Item Description: {productDetails.Description}</h2>
           <h2>Item DateRequired: {productDetails.DateRequired}</h2>
           <h2>Item Price: Ksh {productDetails.Price}</h2>
-          <div></div>
+          <label>Estimated completion date</label>
+          <input type="date" className="input_item_specific" />
+          <input
+            type="text"
+            className="input_item_specific"
+            placeholder="Input a Short Description to be noted"
+          />
+          <button className="button_item_specific">Apply For Job</button>
         </div>
       </div>
     </div>

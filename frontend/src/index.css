@@ -411,9 +411,32 @@ button:hover {
   flex-direction: column;
   gap: 3vh;
 }
+.item_specific_about label {
+  color: white;
+  font-style: italic;
+}
+.item_specific_about input {
+  font-size: 12px;
+}
 .item_specific_about h2 {
   color: var(--color-text-wheat);
   font-style: italic;
   font-size: 20px;
   font-family: sans-serif;
+}
+.input_item_specific {
+  width: 100%;
+  height: 4vh;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+.button_item_specific {
+  width: 100%;
+  height: 4vh;
+  border: none;
+  outline: none;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
 }
