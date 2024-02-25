@@ -5,6 +5,13 @@ import axios from "axios";
 const ProductDetails = () => {
   const { ItemID } = useParams();
   const [productDetails, setProductDetails] = useState({});
+  const [minDate, setMinDate] = useState(getCurrentDate());
+  const [selectedDate, setSelectedDate] = useState("");
+
+  function getCurrentDate() {
+    const currentDate = new Date().toISOString().split("T")[0];
+    return currentDate;
+  }
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -20,6 +27,16 @@ const ProductDetails = () => {
 
     fetchProductDetails();
   }, [ItemID]);
+
+  const handleDateChange = (e) => {
+    const selected = e.target.value;
+
+    if (selected >= getCurrentDate()) {
+      setSelectedDate(selected);
+    } else {
+      setSelectedDate("");
+    }
+  };
 
   return (
     <div className="item_specific_container">
@@ -41,7 +58,13 @@ const ProductDetails = () => {
           <h2>Item DateRequired: {productDetails.DateRequired}</h2>
           <h2>Item Price: Ksh {productDetails.Price}</h2>
           <label>Estimated completion date</label>
-          <input type="date" className="input_item_specific" />
+          <input
+            type="date"
+            className="input_item_specific"
+            min={minDate}
+            value={selectedDate}
+            onChange={handleDateChange}
+          />
           <input
             type="text"
             className="input_item_specific"
