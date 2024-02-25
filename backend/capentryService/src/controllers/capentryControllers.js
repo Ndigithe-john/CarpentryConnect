@@ -404,6 +404,10 @@ async function getWorkshopApproved(req, res, next) {
     return next(new AppError("Internal Server Error", 500));
   }
 }
+async function getRejectedApproval(req, res, next) {
+  try {
+  } catch (error) {}
+}
 module.exports = {
   carpenterPostItem,
   postItem,
@@ -417,4 +421,5 @@ module.exports = {
   getCarpenterPosts,
   getWorkShopPending,
   getWorkshopApproved,
+  getRejectedApproval,
 };
