@@ -431,6 +431,27 @@ END;
 
 EXEC ApproveWorkRequest @RequestID = 2;
 
+
+--Procedure to reject work request
+CREATE PROCEDURE RejectWorkRequest
+    @RequestID INT
+AS
+BEGIN
+   
+    DECLARE @CarpenterID INT, @ItemID INT;
+
+    
+    SELECT @CarpenterID = CarpenterID, @ItemID = ItemID
+    FROM WorkRequests
+    WHERE RequestID = @RequestID;
+
+   
+    UPDATE WorkRequests
+    SET Status = 'Rejected'
+    WHERE RequestID = @RequestID;
+END;
+
+EXEC RejectWorkRequest @RequestID = 10;
 ---Procedure to get all carpenter Items
 
 CREATE PROCEDURE GetAllCarpenterItems

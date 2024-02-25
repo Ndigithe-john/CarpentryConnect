@@ -104,6 +104,9 @@ async function approveJobRequest(req, res, next) {
   }
 }
 
-module.exports = { approveJobRequest };
+async function rejectJobRequest(req, res, next) {
+  try {
+  } catch (error) {}
+}
 
 module.exports = { workCarpenterRequest, approveJobRequest };
