@@ -449,3 +449,57 @@ END;
 
 -- Execute the stored procedure to get all items
 EXEC GetAllCarpenterItems;
+
+
+CREATE OR ALTER PROCEDURE GetPendingItems
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        ItemID,
+        ImageURL,
+        Description,
+        Category,
+        Material,
+        DateRequired,
+        Price,
+        Status
+       FROM
+        WorkshopItems
+    WHERE
+        Status = 'Pending';
+
+END;
+
+
+---Procedure to get the pending from a user
+CREATE PROCEDURE GetPendingWorkRequestsForWorkshopOwner
+    @WorkshopOwnerID INT
+AS
+BEGIN
+    SELECT
+        wr.RequestID,
+        wr.CarpenterID,
+        wr.ItemID,
+        wr.RequestDate,
+        wr.EstimatedCompletionDate,
+        wr.AdditionalNotes,
+        wr.QualificationLevel,
+        wr.CarpenterEmail,
+        wr.CarpenterPhoneNumber,
+        wr.ImageURL,
+        wr.ItemDescription,
+        wr.Category,
+        wr.Material,
+        wr.ItemPrice,
+        wr.RequiredDate
+    FROM
+        WorkRequests wr
+    JOIN
+        WorkshopItems wi ON wr.ItemID = wi.ItemID
+    WHERE
+        wr.Status = 'PendingApproval'
+        AND wi.WorkshopOwnerID = @WorkshopOwnerID;
+END;
+EXEC GetPendingWorkRequestsForWorkshopOwner @WorkshopOwnerID=1033;
