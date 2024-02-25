@@ -409,7 +409,10 @@ async function getRejectedApproval(req, res, next) {
     const { pool } = req;
     const user = req.user;
     if (pool.connected) {
-      let results = await pool.request().input("", user.id).execute("");
+      let results = await pool
+        .request()
+        .input("WorkshopOwnerID", user.id)
+        .execute("GetRejectedWorkRequestsForWorkshopOwner");
       res.status(200).json({
         status: true,
         message: "Rejected requests fetched successfully",
