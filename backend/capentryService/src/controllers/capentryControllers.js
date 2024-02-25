@@ -379,6 +379,31 @@ async function getWorkShopPending(req, res, next) {
   }
 }
 
+async function getWorkshopApproved(req, res, next) {
+  try {
+    const { pool } = req;
+    const user = req.user;
+    if (pool.connected) {
+      const results = await pool
+        .request()
+        .input("WorkshopOwnerID", user.id)
+        .execute("GetApprovedWorkRequestsForWorkshopOwner");
+      res.status(200).json({
+        status: true,
+        message: "Fetched the approved Job successfully",
+        data: results.recordsets[0],
+      });
+    } else {
+      res.status(404).json({
+        status: false,
+        message: "Error loading resources",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Internal Server Error", 500));
+  }
+}
 module.exports = {
   carpenterPostItem,
   postItem,
@@ -391,4 +416,5 @@ module.exports = {
   getWorkshoItemByID,
   getCarpenterPosts,
   getWorkShopPending,
+  getWorkshopApproved,
 };
