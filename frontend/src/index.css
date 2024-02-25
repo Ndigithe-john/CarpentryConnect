@@ -412,7 +412,8 @@ button:hover {
   gap: 3vh;
 }
 .item_specific_about label {
-  color: white;
+  color: var(--color-text-wheat);
+  font-size: 15;
   font-style: italic;
 }
 .item_specific_about input {
