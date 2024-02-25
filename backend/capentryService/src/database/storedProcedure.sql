@@ -474,7 +474,7 @@ END;
 
 
 ---Procedure to get the pending from a user
-CREATE PROCEDURE GetPendingWorkRequestsForWorkshopOwner
+CREATE OR ALTER PROCEDURE GetPendingWorkRequestsForWorkshopOwner
     @WorkshopOwnerID INT
 AS
 BEGIN
@@ -487,6 +487,7 @@ BEGIN
         wr.AdditionalNotes,
         wr.QualificationLevel,
         wr.CarpenterEmail,
+        wr.CarpenterName,
         wr.CarpenterPhoneNumber,
         wr.ImageURL,
         wr.ItemDescription,
@@ -505,7 +506,7 @@ END;
 EXEC GetPendingWorkRequestsForWorkshopOwner @WorkshopOwnerID=1033;
 
 
-CREATE PROCEDURE GetApprovedWorkRequestsForWorkshopOwner
+CREATE OR ALTER PROCEDURE GetApprovedWorkRequestsForWorkshopOwner
     @WorkshopOwnerID INT
 AS
 BEGIN
@@ -518,6 +519,7 @@ BEGIN
         wr.AdditionalNotes,
         wr.QualificationLevel,
         wr.CarpenterEmail,
+         wr.CarpenterName,
         wr.CarpenterPhoneNumber,
         wr.ImageURL,
         wr.ItemDescription,
@@ -538,7 +540,7 @@ EXEC GetApprovedWorkRequestsForWorkshopOwner @WorkshopOwnerID=1033;
 
 
 --Get rejected 
-CREATE PROCEDURE GetRejectedWorkRequestsForWorkshopOwner
+CREATE OR ALTER PROCEDURE GetRejectedWorkRequestsForWorkshopOwner
     @WorkshopOwnerID INT
 AS
 BEGIN
@@ -551,6 +553,7 @@ BEGIN
         wr.AdditionalNotes,
         wr.QualificationLevel,
         wr.CarpenterEmail,
+         wr.CarpenterName,
         wr.CarpenterPhoneNumber,
         wr.ImageURL,
         wr.ItemDescription,
