@@ -406,7 +406,22 @@ async function getWorkshopApproved(req, res, next) {
 }
 async function getRejectedApproval(req, res, next) {
   try {
-  } catch (error) {}
+    const { pool } = req;
+    const user = req.user;
+    if (pool.connected) {
+      let results = await pool.request().input("", user.id).execute("");
+      res.status(200).json({
+        status: true,
+        message: "Rejected requests fetched successfully",
+        data: results.recordsets[0],
+      });
+    } else {
+      return next(new AppError("Unable to load resource at the moment", 404));
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Server not responding", 500));
+  }
 }
 module.exports = {
   carpenterPostItem,
