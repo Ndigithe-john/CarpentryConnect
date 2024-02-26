@@ -1,5 +1,26 @@
+import { useEffect, useState } from "react";
 import "./showitemsStyles.css";
+import axios from "axios";
+
 const CapenterList = ({ userRole }) => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    async function getUsers() {
+      try {
+        let apiURL = "http://localhost:4050/users/getWorkshopOwners";
+        if (userRole === "WorkshopOwner") {
+          apiURL = "http://localhost:4050/users/getCarpenters";
+        }
+        const response = await axios(apiURL);
+        setUsers(response.data.data);
+      } catch (error) {
+        console.error("Error fetching users:", error.message);
+      }
+    }
+    getUsers();
+  }, [userRole]);
+
   return (
     <div>
       <main className="table">
@@ -7,48 +28,44 @@ const CapenterList = ({ userRole }) => {
           {userRole === "Carpenter" ? (
             <h1>WorkshopOwners List</h1>
           ) : (
-            <h1>Capenters List</h1>
+            <h1>Carpenters List</h1>
           )}
         </section>
         <section className="table_body">
           <table>
             <thead>
-              {userRole === "WorkshopOwner" ? (
-                <>
-                  <tr>
-                    <th>CapenterID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>PhoneNumber</th>
-                    <th>Qualification</th>
-                  </tr>
-                </>
-              ) : (
-                <>
-                  <th>WorkshopOwnerID</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>PhoneNumber</th>
-                  <th>WorkshopName</th>
-                  <th>WorkshopLocation</th>
-                </>
-              )}
+              <tr>
+                <th>CapenterID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>PhoneNumber</th>
+                {userRole === "WorkshopOwner" && <th>Qualification</th>}
+                {userRole === "Carpenter" && (
+                  <>
+                    <th>WorkshopName</th>
+                    <th>WorkshopLocation</th>
+                  </>
+                )}
+              </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>12</td>
-                <td>John</td>
-                <td>johnnie@gmail.com</td>
-                <td>0789898989</td>
-                <td>Diploma</td>
-              </tr>
-              <tr>
-                <td>13</td>
-                <td>Mike</td>
-                <td>mikey@gmail.com</td>
-                <td>0767676767</td>
-                <td>Diploma</td>
-              </tr>
+              {users.map((user) => (
+                <tr key={user.UserID}>
+                  <td>{user.UserID}</td>
+                  <td>{user.FullName}</td>
+                  <td>{user.Email}</td>
+                  <td>{user.PhoneNumber}</td>
+                  {userRole === "WorkshopOwner" && (
+                    <td>{user.QualificationLevel}</td>
+                  )}
+                  {userRole === "Carpenter" && (
+                    <>
+                      <td>{user.WorkshopName}</td>
+                      <td>{user.WorkshopLocation}</td>
+                    </>
+                  )}
+                </tr>
+              ))}
             </tbody>
           </table>
         </section>
@@ -56,4 +73,5 @@ const CapenterList = ({ userRole }) => {
     </div>
   );
 };
+
 export default CapenterList;
