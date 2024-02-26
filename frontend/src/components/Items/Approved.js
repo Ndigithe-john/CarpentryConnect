@@ -8,10 +8,11 @@ const Approved = ({ userRole }) => {
   useEffect(() => {
     const fetchApprovedItems = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5050/users/workshopApproved",
-          { withCredentials: true }
-        );
+        let apiURL = "http://localhost:5050/users/workshopApproved";
+        if (userRole === "Carpenter") {
+          apiURL = "http://localhost:5050/users/carpenterApproved";
+        }
+        const response = await axios.get(apiURL, { withCredentials: true });
         setApprovedItems(response.data.data);
       } catch (error) {
         console.error("Error fetching approved items:", error.message);
