@@ -39,7 +39,7 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: <Dashboard />,
+      element: <Dashboard userRole={userRole} />,
       children: [
         {
           index: "index",

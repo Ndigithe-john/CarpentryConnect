@@ -2,7 +2,7 @@ import NavBar from "../NavBar";
 import DashBoardAside from "./DashBoardAside";
 import profile from "../../assets/profile.jpg";
 import { Outlet } from "react-router-dom";
-const Dashboard = () => {
+const Dashboard = ({ userRole }) => {
   return (
     <div className="container_dashboard">
       <NavBar
@@ -19,7 +19,7 @@ const Dashboard = () => {
         </div>
       </NavBar>
       <div className=" dashboard_container">
-        <DashBoardAside />
+        <DashBoardAside userRole={userRole} />
         <Outlet />
       </div>
     </div>

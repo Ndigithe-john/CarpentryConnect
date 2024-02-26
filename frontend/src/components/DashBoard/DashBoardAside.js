@@ -10,6 +10,7 @@ const DashBoardAside = ({ userRole }) => {
   function handleOpenOrders() {
     setOpenOrders((prev) => !prev);
   }
+  console.log(userRole);
   return (
     <div className="dashboard_aside_container">
       <h1>
@@ -53,20 +54,22 @@ const DashBoardAside = ({ userRole }) => {
         )}
       </div>
       <div className="about_orders">
-        {/* {userRole === "Carpenter" ? (
-          <>
-            <h3>
-              <Link
-                to="/dashboard/capenterslist"
-                style={{ textDecoration: "none", color: "#717c87" }}
-              >
-                WorkshopOwners
-              </Link>
-            </h3>
-          </>
+        {userRole === "Carpenter" ? (
+          <h3>
+            <Link
+              to="/dashboard/capenterslist"
+              style={{
+                textDecoration: "none",
+                color: "#717c87",
+                fontSize: "30px",
+              }}
+            >
+              WorkshopOwners
+            </Link>
+          </h3>
         ) : (
           ""
-        )} */}
+        )}
       </div>
       <div className="about_orders">
         <h3>
