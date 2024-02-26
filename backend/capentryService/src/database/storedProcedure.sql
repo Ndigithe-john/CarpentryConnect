@@ -621,3 +621,34 @@ BEGIN
         wr.Status = 'Rejected'
         AND wr.CarpenterID = @CarpenterID;
 END;
+
+---Carpenter Pending requests wait
+CREATE OR ALTER PROCEDURE GetPendingWorkRequestsForCarpenter
+    @CarpenterID INT
+AS
+BEGIN
+    SELECT
+        wr.RequestID,
+        wr.CarpenterID,
+        wr.ItemID,
+        wr.RequestDate,
+        wr.EstimatedCompletionDate,
+        wr.AdditionalNotes,
+        wr.QualificationLevel,
+        wr.CarpenterEmail,
+        wr.CarpenterName,
+        wr.CarpenterPhoneNumber,
+        wr.ImageURL,
+        wr.ItemDescription,
+        wr.Category,
+        wr.Material,
+        wr.ItemPrice,
+        wr.RequiredDate
+    FROM
+        WorkRequests wr
+    WHERE
+        wr.Status = 'PendingApproval'
+        AND wr.CarpenterID = @CarpenterID;
+END;
+
+
