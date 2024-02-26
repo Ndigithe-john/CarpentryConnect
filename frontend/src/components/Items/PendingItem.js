@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import AboutItem from "./AboutItem";
 
-const PendingItem = ({ item }) => {
+const PendingItem = ({ item, userRole }) => {
   const [isApproved, setIsApproved] = useState(false);
   const [isRejected, setIsRejected] = useState(false);
 
@@ -33,22 +33,20 @@ const PendingItem = ({ item }) => {
   };
 
   return (
-    <AboutItem item={item}>
-      {isApproved ? (
-        <p className="approval_status">Job Request Approved</p>
-      ) : isRejected ? (
-        <p className="rejection_status">Job Request Rejected</p>
-      ) : (
-        <div className="pending_approval_buttons">
-          <button onClick={handleReject} style={{ cursor: "pointer" }}>
-            Reject
-          </button>
-          <button onClick={handleApprove} style={{ cursor: "pointer" }}>
-            Approve
-          </button>
-        </div>
-      )}
-    </AboutItem>
+    <>
+      <AboutItem item={item}>
+        {!isApproved && !isRejected && userRole !== "Carpenter" && (
+          <div className="pending_approval_buttons">
+            <button onClick={handleReject} style={{ cursor: "pointer" }}>
+              Reject
+            </button>
+            <button onClick={handleApprove} style={{ cursor: "pointer" }}>
+              Approve
+            </button>
+          </div>
+        )}
+      </AboutItem>
+    </>
   );
 };
 

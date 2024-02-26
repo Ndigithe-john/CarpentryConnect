@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ApprovedItem from "./ApprovedItem";
 
-const Approved = () => {
+const Approved = ({ userRole }) => {
   const [approvedItems, setApprovedItems] = useState([]);
 
   useEffect(() => {

@@ -59,15 +59,15 @@ function App() {
         },
         {
           path: "pendingApproval",
-          element: <PendingApproval />,
+          element: <PendingApproval userRole={userRole} />,
         },
         {
           path: "approved",
-          element: <Approved />,
+          element: <Approved userRole={userRole} />,
         },
         {
           path: "rejected",
-          element: <Rejected />,
+          element: <Rejected userRole={userRole} />,
         },
         {
           path: "capenterslist",

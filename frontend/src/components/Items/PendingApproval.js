@@ -2,16 +2,19 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import PendingItem from "./PendingItem";
 
-const PendingApproval = () => {
+const PendingApproval = ({ userRole }) => {
   const [pendingItems, setPendingItems] = useState([]);
 
   useEffect(() => {
     const fetchPendingItems = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5050/users/workshopPending",
-          { withCredentials: true }
-        );
+        let apiUrl = "http://localhost:5050/users/workshopPending";
+
+        if (userRole === "Carpenter") {
+          apiUrl = "http://localhost:5050/users/carpenterPending";
+        }
+
+        const response = await axios.get(apiUrl, { withCredentials: true });
         console.log(response);
         setPendingItems(response.data.data);
       } catch (error) {
@@ -20,7 +23,7 @@ const PendingApproval = () => {
     };
 
     fetchPendingItems();
-  }, []);
+  }, [userRole]);
 
   return (
     <div className="pending_container">

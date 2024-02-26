@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import RejectedItem from "./RejectedItem";
-const Rejected = () => {
+const Rejected = ({ userRole }) => {
   const [rejectedItems, setRejectedItems] = useState([]);
 
   useEffect(() => {
     const fetchRejectedItems = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:5050/users/workshopRejected",
-          { withCredentials: true }
-        );
+        let apiURL = "http://localhost:5050/users/workshopRejected";
+        if (userRole === "Carpenter") {
+          apiURL = "http://localhost:5050/users/carpenterRejected";
+        }
+        const response = await axios.get(apiURL, { withCredentials: true });
+        console.log(response + apiURL);
 
         setRejectedItems(response.data.data);
       } catch (error) {
@@ -18,7 +20,7 @@ const Rejected = () => {
       }
     };
     fetchRejectedItems();
-  }, []);
+  }, [userRole]);
   return (
     <div className="pending_container">
       {rejectedItems.map((item) => (
