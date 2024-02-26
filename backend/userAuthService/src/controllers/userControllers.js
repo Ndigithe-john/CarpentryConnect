@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("../utils/getUser");
 const loginUserValidator = require("../validators/loginValidator");
 const sendMail = require("../utils/email");
+const { default: App } = require("../../../../frontend/src/App");
 
 async function signUp(req, res) {
   try {
@@ -103,6 +104,25 @@ async function login(req, res, next) {
   }
 }
 
+async function getCarpenters(req, res, next) {
+  try {
+    const { pool } = req;
+    if (pool.connected) {
+      const results = await pool.request().execute("GetCarpenters");
+      res.status(200).json({
+        status: true,
+        messsage: "Fetched all the carpenters successfully",
+        data: results.recordsets,
+      });
+    } else {
+      return next(new AppError("Error connecting to the database", 400));
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Internal Server Error", 500));
+  }
+}
+
 // async function login(req, res, next) {
 //   try {
 //     const login_body = req.body;
@@ -161,4 +181,4 @@ async function logout(req, res, next) {
     res.send(error.message);
   }
 }
-module.exports = { signUp, login, logout };
+module.exports = { signUp, login, logout, getCarpenters };
