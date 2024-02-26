@@ -434,7 +434,7 @@ async function getMyApprovedWorkRequests(req, res, next) {
     if (pool.connected) {
       const results = await pool
         .request()
-        .input("WorkshopOwnerID", user.id)
+        .input("CarpenterID", user.id)
         .execute("GetApprovedWorkRequestsForWorkshopOwner");
       res.status(200).json({
         status: true,
@@ -475,6 +475,31 @@ async function getMyRejectedWorkRequests(req, res, next) {
     return next(new AppError("Server not responding", 500));
   }
 }
+async function getMyPendingWorkRequest(req, res, next) {
+  try {
+    const { pool } = req;
+    const user = req.user;
+    if (pool.connected) {
+      const results = await pool
+        .request()
+        .input("CarpenterID", user.id)
+        .execute("GetPendingWorkRequestsForCarpenter");
+      res.status(200).json({
+        status: true,
+        message: "Pending items fetched successfully",
+        data: results.recordsets[0],
+      });
+    } else {
+      return res.status(404).json({
+        status: false,
+        message: "An error occured while fetching pending items",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Internal Server Error", 500));
+  }
+}
 module.exports = {
   carpenterPostItem,
   postItem,
@@ -491,4 +516,5 @@ module.exports = {
   getRejectedApproval,
   getMyRejectedWorkRequests,
   getMyApprovedWorkRequests,
+  getMyPendingWorkRequest,
 };
