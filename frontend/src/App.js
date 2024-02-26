@@ -71,7 +71,7 @@ function App() {
         },
         {
           path: "capenterslist",
-          element: <CapenterList />,
+          element: <CapenterList userRole={userRole} />,
         },
       ],
     },

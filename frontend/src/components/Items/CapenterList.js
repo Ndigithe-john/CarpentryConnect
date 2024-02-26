@@ -1,22 +1,38 @@
 import "./showitemsStyles.css";
-const CapenterList = () => {
+const CapenterList = ({ userRole }) => {
   return (
     <div>
       <main className="table">
         <section className="table_header">
-          <h1>CapentersList</h1>
+          {userRole === "Carpenter" ? (
+            <h1>WorkshopOwners List</h1>
+          ) : (
+            <h1>Capenters List</h1>
+          )}
         </section>
         <section className="table_body">
           <table>
             <thead>
-              <tr>
-                <th>CapenterID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>PhoneNumber</th>
-                <th>Qualification</th>
-                <th>Reviews</th>
-              </tr>
+              {userRole === "WorkshopOwner" ? (
+                <>
+                  <tr>
+                    <th>CapenterID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>PhoneNumber</th>
+                    <th>Qualification</th>
+                  </tr>
+                </>
+              ) : (
+                <>
+                  <th>WorkshopOwnerID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>PhoneNumber</th>
+                  <th>WorkshopName</th>
+                  <th>WorkshopLocation</th>
+                </>
+              )}
             </thead>
             <tbody>
               <tr>
@@ -25,7 +41,6 @@ const CapenterList = () => {
                 <td>johnnie@gmail.com</td>
                 <td>0789898989</td>
                 <td>Diploma</td>
-                <td>Star</td>
               </tr>
               <tr>
                 <td>13</td>
@@ -33,7 +48,6 @@ const CapenterList = () => {
                 <td>mikey@gmail.com</td>
                 <td>0767676767</td>
                 <td>Diploma</td>
-                <td>Star</td>
               </tr>
             </tbody>
           </table>
