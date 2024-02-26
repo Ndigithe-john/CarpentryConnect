@@ -111,7 +111,7 @@ async function getCarpenters(req, res, next) {
       res.status(200).json({
         status: true,
         messsage: "Fetched all the carpenters successfully",
-        data: results.recordsets,
+        data: results.recordsets[0],
       });
     } else {
       return next(new AppError("Error connecting to the database", 400));
@@ -166,7 +166,28 @@ async function getCarpenters(req, res, next) {
 //     res.send(error.message);
 //   }
 // }
-async function getWorkshopOwners(req, res, next) {}
+async function getWorkshopOwners(req, res, next) {
+  try {
+    const { pool } = req;
+    if (pool.connected) {
+      let results = await pool.request().execute("GetWorkShopOwners");
+      res.status(200).json({
+        status: true,
+        message: "Fetched Workshop Owners and workshop details successfully",
+        data: results.recordsets[0],
+      });
+    } else {
+      res.status(400).json({
+        status: false,
+        message: "Error fetching workshop information",
+        data: results.recordsets[0],
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Internal Server Error", 500));
+  }
+}
 
 async function logout(req, res, next) {
   try {
