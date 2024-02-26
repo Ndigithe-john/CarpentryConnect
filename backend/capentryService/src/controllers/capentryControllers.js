@@ -435,7 +435,7 @@ async function getMyApprovedWorkRequests(req, res, next) {
       const results = await pool
         .request()
         .input("CarpenterID", user.id)
-        .execute("GetApprovedWorkRequestsForWorkshopOwner");
+        .execute("GetCarpenterApprovedWorkRequests");
       res.status(200).json({
         status: true,
         message: "Fetched the approved Job successfully",
