@@ -68,7 +68,17 @@ const DashBoardAside = ({ userRole }) => {
             </Link>
           </h3>
         ) : (
-          ""
+          <h3>
+            <Link
+              to="/dashboard/capenterslist"
+              style={{
+                textDecoration: "none",
+                color: "#717c87",
+              }}
+            >
+              Carpenters
+            </Link>
+          </h3>
         )}
       </div>
       <div className="about_orders">

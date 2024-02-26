@@ -87,3 +87,38 @@ BEGIN
 
 END;
 EXEC GetUserByEmail @Email = 'john@gmail.com';
+
+--Procedure to get carpenters
+CREATE OR ALTER PROCEDURE GetCarpenters
+AS
+BEGIN
+    SELECT
+        UserID,
+        Email,
+        PhoneNumber,
+        QualificationLevel,
+        CONCAT(FirstName, ' ', LastName) AS FullName
+    FROM
+        Users
+    WHERE
+        Role = 'Carpenter';
+END;
+EXEC GetCarpenters;
+ 
+    CREATE OR ALTER PROCEDURE GetWorkShopOwners
+AS
+BEGIN
+    SELECT
+        UserID,
+        Email,
+        PhoneNumber,
+        WorkshopName,
+        WorkshopLocation, 
+        CONCAT(FirstName, ' ', LastName) AS FullName
+    FROM
+        Users
+    WHERE
+        Role = 'WorkshopOwner';
+END;
+
+EXEC GetWorkShopOwners
