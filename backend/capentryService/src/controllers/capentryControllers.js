@@ -426,6 +426,8 @@ async function getRejectedApproval(req, res, next) {
     return next(new AppError("Server not responding", 500));
   }
 }
+
+async function getMyRejectedApproval(req, res, next) {}
 module.exports = {
   carpenterPostItem,
   postItem,

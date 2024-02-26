@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-const DashBoardAside = () => {
+const DashBoardAside = ({ userRole }) => {
   const [openItems, setOpenItems] = useState(false);
   const [openOrders, setOpenOrders] = useState(false);
 
@@ -53,14 +53,20 @@ const DashBoardAside = () => {
         )}
       </div>
       <div className="about_orders">
-        <h3>
-          <Link
-            to="/dashboard/capenterslist"
-            style={{ textDecoration: "none", color: "#717c87" }}
-          >
-            Capenters
-          </Link>
-        </h3>
+        {/* {userRole === "Carpenter" ? (
+          <>
+            <h3>
+              <Link
+                to="/dashboard/capenterslist"
+                style={{ textDecoration: "none", color: "#717c87" }}
+              >
+                WorkshopOwners
+              </Link>
+            </h3>
+          </>
+        ) : (
+          ""
+        )} */}
       </div>
       <div className="about_orders">
         <h3>

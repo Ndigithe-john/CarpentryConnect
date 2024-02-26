@@ -527,8 +527,39 @@ END;
 EXEC GetPendingWorkRequestsForWorkshopOwner @WorkshopOwnerID=1033;
 
 
-CREATE OR ALTER PROCEDURE GetApprovedWorkRequestsForWorkshopOwner
-    @WorkshopOwnerID INT
+-- CREATE OR ALTER PROCEDURE GetApprovedWorkRequestsForWorkshopOwner
+--     @WorkshopOwnerID INT
+-- AS
+-- BEGIN
+--     SELECT
+--         wr.RequestID,
+--         wr.CarpenterID,
+--         wr.ItemID,
+--         wr.RequestDate,
+--         wr.EstimatedCompletionDate,
+--         wr.AdditionalNotes,
+--         wr.QualificationLevel,
+--         wr.CarpenterEmail,
+--          wr.CarpenterName,
+--         wr.CarpenterPhoneNumber,
+--         wr.ImageURL,
+--         wr.ItemDescription,
+--         wr.Category,
+--         wr.Material,
+--         wr.ItemPrice,
+--         wr.RequiredDate
+--     FROM
+--         WorkRequests wr
+--     JOIN
+--         WorkshopItems wi ON wr.ItemID = wi.ItemID
+--     WHERE
+--         wr.Status = 'Approved'
+--         AND wi.WorkshopOwnerID = @WorkshopOwnerID;
+-- END;
+EXEC GetApprovedWorkRequestsForWorkshopOwner @WorkshopOwnerID=1033;
+CREATE OR ALTER PROCEDURE GetApprovedWorkRequests
+    @UserID INT,
+    @IsWorkshopOwner BIT = 1 -- 1 for Workshop Owner, 0 for Carpenter
 AS
 BEGIN
     SELECT
@@ -540,7 +571,7 @@ BEGIN
         wr.AdditionalNotes,
         wr.QualificationLevel,
         wr.CarpenterEmail,
-         wr.CarpenterName,
+        wr.CarpenterName,
         wr.CarpenterPhoneNumber,
         wr.ImageURL,
         wr.ItemDescription,
@@ -554,10 +585,16 @@ BEGIN
         WorkshopItems wi ON wr.ItemID = wi.ItemID
     WHERE
         wr.Status = 'Approved'
-        AND wi.WorkshopOwnerID = @WorkshopOwnerID;
+        AND (
+            (@IsWorkshopOwner = 1 AND wi.WorkshopOwnerID = @UserID)
+            OR
+            (@IsWorkshopOwner = 0 AND wr.CarpenterID = @UserID)
+        );
 END;
+EXEC GetApprovedWorkRequests @UserID = 1, @IsWorkshopOwner = 1;
 
-EXEC GetApprovedWorkRequestsForWorkshopOwner @WorkshopOwnerID=1033;
+
+
 
 
 --Get rejected 
