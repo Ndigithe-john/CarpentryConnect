@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const User = require("../utils/getUser");
 const loginUserValidator = require("../validators/loginValidator");
 const sendMail = require("../utils/email");
-const { default: App } = require("../../../../frontend/src/App");
 
 async function signUp(req, res) {
   try {
@@ -167,6 +166,7 @@ async function getCarpenters(req, res, next) {
 //     res.send(error.message);
 //   }
 // }
+async function getWorkshopOwners(req, res, next) {}
 
 async function logout(req, res, next) {
   try {
@@ -181,4 +181,4 @@ async function logout(req, res, next) {
     res.send(error.message);
   }
 }
-module.exports = { signUp, login, logout, getCarpenters };
+module.exports = { signUp, login, logout, getCarpenters, getWorkshopOwners };
