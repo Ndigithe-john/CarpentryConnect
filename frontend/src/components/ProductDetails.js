@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const ProductDetails = () => {
+const ProductDetails = ({ userRole }) => {
   const { ItemID } = useParams();
   const [productDetails, setProductDetails] = useState({});
   const [minDate, setMinDate] = useState(getCurrentDate());
@@ -85,28 +85,35 @@ const ProductDetails = () => {
           <h2>Item Description: {productDetails.Description}</h2>
           <h2>Item DateRequired: {productDetails.DateRequired}</h2>
           <h2>Item Price: Ksh {productDetails.Price}</h2>
-          <label>Estimated completion date</label>
-          <input
-            type="date"
-            className="input_item_specific"
-            min={minDate}
-            value={selectedDate}
-            onChange={handleDateChange}
-          />
-          <input
-            type="text"
-            className="input_item_specific"
-            placeholder="Input a Short Description to be noted"
-            onChange={handleNotesChange}
-          />
-          {applicationSuccess ? (
-            <h5 className="success_message">
-              Applied for the Job successfully
-            </h5>
+          {userRole === "Carpenter" ? (
+            <>
+              {" "}
+              <label>Estimated completion date</label>
+              <input
+                type="date"
+                className="input_item_specific"
+                min={minDate}
+                value={selectedDate}
+                onChange={handleDateChange}
+              />
+              <input
+                type="text"
+                className="input_item_specific"
+                placeholder="Input a Short Description to be noted"
+                onChange={handleNotesChange}
+              />
+              {applicationSuccess ? (
+                <h5 className="success_message">
+                  Applied for the Job successfully
+                </h5>
+              ) : (
+                <button className="button_item_specific" onClick={applyForJob}>
+                  Apply For Job
+                </button>
+              )}
+            </>
           ) : (
-            <button className="button_item_specific" onClick={applyForJob}>
-              Apply For Job
-            </button>
+            ""
           )}
         </div>
       </div>

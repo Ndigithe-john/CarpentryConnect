@@ -31,7 +31,7 @@ function App() {
     },
     {
       path: "/item/:ItemID",
-      element: <ProductDetails />,
+      element: <ProductDetails userRole={userRole} />,
     },
     {
       path: "/profile",
