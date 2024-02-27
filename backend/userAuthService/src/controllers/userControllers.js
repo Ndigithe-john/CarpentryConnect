@@ -67,8 +67,20 @@ async function updateProfile(req, res, next) {
   try {
     const { pool } = req;
     const user = req.session.user;
+    const { Bio, ProfilePhoto } = req.body;
     if (pool.connected) {
-      console.log(user);
+      const update_profile = await pool
+        .request()
+        .input("UserId", user.id)
+        .input("About", Bio)
+        .input("ProfilePhoto", ProfilePhoto)
+        .execute("UpdateUserProfile");
+      res.status(200).json({
+        status: "success",
+        message: "Profile updated sucessfully",
+      });
+    } else {
+      return next(new AppError("Error connecting to the database", 400));
     }
   } catch (error) {
     console.log(error);

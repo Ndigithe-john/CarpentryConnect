@@ -1,4 +1,4 @@
-const { getUserSchema } = require("../model/getuser");
+const { getUserSchema, update_schema } = require("../model/getuser");
 
 function getUserValidator(body) {
   const userSchema = getUserSchema.validate(body, { abortEarly: false });
@@ -8,4 +8,12 @@ function getUserValidator(body) {
   } else return userSchema;
 }
 
-module.exports = getUserValidator;
+function updateProfile(body) {
+  const updateSchema = update_schema.validate(body, { abortEarly: false });
+  if (updateSchema.error?.details?.length) {
+    let message = updateSchema.error.details.map((err) => err.message);
+    throw new Error(message.join("\n"));
+  } else return updateSchema;
+}
+
+module.exports = { getUserValidator, updateProfile };
