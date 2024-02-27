@@ -8,7 +8,7 @@ function getUserValidator(body) {
   } else return userSchema;
 }
 
-function updateProfile(body) {
+function updateProfileValidator(body) {
   const updateSchema = update_schema.validate(body, { abortEarly: false });
   if (updateSchema.error?.details?.length) {
     let message = updateSchema.error.details.map((err) => err.message);
@@ -16,4 +16,4 @@ function updateProfile(body) {
   } else return updateSchema;
 }
 
-module.exports = { getUserValidator, updateProfile };
+module.exports = { getUserValidator, updateProfileValidator };

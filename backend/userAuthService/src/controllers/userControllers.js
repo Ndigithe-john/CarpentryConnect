@@ -3,7 +3,9 @@ const createUserValidator = require("../validators/newUserValidator");
 const bcrypt = require("bcrypt");
 const User = require("../utils/getUser");
 const loginUserValidator = require("../validators/loginValidator");
+
 const sendMail = require("../utils/email");
+const { updateProfileValidator } = require("../validators/getUserValidator");
 
 async function signUp(req, res) {
   try {
@@ -68,6 +70,8 @@ async function updateProfile(req, res, next) {
     const { pool } = req;
     const user = req.session.user;
     const { Bio, ProfilePhoto } = req.body;
+    const { value } = updateProfileValidator(req.body);
+    console.log(value);
     if (pool.connected) {
       const update_profile = await pool
         .request()
@@ -84,7 +88,7 @@ async function updateProfile(req, res, next) {
     }
   } catch (error) {
     console.log(error);
-    return next(new AppError("Server Error", 500));
+    return next(new AppError(error.message, 500));
   }
 }
 async function login(req, res, next) {
