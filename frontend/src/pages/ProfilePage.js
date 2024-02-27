@@ -30,6 +30,8 @@ const ProfilePage = () => {
           <h4>Name comes here</h4>
           <h1>Email Address</h1>
           <h4>Email comes here</h4>
+          <h1>Bio</h1>
+          <h4>bio</h4>
         </div>
       </div>
     </div>
