@@ -66,7 +66,7 @@ async function signUp(req, res) {
 async function updateProfile(req, res, next) {
   try {
     const { pool } = req;
-    const user = req.user;
+    const user = req.session.user;
     if (pool.connected) {
       console.log(user);
     }
