@@ -122,3 +122,24 @@ BEGIN
 END;
 
 EXEC GetWorkShopOwners
+
+
+--Update Profile 
+CREATE PROCEDURE UpdateUserProfile
+    @UserID INT,
+    @About NVARCHAR(MAX),
+    @ProfilePhoto NVARCHAR(255)
+AS
+BEGIN
+    UPDATE Users
+    SET
+        About = @About,
+        ProfilePhoto = @ProfilePhoto
+    WHERE
+        UserID = @UserID;
+END;
+
+EXEC UpdateUserProfile
+    @UserID = 1033, 
+    @About = 'New information about the user.',
+    @ProfilePhoto = '/path/to/new/profile/photo.jpg';

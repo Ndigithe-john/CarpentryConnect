@@ -5,6 +5,7 @@ const {
   logout,
   getCarpenters,
   getWorkshopOwners,
+  updateProfile,
 } = require("../controllers/userControllers");
 const user = require("../utils/getUser");
 const manageSessions = require("../middlewares/userAuthentication");
@@ -16,4 +17,5 @@ userRoutes.post("/login", login);
 userRoutes.delete("/logout", manageSessions, logout);
 userRoutes.get("/getCarpenters", getCarpenters);
 userRoutes.get("/getWorkshopOwners", getWorkshopOwners);
+userRoutes.post("/updateProfile", updateProfile);
 module.exports = userRoutes;

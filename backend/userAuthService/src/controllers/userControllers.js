@@ -62,6 +62,19 @@ async function signUp(req, res) {
     res.status(400).send(error.message);
   }
 }
+
+async function updateProfile(req, res, next) {
+  try {
+    const { pool } = req;
+    const user = req.user;
+    if (pool.connected) {
+      console.log(user);
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Server Error", 500));
+  }
+}
 async function login(req, res, next) {
   try {
     const login_body = req.body;
@@ -202,4 +215,11 @@ async function logout(req, res, next) {
     res.send(error.message);
   }
 }
-module.exports = { signUp, login, logout, getCarpenters, getWorkshopOwners };
+module.exports = {
+  signUp,
+  login,
+  logout,
+  updateProfile,
+  getCarpenters,
+  getWorkshopOwners,
+};
