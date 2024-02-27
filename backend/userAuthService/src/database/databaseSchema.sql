@@ -13,3 +13,6 @@ CREATE TABLE Users (
     WorkshopLocation NVARCHAR(255), 
 	PasswordHash NVARCHAR(255) NOT NULL 
 );
+ALTER TABLE Users
+ADD About NVARCHAR(MAX),
+    ProfilePhoto NVARCHAR(255);
