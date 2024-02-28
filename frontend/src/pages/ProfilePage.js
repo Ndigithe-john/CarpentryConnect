@@ -1,5 +1,8 @@
 import profile from "../assets/profile.jpg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import "./pages.css";
+
 import NavBar from "../components/NavBar";
 const ProfilePage = ({ userRole }) => {
   return (
@@ -38,6 +41,9 @@ const ProfilePage = ({ userRole }) => {
             <h1>Workshop Name</h1>
             <h4>workshop Name</h4>
             <h1>Workshop Location</h1>
+            <h4>
+              <FontAwesomeIcon icon={faLocation} /> location
+            </h4>
           </div>
         )}
       </div>
