@@ -1,7 +1,7 @@
 import profile from "../assets/profile.jpg";
 import "./pages.css";
 import NavBar from "../components/NavBar";
-const ProfilePage = () => {
+const ProfilePage = ({ userRole }) => {
   return (
     <div>
       <NavBar
@@ -33,6 +33,7 @@ const ProfilePage = () => {
           <h1>Bio</h1>
           <h4>bio</h4>
         </div>
+        {<div></div>}
       </div>
     </div>
   );
