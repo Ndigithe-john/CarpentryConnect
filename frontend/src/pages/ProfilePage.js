@@ -33,7 +33,13 @@ const ProfilePage = ({ userRole }) => {
           <h1>Bio</h1>
           <h4>bio</h4>
         </div>
-        {userRole === "WorkshopOwner" && <div></div>}
+        {userRole === "WorkshopOwner" && (
+          <div className="workshop_owerner_profile">
+            <h1>Workshop Name</h1>
+            <h4>workshop Name</h4>
+            <h1>Workshop Location</h1>
+          </div>
+        )}
       </div>
     </div>
   );
