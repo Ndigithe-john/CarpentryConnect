@@ -15,6 +15,7 @@ import Dashboard from "./components/DashBoard/Dashboard";
 import { useState } from "react";
 import ProfilePage from "./pages/ProfilePage";
 import ProductDetails from "./components/ProductDetails";
+import UpdateProfile from "./pages/UpdateProfile";
 function App() {
   const [userRole, setUserRole] = useState("");
   const updateUserRole = (role) => {
@@ -36,6 +37,16 @@ function App() {
     {
       path: "/profile",
       element: <ProfilePage userRole={userRole} />,
+      children: [
+        {
+          index: "index",
+          element: <></>,
+        },
+        {
+          path: "editProfile",
+          element: <UpdateProfile />,
+        },
+      ],
     },
     {
       path: "/dashboard",

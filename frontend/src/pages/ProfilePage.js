@@ -4,6 +4,7 @@ import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import "./pages.css";
 
 import NavBar from "../components/NavBar";
+import { Link, Outlet } from "react-router-dom";
 const ProfilePage = ({ userRole }) => {
   return (
     <div>
@@ -26,7 +27,9 @@ const ProfilePage = ({ userRole }) => {
           <div className="prof_pic_div">
             <img src={profile} alt="profile_photo" />
           </div>
-          <button>Edit Profile</button>
+          <Link to="/profile/editProfile">
+            <button className="profile_page_edit_button">Edit Profile</button>
+          </Link>
         </div>
         <div className="right_side_profile">
           <h1>Full Name</h1>
@@ -46,6 +49,7 @@ const ProfilePage = ({ userRole }) => {
             </h4>
           </div>
         )}
+        <Outlet />
       </div>
     </div>
   );

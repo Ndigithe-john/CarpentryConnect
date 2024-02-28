@@ -135,13 +135,16 @@
   margin-bottom: 2vh;
   margin-left: 3.5vw;
 }
-.profile_page_aside button {
+.profile_page_edit_button {
   margin-top: 2vh;
   height: 3.5vh;
   border-radius: 4px;
+  margin-left: 1vw;
+  width: 10vw;
   background-color: var(--color-background-500);
   color: white;
   background-color: --color-text;
+  cursor: pointer;
 }
 .prof_nav {
   margin-top: -17vh;
