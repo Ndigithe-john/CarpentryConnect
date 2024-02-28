@@ -35,7 +35,7 @@ function App() {
     },
     {
       path: "/profile",
-      element: <ProfilePage />,
+      element: <ProfilePage userRole={userRole} />,
     },
     {
       path: "/dashboard",
