@@ -34,7 +34,7 @@ const ProfilePage = ({ userRole }) => {
           <h4>bio</h4>
         </div>
         {userRole === "WorkshopOwner" && (
-          <div className="workshop_owerner_profile">
+          <div className="workshop_owner_profile">
             <h1>Workshop Name</h1>
             <h4>workshop Name</h4>
             <h1>Workshop Location</h1>

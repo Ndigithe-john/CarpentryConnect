@@ -163,6 +163,13 @@
   color: white;
   font-style: italic;
 }
+.workshop_owner_profile {
+  margin-top: 4vh;
+}
+.workshop_owner_profile h1 {
+  color: white;
+  font-style: italic;
+}
 .success_message {
   color: green;
   font-style: italic;
