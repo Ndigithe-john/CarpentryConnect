@@ -16,6 +16,8 @@ import { useState } from "react";
 import ProfilePage from "./pages/ProfilePage";
 import ProductDetails from "./components/ProductDetails";
 import UpdateProfile from "./pages/UpdateProfile";
+import LocationMap from "./components/Location/LocationMap";
+import Location from "./components/Location/Location";
 function App() {
   const [userRole, setUserRole] = useState("");
   const updateUserRole = (role) => {
@@ -98,6 +100,14 @@ function App() {
     {
       path: "/map",
       element: <Maps />,
+    },
+    {
+      path: "location",
+      element: <LocationMap />,
+    },
+    {
+      path: "/mapps",
+      element: <Location />,
     },
   ]);
 

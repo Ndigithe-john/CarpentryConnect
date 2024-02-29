@@ -1,4 +1,3 @@
-// LocationMap.js
 import React, { useRef, useEffect, useState } from "react";
 import * as maptilersdk from "@maptiler/sdk";
 import "@maptiler/sdk/dist/maptiler-sdk.css";
@@ -11,8 +10,6 @@ const LocationMap = ({ onLocationSelect }) => {
   const [zoom] = useState(14);
 
   useEffect(() => {
-    if (!mapContainer.current) return;
-
     maptilersdk.accessToken = `42vvAXIkwZlX6Xb8zY3B`;
 
     map.current = new maptilersdk.Map({
@@ -70,6 +67,12 @@ const LocationMap = ({ onLocationSelect }) => {
       const { lng, lat } = event.target.getLngLat();
       onLocationSelect({ lng, lat });
     });
+
+    return () => {
+      if (map.current) {
+        map.current.remove();
+      }
+    };
   }, [kenya.lng, kenya.lat, zoom, onLocationSelect]);
 
   return (
