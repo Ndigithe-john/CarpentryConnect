@@ -17,7 +17,7 @@ function ResetCenterView({ selectPosition }) {
   useEffect(() => {
     if (selectPosition) {
       map.setView(
-        L.latLng(selectPosition?.lat, selectPosition.lon),
+        L.latLng(selectPosition?.lat, selectPosition.lon), // Corrected here
         map.getZoom(),
         {
           animate: true,

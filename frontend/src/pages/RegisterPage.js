@@ -17,7 +17,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectPosition, setSelectPosition] = useState(null);
+  const [workshopLocation, setWorkshopLocation] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   function toggleModal() {
@@ -51,7 +51,7 @@ const RegisterPage = () => {
       DocumentPath: role === "Carpenter" ? qualificationDocument : "NULL",
       WorkshopName: role === "WorkshopOwner" ? workshopName : "NULL",
       WorkshopLocation:
-        role === "WorkshopOwner" ? selectPosition.display_name : "NULL",
+        role === "WorkshopOwner" ? workshopLocation.display_name : "NULL",
       PasswordHash: password,
       Confirm_password: confirmPassword,
     };
@@ -186,8 +186,8 @@ const RegisterPage = () => {
           {isModalOpen && (
             <Modal onClose={toggleModal}>
               <Maps
-                selectPosition={selectPosition}
-                setSelectPosition={setSelectPosition}
+                workshopLocation={workshopLocation}
+                setWorkshopLocation={setWorkshopLocation}
               />
             </Modal>
           )}
