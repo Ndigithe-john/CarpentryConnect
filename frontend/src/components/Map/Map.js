@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import placeholder from "../../assets/placeholder.png";
@@ -29,23 +29,13 @@ function ResetCenterView({ selectPosition }) {
   return null;
 }
 
-function Map({ selectPosition, setSelectPosition }) {
-  const [clickedPosition, setClickedPosition] = useState(null);
-
-  const handleMapClick = (event) => {
-    const { lat, lng } = event.latlng;
-    const newSelectPosition = { lat, lon: lng };
-
-    setClickedPosition(newSelectPosition);
-
-    setSelectPosition(newSelectPosition);
-  };
-
+function Map({
+  selectPosition,
+  setSelectPosition,
+  workshopLocation,
+  setWorkshopLocation,
+}) {
   const locationSelection = [selectPosition?.lat, selectPosition?.lon];
-  const clickedMarkerPosition = clickedPosition
-    ? [clickedPosition.lat, clickedPosition.lon]
-    : null;
-
   const mapStyle = {
     height: "100%",
     width: "100%",
@@ -58,7 +48,6 @@ function Map({ selectPosition, setSelectPosition }) {
       zoom={13}
       scrollWheelZoom={false}
       style={mapStyle}
-      onClick={handleMapClick}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -69,14 +58,6 @@ function Map({ selectPosition, setSelectPosition }) {
         <Marker position={locationSelection} icon={icon}>
           <Popup>
             Selected position. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-      )}
-
-      {clickedPosition && (
-        <Marker position={clickedMarkerPosition} icon={icon}>
-          <Popup>
-            You clicked here. <br /> Easily customizable.
           </Popup>
         </Marker>
       )}
