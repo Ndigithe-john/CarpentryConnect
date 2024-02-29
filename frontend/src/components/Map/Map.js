@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import placeholder from "../../assets/placeholder.png";
@@ -11,30 +11,62 @@ const icon = L.icon({
   iconSize: [30, 30],
 });
 
+function MapEventHandlers({ setWorkshopLocation }) {
+  const map = useMap();
+
+  useEffect(() => {
+    const handleClick = (e) => {
+      // Check if the clicked position is within valid bounds
+      if (e.latlng) {
+        const { lat, lng } = e.latlng;
+        setWorkshopLocation({
+          latitude: lat,
+          longitude: lng,
+        });
+        map.flyTo(e.latlng, map.getZoom());
+      }
+    };
+
+    const handleLocationFound = (e) => {
+      const { lat, lng } = e.latlng;
+      setWorkshopLocation({
+        latitude: lat,
+        longitude: lng,
+      });
+      map.flyTo(e.latlng, map.getZoom());
+    };
+
+    map.on("click", handleClick);
+    map.on("locationfound", handleLocationFound);
+
+    return () => {
+      map.off("click", handleClick);
+      map.off("locationfound", handleLocationFound);
+    };
+  }, [map, setWorkshopLocation]);
+
+  return null;
+}
+
 function ResetCenterView({ selectPosition }) {
   const map = useMap();
 
   useEffect(() => {
     if (selectPosition) {
       map.setView(
-        L.latLng(selectPosition?.lat, selectPosition.lon), // Corrected here
+        L.latLng(selectPosition?.lat, selectPosition.lon),
         map.getZoom(),
         {
           animate: true,
         }
       );
     }
-  }, [selectPosition]);
+  }, [selectPosition, map]);
 
   return null;
 }
 
-function Map({
-  selectPosition,
-  setSelectPosition,
-  workshopLocation,
-  setWorkshopLocation,
-}) {
+function Map({ selectPosition, setWorkshopLocation }) {
   const locationSelection = [selectPosition?.lat, selectPosition?.lon];
   const mapStyle = {
     height: "100%",
@@ -62,6 +94,7 @@ function Map({
         </Marker>
       )}
 
+      <MapEventHandlers setWorkshopLocation={setWorkshopLocation} />
       <ResetCenterView selectPosition={selectPosition} />
     </MapContainer>
   );
