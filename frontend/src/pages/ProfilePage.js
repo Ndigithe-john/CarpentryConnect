@@ -49,7 +49,7 @@ const ProfilePage = ({ userRole }) => {
               <FontAwesomeIcon icon={faLocation} /> location
             </h4>
             <div
-              style={{ border: "2px solid red", width: "20vw", height: "20vh" }}
+              style={{ border: "2px solid red", width: "40vw", height: "50vh" }}
             >
               <Location />
             </div>

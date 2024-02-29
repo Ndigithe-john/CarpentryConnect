@@ -5,13 +5,13 @@ const Location = () => {
   return (
     <MapContainer
       center={position}
-      zoom={13}
+      zoom={10}
       scrollWheelZoom={false}
       style={{ width: "100%", height: "100%" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url="https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=42vvAXIkwZlX6Xb8zY3B"
       />
       <Marker position={position}>
         <Popup>
