@@ -2,6 +2,7 @@ import profile from "../assets/profile.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import "./pages.css";
+import Location from "../components/Location/Location";
 
 import NavBar from "../components/NavBar";
 import { Link, Outlet } from "react-router-dom";
@@ -47,6 +48,11 @@ const ProfilePage = ({ userRole }) => {
             <h4>
               <FontAwesomeIcon icon={faLocation} /> location
             </h4>
+            <div
+              style={{ border: "2px solid red", width: "20vw", height: "20vh" }}
+            >
+              <Location />
+            </div>
           </div>
         )}
         <Outlet />
