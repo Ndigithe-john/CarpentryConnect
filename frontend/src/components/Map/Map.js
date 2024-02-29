@@ -6,9 +6,13 @@ import L from "leaflet";
 
 const defaultPosition = [-0.397037, 36.9648429];
 
-const icon = L.icon({
-  iconUrl: placeholder,
-  iconSize: [30, 30],
+const redIcon = new L.Icon({
+  iconUrl:
+    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
 });
 
 function MapEventHandlers({ setWorkshopLocation }) {
@@ -87,7 +91,7 @@ function Map({ selectPosition, setWorkshopLocation }) {
       />
 
       {selectPosition && (
-        <Marker position={locationSelection} icon={icon}>
+        <Marker position={locationSelection} icon={redIcon}>
           <Popup>
             Selected position. <br /> Easily customizable.
           </Popup>
