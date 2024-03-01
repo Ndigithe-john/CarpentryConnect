@@ -6,9 +6,9 @@ import "./pages.css";
 import Location from "../components/Location/Location";
 
 import NavBar from "../components/NavBar";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import axios from "axios";
-import Product from "../components/Product";
+import CarpenterPosts from "../components/CarpenterPosts";
 const ProfilePage = ({ userRole }) => {
   const [userProfile, setUserProfile] = useState([]);
   useEffect(() => {
@@ -83,6 +83,7 @@ const ProfilePage = ({ userRole }) => {
       {userRole === "Carpenter" && (
         <div className="personal_posts_container">
           <h1 className="personal_posts">Posts</h1>
+          <CarpenterPosts />
         </div>
       )}
     </div>

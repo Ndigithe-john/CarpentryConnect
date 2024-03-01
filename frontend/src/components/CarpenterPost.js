@@ -1,7 +1,7 @@
 const CarpenterPost = ({ post }) => {
   return (
     <div className="carpenter_post">
-      <img src={post} alt="myPost" />
+      <img src={post.ImageURL} alt="myPost" />
     </div>
   );
 };
