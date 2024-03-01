@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -26,24 +26,52 @@ function MapEventHandlers({ setWorkshopLocation }) {
   const map = useMap();
 
   useEffect(() => {
-    const handleClick = (e) => {
+    const handleClick = async (e) => {
       if (e.latlng) {
         const { lat, lng } = e.latlng;
-        setWorkshopLocation({
-          latitude: lat,
-          longitude: lng,
-        });
-        map.flyTo(e.latlng, map.getZoom());
+
+        // Reverse geocoding to get the name of the place
+        const placeName = await getPlaceName(lat, lng);
+
+        const confirmSetLocation = window.confirm(
+          `Do you want to set your workshop location at ${placeName}?`
+        );
+
+        if (confirmSetLocation) {
+          setWorkshopLocation({
+            latitude: lat,
+            longitude: lng,
+            placeName: placeName,
+          });
+
+          // Add a blue marker at the clicked location
+          L.marker([lat, lng], { icon: blueIcon }).addTo(map);
+          map.flyTo(e.latlng, map.getZoom());
+        }
       }
     };
 
-    const handleLocationFound = (e) => {
+    const handleLocationFound = async (e) => {
       const { lat, lng } = e.latlng;
-      setWorkshopLocation({
-        latitude: lat,
-        longitude: lng,
-      });
-      map.flyTo(e.latlng, map.getZoom());
+
+      // Reverse geocoding to get the name of the place
+      const placeName = await getPlaceName(lat, lng);
+
+      const confirmSetLocation = window.confirm(
+        `Do you want to set your workshop location at ${placeName}?`
+      );
+
+      if (confirmSetLocation) {
+        setWorkshopLocation({
+          latitude: lat,
+          longitude: lng,
+          placeName: placeName,
+        });
+
+        // Add a blue marker at the located position
+        L.marker([lat, lng], { icon: blueIcon }).addTo(map);
+        map.flyTo(e.latlng, map.getZoom());
+      }
     };
 
     map.on("click", handleClick);
@@ -54,6 +82,26 @@ function MapEventHandlers({ setWorkshopLocation }) {
       map.off("locationfound", handleLocationFound);
     };
   }, [map, setWorkshopLocation]);
+
+  // Function to get the name of the place using reverse geocoding
+  // Function to get the name of the place using reverse geocoding
+  const getPlaceName = async (latitude, longitude) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to retrieve place name");
+      }
+
+      const data = await response.json();
+      return data.display_name;
+    } catch (error) {
+      console.error("Error in reverse geocoding:", error);
+      return `Place at (${latitude}, ${longitude})`;
+    }
+  };
 
   return null;
 }
