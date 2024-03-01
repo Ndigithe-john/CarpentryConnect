@@ -221,16 +221,16 @@ async function getWorkshopOwners(req, res, next) {
     return next(new AppError("Internal Server Error", 500));
   }
 }
-async function getProfileDetails(req,res,next){
+async function getProfileDetails(req, res, next) {
   try {
-    const {pool}=req;
-    const user=req.session.user
-    if(pool.connected){
-      console.log(user)
+    const { pool } = req;
+    const user = req.session.user;
+    if (pool.connected) {
+      console.log(user);
     }
   } catch (error) {
-    console.log(error)
-    return next(new, AppError("Error Getting ProfileDetails",500))
+    console.log(error);
+    return next(new AppError("Error Getting ProfileDetails", 500));
   }
 }
 async function logout(req, res, next) {
@@ -254,5 +254,5 @@ module.exports = {
   updateProfile,
   getCarpenters,
   getWorkshopOwners,
-  getProfileDetails
+  getProfileDetails,
 };
