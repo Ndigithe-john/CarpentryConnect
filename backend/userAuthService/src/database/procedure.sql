@@ -1,5 +1,4 @@
 
---Create a user
 CREATE OR ALTER PROCEDURE CreateUser
     @FirstName NVARCHAR(50),
     @LastName NVARCHAR(50),
@@ -11,12 +10,12 @@ CREATE OR ALTER PROCEDURE CreateUser
     @WorkshopName NVARCHAR(255) = NULL,
     @WorkshopLocation NVARCHAR(255) = NULL,
     @PasswordHash NVARCHAR(255),
-  
+    @Latitude FLOAT,
+    @Longitude FLOAT
 AS
 BEGIN
     SET NOCOUNT ON;
 
-   
     INSERT INTO Users (
         FirstName,
         LastName,
@@ -28,7 +27,7 @@ BEGIN
         DocumentPath,
         WorkshopName,
         WorkshopLocation,
-        PasswordHash
+        PasswordHash,
         Latitude,
         Longitude
     )
@@ -43,12 +42,10 @@ BEGIN
         @DocumentPath,
         @WorkshopName,
         @WorkshopLocation,
-        @PasswordHash
+        @PasswordHash,
         @Latitude,
         @Longitude
     );
-
-  
 END;
 
 EXEC CreateUser
