@@ -1,10 +1,9 @@
+import React, { useEffect, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-const position = [51.505, -0.09];
-
-const Location = () => {
+const Location = ({ Latitude, Longitude }) => {
   const redIcon = new L.Icon({
     iconUrl:
       "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
@@ -13,6 +12,18 @@ const Location = () => {
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
   });
+
+  const [position, setPosition] = useState([0, 0]);
+
+  useEffect(() => {
+    if (Latitude !== undefined && Longitude !== undefined) {
+      setPosition([Latitude, Longitude]);
+    }
+  }, [Latitude, Longitude]);
+
+  if (Latitude === undefined || Longitude === undefined) {
+    return null;
+  }
 
   return (
     <MapContainer
