@@ -30,7 +30,6 @@ function MapEventHandlers({ setWorkshopLocation }) {
       if (e.latlng) {
         const { lat, lng } = e.latlng;
 
-        // Reverse geocoding to get the name of the place
         const placeName = await getPlaceName(lat, lng);
 
         const confirmSetLocation = window.confirm(
@@ -44,7 +43,6 @@ function MapEventHandlers({ setWorkshopLocation }) {
             placeName: placeName,
           });
 
-          // Add a blue marker at the clicked location
           L.marker([lat, lng], { icon: blueIcon }).addTo(map);
           map.flyTo(e.latlng, map.getZoom());
         }
@@ -54,7 +52,6 @@ function MapEventHandlers({ setWorkshopLocation }) {
     const handleLocationFound = async (e) => {
       const { lat, lng } = e.latlng;
 
-      // Reverse geocoding to get the name of the place
       const placeName = await getPlaceName(lat, lng);
 
       const confirmSetLocation = window.confirm(
@@ -68,7 +65,6 @@ function MapEventHandlers({ setWorkshopLocation }) {
           placeName: placeName,
         });
 
-        // Add a blue marker at the located position
         L.marker([lat, lng], { icon: blueIcon }).addTo(map);
         map.flyTo(e.latlng, map.getZoom());
       }
@@ -83,8 +79,6 @@ function MapEventHandlers({ setWorkshopLocation }) {
     };
   }, [map, setWorkshopLocation]);
 
-  // Function to get the name of the place using reverse geocoding
-  // Function to get the name of the place using reverse geocoding
   const getPlaceName = async (latitude, longitude) => {
     try {
       const response = await fetch(

@@ -116,7 +116,9 @@ BEGIN
         PhoneNumber,
         WorkshopName,
         WorkshopLocation, 
-        CONCAT(FirstName, ' ', LastName) AS FullName
+        CONCAT(FirstName, ' ', LastName) AS FullName,
+        Latitude,
+        Longitude
     FROM
         Users
     WHERE
@@ -145,3 +147,67 @@ EXEC UpdateUserProfile
     @UserID = 1033, 
     @About = 'New information about the user.',
     @ProfilePhoto = '/path/to/new/profile/photo.jpg';
+
+
+--Create the procedure to get the user profile
+    CREATE OR ALTER PROCEDURE GetUserDetails
+    @UserID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @UserRole NVARCHAR(50);
+
+  
+    SELECT @UserRole = Role
+    FROM Users
+    WHERE UserID = @UserID;
+
+  
+    IF @UserRole = 'Carpenter'
+    BEGIN
+        SELECT
+            UserID,
+            FirstName + ' ' + LastName AS FullName,
+            Email,
+            PhoneNumber,
+            QualificationLevel,
+            DocumentPath AS QualificationDocument
+        FROM
+            Users
+        WHERE
+            UserID = @UserID;
+    END
+    ELSE IF @UserRole = 'WorkshopOwner'
+    BEGIN
+        SELECT
+            UserID,
+			FirstName + ' ' + LastName AS FullName,
+            Email,
+            PhoneNumber,
+            WorkshopName,
+            WorkshopLocation,
+            Latitude,
+            Longitude
+        FROM
+            Users
+        WHERE
+            UserID = @UserID;
+    END
+    ELSE
+    BEGIN
+   
+        SELECT
+            UserID,
+            FirstName + ' ' + LastName AS FullName,
+            Email,
+            PhoneNumber
+        FROM
+            Users
+        WHERE
+            UserID = @UserID;
+    END;
+END;
+
+Select * from Users
+Exec GetUserDetails @UserID=1039

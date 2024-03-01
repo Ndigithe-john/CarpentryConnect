@@ -6,7 +6,17 @@ import Location from "../components/Location/Location";
 
 import NavBar from "../components/NavBar";
 import { Link, Outlet } from "react-router-dom";
+import axios from "axios";
 const ProfilePage = ({ userRole }) => {
+  async function getUser() {
+    try {
+      let apiURL = "http://localhost:4050/users/getWorkshopOwners";
+      if (userRole === "Carpenter") {
+        apiURL = "http://localhost:4050/users/getCarpenters";
+      }
+      const response = await axios.get(apiURL, { withCredentials: true });
+    } catch (error) {}
+  }
   return (
     <div>
       <NavBar
