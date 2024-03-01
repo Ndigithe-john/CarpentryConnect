@@ -19,10 +19,13 @@ import UpdateProfile from "./pages/UpdateProfile";
 import LocationMap from "./components/Location/LocationMap";
 import Location from "./components/Location/Location";
 function App() {
-  const [userRole, setUserRole] = useState("");
   const updateUserRole = (role) => {
+    localStorage.setItem("userRole", role);
     setUserRole(role);
   };
+  const initialUserRole = localStorage.getItem("userRole") || "";
+  const [userRole, setUserRole] = useState(initialUserRole);
+
   const router = createBrowserRouter([
     {
       path: "/",

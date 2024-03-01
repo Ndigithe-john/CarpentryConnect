@@ -70,9 +70,7 @@ const ProfilePage = ({ userRole }) => {
             <h4>
               <FontAwesomeIcon icon={faLocation} /> location
             </h4>
-            <div
-              style={{ border: "2px solid red", width: "40vw", height: "50vh" }}
-            >
+            <div style={{ width: "40vw", height: "50vh" }}>
               <Location
                 Latitude={userProfile.Latitude}
                 Longitude={userProfile.Longitude}
