@@ -121,9 +121,9 @@
 .profile_page {
   display: flex;
   flex-direction: row;
-  gap: 10vw;
+  gap: 3vw;
   margin-top: 17vh;
-  margin-left: 17vw;
+  margin-left: 9vw;
 }
 .profile_page_aside {
   display: flex;
@@ -213,4 +213,8 @@
   outline: none;
   border-radius: 5px;
   cursor: pointer;
+}
+.personal_posts {
+  color: var(--color-text-wheat);
+  text-align: center;
 }

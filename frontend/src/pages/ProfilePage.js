@@ -8,6 +8,7 @@ import Location from "../components/Location/Location";
 import NavBar from "../components/NavBar";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
+import Product from "../components/Product";
 const ProfilePage = ({ userRole }) => {
   const [userProfile, setUserProfile] = useState([]);
   useEffect(() => {
@@ -38,13 +39,11 @@ const ProfilePage = ({ userRole }) => {
       </NavBar>
       <div className="profile_page">
         <div className="profile_page_aside">
-          <h3> My Profile</h3>
+          <h3>{userProfile.FullName}</h3>
           <div className="prof_pic_div">
             <img src={profile} alt="profile_photo" />
           </div>
-          <Link to="/profile/editProfile">
-            <button className="profile_page_edit_button">Edit Profile</button>
-          </Link>
+          <button className="profile_page_edit_button">Update Photo</button>
         </div>
         <div className="right_side_profile">
           <h1>Full Name</h1>
@@ -80,6 +79,12 @@ const ProfilePage = ({ userRole }) => {
         )}
         <Outlet />
       </div>
+
+      {userRole === "Carpenter" && (
+        <div className="personal_posts_container">
+          <h1 className="personal_posts">Posts</h1>
+        </div>
+      )}
     </div>
   );
 };
