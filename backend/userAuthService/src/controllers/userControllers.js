@@ -226,7 +226,17 @@ async function getProfileDetails(req, res, next) {
     const { pool } = req;
     const user = req.session.user;
     if (pool.connected) {
-      console.log(user);
+      const resulsts = await pool
+        .request()
+        .input("UserID", user.id)
+        .execute("GetUserDetails");
+      res.status(200).json({
+        status: true,
+        message: "Profile Fetched successfully",
+        data: resulsts.recordsets[0],
+      });
+    } else {
+      return next(new AppError("Error connecting to the database", 404));
     }
   } catch (error) {
     console.log(error);
