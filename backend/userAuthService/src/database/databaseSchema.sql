@@ -16,3 +16,7 @@ CREATE TABLE Users (
 ALTER TABLE Users
 ADD About NVARCHAR(MAX),
     ProfilePhoto NVARCHAR(255);
+
+ ALTER Table Users 
+ ADD Latitude INT,
+     Longitude INT;
