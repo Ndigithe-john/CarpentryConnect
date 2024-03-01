@@ -1,10 +1,17 @@
 import React, { useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import placeholder from "../../assets/placeholder.png";
 import L from "leaflet";
 
 const defaultPosition = [-0.397037, 36.9648429];
+const blueIcon = new L.Icon({
+  iconUrl:
+    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
 
 const redIcon = new L.Icon({
   iconUrl:
@@ -20,7 +27,6 @@ function MapEventHandlers({ setWorkshopLocation }) {
 
   useEffect(() => {
     const handleClick = (e) => {
-      // Check if the clicked position is within valid bounds
       if (e.latlng) {
         const { lat, lng } = e.latlng;
         setWorkshopLocation({
@@ -70,7 +76,7 @@ function ResetCenterView({ selectPosition }) {
   return null;
 }
 
-function Map({ selectPosition, setWorkshopLocation }) {
+function Map({ selectPosition, setWorkshopLocation, workshopLocation }) {
   const locationSelection = [selectPosition?.lat, selectPosition?.lon];
   const mapStyle = {
     height: "100%",
