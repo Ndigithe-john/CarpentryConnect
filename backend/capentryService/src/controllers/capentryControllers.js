@@ -280,7 +280,7 @@ async function getWorkshoItemByID(req, res, next) {
     } else {
       return res.status(404).json({
         status: false,
-        message: "Get get the item at the moment. Please try again later",
+        message: "Can't get the item at the moment. Please try again later",
       });
     }
   } catch (error) {

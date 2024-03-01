@@ -257,6 +257,45 @@ async function logout(req, res, next) {
   }
 }
 
+async function getUserByID(req, res, next) {
+  try {
+    const { UserID } = req.params;
+    const { pool } = req;
+    if (!/^[1-9]\d*$/.test(UserID)) {
+      return res.status(400).json({
+        status: false,
+        message: "Invalid ItemID. ItemID must be of type int",
+      });
+    }
+    if (pool.connected) {
+      const user_details = await pool
+        .request()
+        .input("UserID")
+        .execute("GetUserDetails");
+      if (user_details.recordset?.length > 0) {
+        return res.status(200).json({
+          status: true,
+          message: "Item data fetched successfully",
+          data: item_data.recordset,
+        });
+      } else {
+        return res.status(404).json({
+          status: false,
+          message: "User not found",
+        });
+      }
+    } else {
+      return res.status(404).json({
+        status: false,
+        message: "Can't get the User at the moment. Please try again later",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Error getting the user", 500));
+  }
+}
+
 module.exports = {
   signUp,
   login,
@@ -265,4 +304,5 @@ module.exports = {
   getCarpenters,
   getWorkshopOwners,
   getProfileDetails,
+  getUserByID,
 };
