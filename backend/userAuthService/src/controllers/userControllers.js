@@ -259,9 +259,9 @@ async function logout(req, res, next) {
 
 async function getUserByID(req, res, next) {
   try {
-    const { UserID } = req.params;
+    const { user_id } = req.params;
     const { pool } = req;
-    if (!/^[1-9]\d*$/.test(UserID)) {
+    if (!/^[1-9]\d*$/.test(user_id)) {
       return res.status(400).json({
         status: false,
         message: "Invalid ItemID. ItemID must be of type int",
@@ -270,13 +270,13 @@ async function getUserByID(req, res, next) {
     if (pool.connected) {
       const user_details = await pool
         .request()
-        .input("UserID")
+        .input("UserID", user_id)
         .execute("GetUserDetails");
       if (user_details.recordset?.length > 0) {
         return res.status(200).json({
           status: true,
           message: "Item data fetched successfully",
-          data: item_data.recordset,
+          data: user_details.recordset,
         });
       } else {
         return res.status(404).json({

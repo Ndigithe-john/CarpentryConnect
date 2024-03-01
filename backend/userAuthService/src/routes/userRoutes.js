@@ -7,6 +7,7 @@ const {
   getWorkshopOwners,
   updateProfile,
   getProfileDetails,
+  getUserByID,
 } = require("../controllers/userControllers");
 const user = require("../utils/getUser");
 const manageSessions = require("../middlewares/userAuthentication");
@@ -20,4 +21,5 @@ userRoutes.get("/getCarpenters", getCarpenters);
 userRoutes.get("/getWorkshopOwners", getWorkshopOwners);
 userRoutes.post("/updateProfile", updateProfile);
 userRoutes.get("/userProfile", getProfileDetails);
+userRoutes.get("/getUser/:user_id", getUserByID);
 module.exports = userRoutes;
