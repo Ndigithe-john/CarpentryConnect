@@ -21,6 +21,7 @@ td {
   border-collapse: collapse;
   padding: 1rem;
   text-align: left;
+  cursor: pointer;
 }
 main.table {
   margin-top: 10vh;
