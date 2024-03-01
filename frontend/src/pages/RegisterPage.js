@@ -54,6 +54,8 @@ const RegisterPage = () => {
         role === "WorkshopOwner" ? workshopLocation.placeName : "NULL",
       PasswordHash: password,
       Confirm_password: confirmPassword,
+      Latitude: workshopLocation.latitude,
+      Longitude: workshopLocation.longitude,
     };
 
     try {

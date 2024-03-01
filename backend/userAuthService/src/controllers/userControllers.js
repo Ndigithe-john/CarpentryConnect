@@ -25,6 +25,8 @@ async function signUp(req, res) {
       WorkshopName,
       WorkshopLocation,
       PasswordHash,
+      Latitude,
+      Longitude,
     } = newUser;
     let hashed_password = await bcrypt.hash(PasswordHash, 8);
     if (pool.connected) {
@@ -40,6 +42,8 @@ async function signUp(req, res) {
         .input("WorkshopName", WorkshopName)
         .input("WorkshopLocation", WorkshopLocation)
         .input("PasswordHash", hashed_password)
+        .input("Latitude", Latitude)
+        .input("Longitude", Longitude)
         .execute("CreateUser");
 
       res.json({

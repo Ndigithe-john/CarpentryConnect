@@ -10,7 +10,8 @@ CREATE OR ALTER PROCEDURE CreateUser
     @DocumentPath NVARCHAR(255) = NULL,
     @WorkshopName NVARCHAR(255) = NULL,
     @WorkshopLocation NVARCHAR(255) = NULL,
-    @PasswordHash NVARCHAR(255)
+    @PasswordHash NVARCHAR(255),
+  
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -28,6 +29,8 @@ BEGIN
         WorkshopName,
         WorkshopLocation,
         PasswordHash
+        Latitude,
+        Longitude
     )
     VALUES (
         @FirstName,
@@ -41,6 +44,8 @@ BEGIN
         @WorkshopName,
         @WorkshopLocation,
         @PasswordHash
+        @Latitude,
+        @Longitude
     );
 
   

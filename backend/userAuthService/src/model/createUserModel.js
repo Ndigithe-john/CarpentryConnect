@@ -25,6 +25,14 @@ const createUserSchema = joi
       is: "WorkshopOwner",
       then: joi.string().required(),
     }),
+    Latitude: joi.when("Role", {
+      is: "WorkshopOwner",
+      then: joi.number().required(),
+    }),
+    Longitude: joi.when("Role", {
+      is: "WorkshopOwner",
+      then: joi.number().required(),
+    }),
   })
   .options({ abortEarly: false });
 
