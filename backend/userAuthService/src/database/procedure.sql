@@ -150,7 +150,7 @@ EXEC UpdateUserProfile
 
 
 --Create the procedure to get the user profile
-    CREATE OR ALTER PROCEDURE GetUserDetails
+  CREATE OR ALTER PROCEDURE GetUserDetails
     @UserID INT
 AS
 BEGIN
@@ -171,8 +171,11 @@ BEGIN
             FirstName + ' ' + LastName AS FullName,
             Email,
             PhoneNumber,
+             About,
+            ProfilePhoto,
             QualificationLevel,
             DocumentPath AS QualificationDocument
+           
         FROM
             Users
         WHERE
@@ -185,6 +188,8 @@ BEGIN
 			FirstName + ' ' + LastName AS FullName,
             Email,
             PhoneNumber,
+            About,
+            ProfilePhoto,
             WorkshopName,
             WorkshopLocation,
             Latitude,
@@ -193,20 +198,8 @@ BEGIN
             Users
         WHERE
             UserID = @UserID;
-    END
-    ELSE
-    BEGIN
-   
-        SELECT
-            UserID,
-            FirstName + ' ' + LastName AS FullName,
-            Email,
-            PhoneNumber
-        FROM
-            Users
-        WHERE
-            UserID = @UserID;
     END;
+    
 END;
 
 Select * from Users
