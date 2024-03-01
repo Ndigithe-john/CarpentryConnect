@@ -51,7 +51,7 @@ const RegisterPage = () => {
       DocumentPath: role === "Carpenter" ? qualificationDocument : "NULL",
       WorkshopName: role === "WorkshopOwner" ? workshopName : "NULL",
       WorkshopLocation:
-        role === "WorkshopOwner" ? workshopLocation.display_name : "NULL",
+        role === "WorkshopOwner" ? workshopLocation.placeName : "NULL",
       PasswordHash: password,
       Confirm_password: confirmPassword,
     };
