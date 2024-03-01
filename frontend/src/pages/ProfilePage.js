@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import profile from "../assets/profile.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocation } from "@fortawesome/free-solid-svg-icons";
@@ -8,15 +9,18 @@ import NavBar from "../components/NavBar";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 const ProfilePage = ({ userRole }) => {
-  async function getUser() {
-    try {
-      let apiURL = "http://localhost:4050/users/getWorkshopOwners";
-      if (userRole === "Carpenter") {
-        apiURL = "http://localhost:4050/users/getCarpenters";
-      }
-      const response = await axios.get(apiURL, { withCredentials: true });
-    } catch (error) {}
-  }
+  const [userProfile, setUserProfile] = useState([]);
+  useEffect(() => {
+    async function getUser() {
+      try {
+        let apiURL = "http://localhost:4050/users/userProfile";
+        const response = await axios.get(apiURL, { withCredentials: true });
+        setUserProfile(response.data.data[0]);
+      } catch (error) {}
+    }
+    getUser();
+  }, []);
+
   return (
     <div>
       <NavBar
@@ -44,16 +48,24 @@ const ProfilePage = ({ userRole }) => {
         </div>
         <div className="right_side_profile">
           <h1>Full Name</h1>
-          <h4>Name comes here</h4>
+          <h4>{userProfile.FullName}</h4>
           <h1>Email Address</h1>
-          <h4>Email comes here</h4>
+          <h4>{userProfile.Email}</h4>
           <h1>Bio</h1>
-          <h4>bio</h4>
+          <h4>{userProfile.About}</h4>
+          {userRole === "Carpenter" && (
+            <>
+              <h1>QualificationLevel</h1>
+              <h4>{userProfile.QualificationLevel}</h4>
+              <h1>qualificationDocument</h1>
+              <h4>{userProfile.QualificationDocument}</h4>
+            </>
+          )}
         </div>
         {userRole === "WorkshopOwner" && (
           <div className="workshop_owner_profile">
             <h1>Workshop Name</h1>
-            <h4>workshop Name</h4>
+            <h4>{userProfile.WorkshopLocation}</h4>
             <h1>Workshop Location</h1>
             <h4>
               <FontAwesomeIcon icon={faLocation} /> location
@@ -61,7 +73,10 @@ const ProfilePage = ({ userRole }) => {
             <div
               style={{ border: "2px solid red", width: "40vw", height: "50vh" }}
             >
-              <Location />
+              <Location
+                Latitude={userProfile.Latitude}
+                Longitude={userProfile.Longitude}
+              />
             </div>
           </div>
         )}
