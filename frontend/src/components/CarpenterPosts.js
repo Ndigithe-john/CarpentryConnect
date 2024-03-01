@@ -15,7 +15,7 @@ const CarpenterPosts = () => {
     getMyPosts();
   }, []);
   return (
-    <div>
+    <div className="products">
       {myPersonalPosts.map((post) => (
         <CarpenterPost key={post.ItemID} post={post} />
       ))}
