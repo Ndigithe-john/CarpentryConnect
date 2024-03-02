@@ -118,6 +118,13 @@
   font-size: 15px;
   color: var(--color-text-dark);
 }
+.profile_page_user {
+  display: flex;
+  flex-direction: row;
+  gap: 10vw;
+  margin-top: 17vh;
+  margin-left: 25vw;
+}
 .profile_page {
   display: flex;
   flex-direction: row;

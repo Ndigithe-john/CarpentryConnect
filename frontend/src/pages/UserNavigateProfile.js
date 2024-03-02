@@ -6,7 +6,7 @@ import "./pages.css";
 import Location from "../components/Location/Location";
 import { useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import { Outlet } from "react-router-dom";
+
 import axios from "axios";
 import CarpenterPosts from "../components/CarpenterPosts";
 const UserNavigateProfile = ({ userRole }) => {
@@ -38,7 +38,7 @@ const UserNavigateProfile = ({ userRole }) => {
           </div>
         </div>
       </NavBar>
-      <div className="profile_page">
+      <div className="profile_page_user">
         <div className="profile_page_aside">
           <h3>{userProfile.FullName}</h3>
           <div className="prof_pic_div">
@@ -79,7 +79,7 @@ const UserNavigateProfile = ({ userRole }) => {
         )}
       </div>
       <div className="personal_posts_container">
-        <h1 className="personal_posts">Posts</h1>
+        <h1 className="personal_posts">{userProfile.FullName} Posts</h1>
         <CarpenterPosts />
       </div>
     </div>
