@@ -39,6 +39,7 @@ function App() {
       path: "/item/:ItemID",
       element: <ProductDetails userRole={userRole} />,
     },
+    { path: "user/:UserId", element: <ProfilePage userRole={userRole} /> },
     {
       path: "/profile",
       element: <ProfilePage userRole={userRole} />,

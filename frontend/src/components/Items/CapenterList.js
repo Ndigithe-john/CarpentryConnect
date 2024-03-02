@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./showitemsStyles.css";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 const CapenterList = ({ userRole }) => {
   const [users, setUsers] = useState([]);
 
@@ -51,7 +51,12 @@ const CapenterList = ({ userRole }) => {
             <tbody>
               {users.map((user) => (
                 <tr key={user.UserID}>
-                  <td>{user.UserID}</td>
+                  <Link
+                    style={{ textDecoration: "none", color: "blue" }}
+                    to={`/user/${user.UserID}`}
+                  >
+                    <td>{user.UserID}</td>
+                  </Link>
                   <td>{user.FullName}</td>
                   <td>{user.Email}</td>
                   <td>{user.PhoneNumber}</td>

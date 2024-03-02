@@ -275,7 +275,7 @@ async function getUserByID(req, res, next) {
       if (user_details.recordset?.length > 0) {
         return res.status(200).json({
           status: true,
-          message: "Item data fetched successfully",
+          message: "User data fetched successfully",
           data: user_details.recordset,
         });
       } else {

@@ -87,7 +87,6 @@ const ProductDetails = ({ userRole }) => {
           <h2>Item Price: Ksh {productDetails.Price}</h2>
           {userRole === "Carpenter" ? (
             <>
-              {" "}
               <label>Estimated completion date</label>
               <input
                 type="date"
