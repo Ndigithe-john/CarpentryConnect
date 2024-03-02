@@ -44,7 +44,6 @@ const UserNavigateProfile = ({ userRole }) => {
           <div className="prof_pic_div">
             <img src={profile} alt="profile_photo" />
           </div>
-          <button className="profile_page_edit_button">Update Photo</button>
         </div>
         <div className="right_side_profile">
           <h1>Full Name</h1>
@@ -53,7 +52,7 @@ const UserNavigateProfile = ({ userRole }) => {
           <h4>{userProfile.Email}</h4>
           <h1>Bio</h1>
           <h4>{userProfile.About}</h4>
-          {userRole === "Carpenter" && (
+          {userRole === "WorkshopOwner" && (
             <>
               <h1>QualificationLevel</h1>
               <h4>{userProfile.QualificationLevel}</h4>
@@ -62,7 +61,7 @@ const UserNavigateProfile = ({ userRole }) => {
             </>
           )}
         </div>
-        {userRole === "WorkshopOwner" && (
+        {userRole === "Carpenter" && (
           <div className="workshop_owner_profile">
             <h1>Workshop Name</h1>
             <h4>{userProfile.WorkshopLocation}</h4>
