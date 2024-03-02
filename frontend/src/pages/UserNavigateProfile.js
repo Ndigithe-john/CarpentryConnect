@@ -6,7 +6,6 @@ import "./pages.css";
 import Location from "../components/Location/Location";
 import { useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
-
 import axios from "axios";
 import CarpenterPosts from "../components/CarpenterPosts";
 const UserNavigateProfile = ({ userRole }) => {
