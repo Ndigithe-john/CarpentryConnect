@@ -17,6 +17,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ProductDetails from "./components/ProductDetails";
 import UpdateProfile from "./pages/UpdateProfile";
 import LocationMap from "./components/Location/LocationMap";
+import UserNavigateProfile from "./pages/UserNavigateProfile";
 import Location from "./components/Location/Location";
 function App() {
   const updateUserRole = (role) => {
@@ -39,7 +40,10 @@ function App() {
       path: "/item/:ItemID",
       element: <ProductDetails userRole={userRole} />,
     },
-    { path: "user/:UserId", element: <ProfilePage userRole={userRole} /> },
+    {
+      path: "user/:UserId",
+      element: <UserNavigateProfile userRole={userRole} />,
+    },
     {
       path: "/profile",
       element: <ProfilePage userRole={userRole} />,

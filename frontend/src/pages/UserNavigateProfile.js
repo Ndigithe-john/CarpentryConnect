@@ -4,23 +4,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import "./pages.css";
 import Location from "../components/Location/Location";
-
+import { useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
 import CarpenterPosts from "../components/CarpenterPosts";
 const UserNavigateProfile = ({ userRole }) => {
+  const { UserId } = useParams();
   const [userProfile, setUserProfile] = useState([]);
   useEffect(() => {
     async function getUser() {
       try {
-        let apiURL = `http://localhost:4050/users/getUser/${}`;
-        const response = await axios.get(apiURL, { withCredentials: true });
+        let apiURL = `http://localhost:4050/users/getUser/${UserId}`;
+        const response = await axios.get(apiURL);
         setUserProfile(response.data.data[0]);
       } catch (error) {}
     }
     getUser();
-  }, []);
+  }, [UserId]);
 
   return (
     <div>
@@ -77,15 +78,11 @@ const UserNavigateProfile = ({ userRole }) => {
             </div>
           </div>
         )}
-        <Outlet />
       </div>
-
-      {userRole === "Carpenter" && (
-        <div className="personal_posts_container">
-          <h1 className="personal_posts">Posts</h1>
-          <CarpenterPosts />
-        </div>
-      )}
+      <div className="personal_posts_container">
+        <h1 className="personal_posts">Posts</h1>
+        <CarpenterPosts />
+      </div>
     </div>
   );
 };
