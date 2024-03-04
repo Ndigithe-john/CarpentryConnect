@@ -14,7 +14,7 @@ const SearchBar = () => {
         value={searchInput}
         onChange={handeSerchChange}
       />
-      <button>Search</button>
+      <button type="submit">Search</button>
     </form>
   );
 };
