@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 import profile from "../assets/profile.jpg";
 import SearchBar from "./SearchBar";
@@ -9,9 +9,16 @@ import { Link } from "react-router-dom";
 
 const Home = ({ userRole }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userInformation, setUserInformation] = useState([]);
   function hanldeMouseEnter() {
     setIsModalOpen((prev) => !prev);
   }
+  useEffect(() => {
+    async function getUser() {
+      let apiURL = "http://localhost5050:/";
+    }
+    getUser();
+  }, []);
 
   return (
     <>

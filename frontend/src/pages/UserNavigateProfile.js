@@ -77,10 +77,12 @@ const UserNavigateProfile = ({ userRole }) => {
           </div>
         )}
       </div>
-      <div className="personal_posts_container">
-        <h1 className="personal_posts">{userProfile.FullName} Posts</h1>
-        <CarpenterPosts />
-      </div>
+      {userRole === "WorkshopOwner" && (
+        <div className="personal_posts_container">
+          <h1 className="personal_posts">{userProfile.FullName} Posts</h1>
+          <CarpenterPosts />
+        </div>
+      )}
     </div>
   );
 };
