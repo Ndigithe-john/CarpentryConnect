@@ -21,7 +21,9 @@ const ProfilePage = ({ userRole }) => {
         let apiURL = "http://localhost:4050/users/userProfile";
         const response = await axios.get(apiURL, { withCredentials: true });
         setUserProfile(response.data.data[0]);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     }
     getUser();
   }, []);
