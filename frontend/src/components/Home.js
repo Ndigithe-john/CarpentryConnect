@@ -6,16 +6,23 @@ import Products from "./Products";
 import AccountAboutModal from "./AccountAboutModal";
 import DisplayContainer from "../TopProduct/DisplayContainer";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Home = ({ userRole }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userInformation, setUserInformation] = useState([]);
+  const [userInformation, setUserInformation] = useState("");
   function hanldeMouseEnter() {
     setIsModalOpen((prev) => !prev);
   }
   useEffect(() => {
     async function getUser() {
-      let apiURL = "http://localhost5050:/";
+      try {
+        let apiURL = "http://localhost:4050/users/userProfile";
+        const response = await axios.get(apiURL, { withCredentials: true });
+        setUserInformation(response.data.data[0]);
+      } catch (error) {
+        console.error("Error fetching userName", error.message);
+      }
     }
     getUser();
   }, []);
@@ -33,7 +40,7 @@ const Home = ({ userRole }) => {
             </Link>
           </div>
           <div className="profile_name">
-            <p>name</p>
+            <p style={{ color: "wheat" }}>{userInformation.FullName}</p>
           </div>
         </div>
         <div className="navbar_hamburger" onMouseEnter={hanldeMouseEnter}>
