@@ -4,12 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import "./pages.css";
 import Location from "../components/Location/Location";
-
+import ProfileModal from "../components/ProfileModal";
 import NavBar from "../components/NavBar";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
 import CarpenterPosts from "../components/CarpenterPosts";
 const ProfilePage = ({ userRole }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  function hanldeMouseEnter() {
+    setIsModalOpen((prev) => !prev);
+  }
   const [userProfile, setUserProfile] = useState([]);
   useEffect(() => {
     async function getUser() {
@@ -29,14 +33,16 @@ const ProfilePage = ({ userRole }) => {
         className="landing_nav fixed_nav prof_nav"
       >
         <div className="added_profile">
-          <div className="profile_photo">
-            <img src={profile} alt="profilePhoto" className="prof_image" />
-          </div>
-          <div className="profile_name">
-            <p>name</p>
+          <div className="navbar_hamburger" onMouseEnter={hanldeMouseEnter}>
+            <div className="menu-icon">
+              <div className="line"></div>
+              <div className="line"></div>
+              <div className="line"></div>
+            </div>
           </div>
         </div>
       </NavBar>
+      {isModalOpen && <ProfileModal />}
       <div className="profile_page">
         <div className="profile_page_aside">
           <h3>{userProfile.FullName}</h3>

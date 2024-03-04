@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-const AccountAboutModal = () => {
+const ProfileModal = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   async function handleLogout() {
@@ -27,7 +27,7 @@ const AccountAboutModal = () => {
     <div className="account-modal">
       <div className="account-modal-content">
         <h4>
-          <Link to="/profile">Profile</Link>
+          <Link to="/home">Home</Link>
         </h4>
         <h4>
           <Link to="/dashboard">dashboard</Link>
@@ -39,4 +39,4 @@ const AccountAboutModal = () => {
   );
 };
 
-export default AccountAboutModal;
+export default ProfileModal;

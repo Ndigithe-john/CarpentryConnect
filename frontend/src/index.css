@@ -127,6 +127,7 @@ body {
   right: 3em;
   width: 15em;
   z-index: 2;
+  margin-top: -3vh;
 }
 
 .account-modal-content {
@@ -253,8 +254,7 @@ body {
 }
 .fixed_nav {
   position: fixed;
-  display: block;
-  margin-bottom: 10vh;
+  margin-bottom: 8vh;
   width: 99.7%;
 }
 .pending_container {
