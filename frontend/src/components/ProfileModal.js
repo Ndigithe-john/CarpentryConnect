@@ -27,10 +27,17 @@ const ProfileModal = () => {
     <div className="account-modal">
       <div className="account-modal-content">
         <h4>
-          <Link to="/home">Home</Link>
+          <Link to="/home" style={{ textDecoration: "none", color: "black" }}>
+            Home
+          </Link>
         </h4>
         <h4>
-          <Link to="/dashboard">dashboard</Link>
+          <Link
+            to="/dashboard"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            dashboard
+          </Link>
         </h4>
 
         <h4 onClick={handleLogout}>logout</h4>
