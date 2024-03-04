@@ -2,8 +2,19 @@ import NavBar from "../NavBar";
 import DashBoardAside from "./DashBoardAside";
 import profile from "../../assets/profile.jpg";
 import { Outlet, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Dashboard = ({ userRole }) => {
+  const [userName, setUserName] = useState("");
+  useEffect(() => {
+    async function getUserName() {
+      let apiURL = "http://localhost:4050/users/userProfile";
+      const response = await axios.get(apiURL, { withCredentials: true });
+      setUserName(response.data.data[0]);
+    }
+    getUserName();
+  }, []);
   return (
     <div className="container_dashboard">
       <NavBar
@@ -17,7 +28,7 @@ const Dashboard = ({ userRole }) => {
             </Link>
           </div>
           <div className="profile_name">
-            <p>name</p>
+            <p style={{ color: "wheat" }}>{userName.FullName}</p>
           </div>
         </div>
       </NavBar>
