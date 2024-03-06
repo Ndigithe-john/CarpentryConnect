@@ -20,17 +20,23 @@ const ProductDetails = ({ userRole }) => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5050/users/workshopItem/${ItemID}`
-        );
-        setProductDetails(response.data.data[0]);
+        let apiURL = `http://localhost:5050/users/workshopItem/${ItemID}`;
+        if (userRole === "WorkshopOwner") {
+          apiURL = `http://localhost:5050/users/carpenterItem/${ItemID}`;
+        }
+        const response = await axios.get(apiURL, { withCredentials: true });
+        if (userRole === "WorkshopOwner") {
+          setProductDetails(response.data.data);
+        } else setProductDetails(response.data.data[0]);
+
+        console.log(apiURL);
       } catch (error) {
         console.error("Error fetching product details:", error.message);
       }
     };
 
     fetchProductDetails();
-  }, [ItemID]);
+  }, [ItemID, userRole]);
 
   const handleDateChange = (e) => {
     const selected = e.target.value;
@@ -84,7 +90,9 @@ const ProductDetails = ({ userRole }) => {
           <h2>Item Material: {productDetails.Material}</h2>
           <h2>Item Description: {productDetails.Description}</h2>
           <h2>Item DateRequired: {productDetails.DateRequired}</h2>
-          <h2>Item Price: Ksh {productDetails.Price}</h2>
+          {userRole === "Carpenter" && (
+            <h2>Item Price: Ksh {productDetails.Price}</h2>
+          )}
           {userRole === "Carpenter" ? (
             <>
               <label>Estimated completion date</label>
