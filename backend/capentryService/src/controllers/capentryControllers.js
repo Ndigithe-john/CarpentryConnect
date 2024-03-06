@@ -253,7 +253,6 @@ async function getItemsByUserID(req, res, next) {
 async function getCarpentersItems(req, res, next) {
   try {
     const user = req.user;
-
     const { pool } = req;
     const { UserID } = req.params;
     if (pool.connected) {
