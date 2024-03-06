@@ -28,7 +28,7 @@ const PendingApproval = ({ userRole }) => {
   return (
     <div className="pending_container">
       {pendingItems.map((item) => (
-        <PendingItem key={item.ItemID} item={item} />
+        <PendingItem key={item.ItemID} item={item} userRole={userRole} />
       ))}
     </div>
   );
