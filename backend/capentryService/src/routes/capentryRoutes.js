@@ -18,6 +18,7 @@ const {
   getMyRejectedWorkRequests,
   getMyApprovedWorkRequests,
   getMyPendingWorkRequest,
+  getCarpentersItems,
 } = require("../controllers/capentryControllers");
 const {
   workCarpenterRequest,
@@ -46,4 +47,5 @@ postroutes.get("/workshopRejected", getRejectedApproval);
 postroutes.get("/carpenterPending", getMyPendingWorkRequest);
 postroutes.get("/carpenterApproved", getMyApprovedWorkRequests);
 postroutes.get("/carpenterRejected", getMyRejectedWorkRequests);
+postroutes.get("/carpenterPosts/:UserID", getCarpentersItems);
 module.exports = postroutes;

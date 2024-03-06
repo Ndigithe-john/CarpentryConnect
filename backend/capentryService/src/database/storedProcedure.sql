@@ -679,3 +679,25 @@ BEGIN
         wr.Status = 'Approved'
         AND wr.CarpenterID = @CarpenterID;
 END;
+
+--Procedure to Get Carpenters Items By ID
+
+CREATE PROCEDURE GetCarpentersItemByID
+    @UserID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Select items from CarpentersItems
+    SELECT
+        ItemID,
+        ImageURL,
+        Description,
+        Category,
+        Material
+    FROM
+        CarpentersItems
+    WHERE
+        CarpenterID = @UserID;
+END;
+

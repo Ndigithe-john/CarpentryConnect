@@ -253,18 +253,19 @@ async function getItemsByUserID(req, res, next) {
 async function getCarpentersItems(req, res, next) {
   try {
     const user = req.user;
+
     const { pool } = req;
     const { UserID } = req.params;
     if (pool.connected) {
+      console.log(user);
       const results = await pool
         .request()
         .input("UserId", UserID)
-        .input("UserType", user.role)
-        .execute("GetItemsByUserID");
+        .execute("GetCarpentersItemByID");
       res.status(200).json({
         status: true,
         message: "Products Fetched Successfully",
-        data: results,
+        data: results.recordset,
       });
     } else {
       return next(
