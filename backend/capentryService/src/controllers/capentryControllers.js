@@ -250,6 +250,32 @@ async function getItemsByUserID(req, res, next) {
     return next(new AppError("There is a problem getting products", 400));
   }
 }
+async function getCarpentersItems(req, res, next) {
+  try {
+    const user = req.user;
+    const { pool } = req;
+    const { UserID } = req.params;
+    if (pool.connected) {
+      const results = await pool
+        .request()
+        .input("UserId", UserID)
+        .input("UserType", user.role)
+        .execute("GetItemsByUserID");
+      res.status(200).json({
+        status: true,
+        message: "Products Fetched Successfully",
+        data: results,
+      });
+    } else {
+      return next(
+        new AppError("Cant connect to the database at the moment", 404)
+      );
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("There is a problem getting products", 400));
+  }
+}
 async function getWorkshoItemByID(req, res, next) {
   try {
     const { item_id } = req.params;
@@ -517,4 +543,5 @@ module.exports = {
   getMyRejectedWorkRequests,
   getMyApprovedWorkRequests,
   getMyPendingWorkRequest,
+  getCarpentersItems,
 };
