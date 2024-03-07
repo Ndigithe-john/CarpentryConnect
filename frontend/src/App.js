@@ -19,6 +19,7 @@ import UpdateProfile from "./pages/UpdateProfile";
 import LocationMap from "./components/Location/LocationMap";
 import UserNavigateProfile from "./pages/UserNavigateProfile";
 import Location from "./components/Location/Location";
+import Room from "./components/ChatRoom/Room";
 function App() {
   const updateUserRole = (role) => {
     localStorage.setItem("userRole", role);
@@ -96,7 +97,7 @@ function App() {
         },
       ],
     },
-
+    { path: "/chat", element: <Room /> },
     {
       path: "/login",
       element: <LoginPage updateUserRole={updateUserRole} />,

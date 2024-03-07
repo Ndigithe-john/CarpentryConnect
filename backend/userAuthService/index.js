@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config();
 const app = express();
 const cors = require("cors");
+const http = require("http");
 const session = require("express-session");
 const RedisStore = require("connect-redis").default;
 const { v4 } = require("uuid");
@@ -22,7 +23,7 @@ async function startServer() {
       credentials: true,
     })
   );
-
+  const server = http.createServer(app);
   try {
     const pool = await sql.connect(config);
     console.log(`connected to the database`);
@@ -64,14 +65,22 @@ async function startServer() {
     });
     app.use(globalErrorHandlers);
     const port = process.env.PORT || 4000;
-    const io = new Server(app);
+    const io = new Server(server, {
+      cors: {
+        origin: "http://localhost:3000",
+      },
+    });
     io.on("connection", (socket) => {
-      console.log(socket.id);
+      console.log("Connected", socket.id);
+      socket.on("join_room", (data) => {
+        socket.join(data);
+        console.log(`user with id: ${socket.id} joined the room ${data}`);
+      });
       socket.on("disconnect", () => {
         console.log("user disconnected", socket.id);
       });
     });
-    app.listen(port, () => console.log(`Server running on port ${port}`));
+    server.listen(port, () => console.log(`Server running on port ${port}`));
   } catch (error) {
     console.log(error);
   }

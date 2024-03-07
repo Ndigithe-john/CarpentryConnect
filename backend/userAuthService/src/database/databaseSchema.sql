@@ -20,3 +20,19 @@ ADD About NVARCHAR(MAX),
  ALTER Table Users 
  ADD Latitude FLOAT,
      Longitude FLOAT;
+
+--Table for ChatRooms
+     CREATE TABLE ChatRooms (
+    ChatRoomID INT PRIMARY KEY IDENTITY(1,1),
+    Participant1ID INT FOREIGN KEY REFERENCES Users(UserID),
+    Participant2ID INT FOREIGN KEY REFERENCES Users(UserID),
+    CONSTRAINT UC_Participants UNIQUE (Participant1ID, Participant2ID)
+);
+--Table for Messages
+CREATE TABLE Messages (
+    MessageID INT PRIMARY KEY IDENTITY(1,1),
+    ChatRoomID INT FOREIGN KEY REFERENCES ChatRooms(ChatRoomID),
+    SenderID INT FOREIGN KEY REFERENCES Users(UserID),
+    Content NVARCHAR(MAX),
+    Timestamp DATETIME
+);
