@@ -303,11 +303,22 @@ async function sendMessage(req, res, next) {
         .input("SenderID", user.id)
         .input("Content", Content)
         .execute("SendMessage");
-      res.status(200).json({
-        status: true,
-        message: "message sent successfully",
-        results: results,
-      });
+      if (results.recordsets.length) {
+        res.status(200).json({
+          status: true,
+          message: "message sent successfully",
+          results: results,
+        });
+      } else {
+        res.status(400).json({
+          status: false,
+          message: "Message not sent",
+        });
+      }
+    } else {
+      return next(
+        new AppError("Can't connect to the database at the moment", 404)
+      );
     }
   } catch (error) {
     console.log(error);
