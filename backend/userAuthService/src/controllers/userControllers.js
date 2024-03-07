@@ -291,6 +291,29 @@ async function createChatRoom(req, res, next) {
     return next(new AppError("Can't Create a room at the moment", 500));
   }
 }
+async function sendMessage(req, res, next) {
+  try {
+    const { pool } = req;
+    const user = req.session.user;
+    const { ChatRoomID, Content } = req.body;
+    if (pool.connected) {
+      const results = await pool
+        .request()
+        .input("ChatRoomID", ChatRoomID)
+        .input("SenderID", user.id)
+        .input("Content", Content)
+        .execute("SendMessage");
+      res.status(200).json({
+        status: true,
+        message: "message sent successfully",
+        results: results,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Cant send your message at the moment", 500));
+  }
+}
 
 async function getUserByID(req, res, next) {
   try {
@@ -341,4 +364,5 @@ module.exports = {
   getProfileDetails,
   getUserByID,
   createChatRoom,
+  sendMessage,
 };
