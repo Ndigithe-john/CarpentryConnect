@@ -9,6 +9,7 @@ const {
   getProfileDetails,
   getUserByID,
   createChatRoom,
+  sendMessage,
 } = require("../controllers/userControllers");
 const user = require("../utils/getUser");
 const manageSessions = require("../middlewares/userAuthentication");
@@ -24,4 +25,5 @@ userRoutes.post("/updateProfile", updateProfile);
 userRoutes.get("/userProfile", getProfileDetails);
 userRoutes.get("/getUser/:user_id", getUserByID);
 userRoutes.post("/createChatRoom", manageSessions, createChatRoom);
+userRoutes.post("/sendMessage", manageSessions, sendMessage);
 module.exports = userRoutes;
