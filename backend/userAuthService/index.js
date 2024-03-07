@@ -12,6 +12,7 @@ const AppError = require("./src/utils/appError");
 const globalErrorHandlers = require("./src/controllers/errorControllers");
 const userRoutes = require("./src/routes/userRoutes");
 const { Server } = require("socket.io");
+
 app.use(express.json());
 async function startServer() {
   const oneDay = 24 * 60 * 60 * 1000;
@@ -63,6 +64,13 @@ async function startServer() {
     });
     app.use(globalErrorHandlers);
     const port = process.env.PORT || 4000;
+    const io = new Server(app);
+    io.on("connection", (socket) => {
+      console.log(socket.id);
+      socket.on("disconnect", () => {
+        console.log("user disconnected", socket.id);
+      });
+    });
     app.listen(port, () => console.log(`Server running on port ${port}`));
   } catch (error) {
     console.log(error);
