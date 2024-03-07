@@ -8,9 +8,10 @@ import ProfileModal from "../components/ProfileModal";
 import NavBar from "../components/NavBar";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
-import CarpenterPosts from "../components/CarpenterPosts";
+import PersonalPosts from "../components/PersonalPosts";
 const ProfilePage = ({ userRole }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [myPosts, setMyPosts] = useState([]);
   function hanldeMouseEnter() {
     setIsModalOpen((prev) => !prev);
   }
@@ -26,6 +27,20 @@ const ProfilePage = ({ userRole }) => {
       }
     }
     getUser();
+  }, []);
+
+  useEffect(() => {
+    async function getMyPosts() {
+      try {
+        const apiURL = "http://localhost:5050/users/userItems";
+        const response = await axios.get(apiURL, { withCredentials: true });
+        setMyPosts(response.data.data);
+        console.log(myPosts);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getMyPosts();
   }, []);
 
   return (
@@ -91,7 +106,11 @@ const ProfilePage = ({ userRole }) => {
       {userRole === "Carpenter" && (
         <div className="personal_posts_container">
           <h1 className="personal_posts">Posts</h1>
-          <CarpenterPosts />
+          <div className="products">
+            {myPosts.map((post) => (
+              <PersonalPosts key={post.ItemID} post={post} />
+            ))}
+          </div>
         </div>
       )}
     </div>
