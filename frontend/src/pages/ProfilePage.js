@@ -105,7 +105,7 @@ const ProfilePage = ({ userRole }) => {
 
       {userRole === "Carpenter" && (
         <div className="personal_posts_container">
-          <h1 className="personal_posts">Posts</h1>
+          <h1 className="personal_posts">MyPosts</h1>
           <div className="products">
             {myPosts.map((post) => (
               <PersonalPosts key={post.ItemID} post={post} />

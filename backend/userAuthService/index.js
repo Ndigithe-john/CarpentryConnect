@@ -11,6 +11,7 @@ const config = require("./src/config/databaseConfig");
 const AppError = require("./src/utils/appError");
 const globalErrorHandlers = require("./src/controllers/errorControllers");
 const userRoutes = require("./src/routes/userRoutes");
+const { Server } = require("socket.io");
 app.use(express.json());
 async function startServer() {
   const oneDay = 24 * 60 * 60 * 1000;
