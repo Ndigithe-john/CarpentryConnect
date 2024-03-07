@@ -258,11 +258,33 @@ async function logout(req, res, next) {
 }
 async function createChatRoom(req, res, next) {
   try {
-    const { Participant1ID } = req.body;
+    const { Participant2ID } = req.body;
     const user = req.session.user;
     const { pool } = req;
     if (pool.connected) {
-      let results = await pool.request().input("Participant1ID");
+      let results = await pool
+        .request()
+        .input("Participant1ID", user.id)
+        .input("Participant2ID", Participant2ID)
+        .execute("CreateChatRoom");
+      if (results.recordset.length > 0) {
+        res.status(200).json({
+          status: true,
+          message: "Chat Room Created successfully",
+        });
+      } else {
+        res.status(400).json({
+          status: false,
+          message: "Error creating a chat room",
+        });
+      }
+    } else {
+      return next(
+        new AppError(
+          "Cant connect to the database at the moment please try again later",
+          404
+        )
+      );
     }
   } catch (error) {
     console.log(error);
