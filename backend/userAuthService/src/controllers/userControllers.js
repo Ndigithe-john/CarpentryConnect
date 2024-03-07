@@ -256,6 +256,19 @@ async function logout(req, res, next) {
     res.send(error.message);
   }
 }
+async function createChatRoom(req, res, next) {
+  try {
+    const { Participant1ID } = req.body;
+    const user = req.session.user;
+    const { pool } = req;
+    if (pool.connected) {
+      let results = await pool.request().input("Participant1ID");
+    }
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Can't Create a room at the moment", 500));
+  }
+}
 
 async function getUserByID(req, res, next) {
   try {
@@ -305,4 +318,5 @@ module.exports = {
   getWorkshopOwners,
   getProfileDetails,
   getUserByID,
+  createChatRoom,
 };
