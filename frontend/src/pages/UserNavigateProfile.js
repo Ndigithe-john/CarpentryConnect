@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import NavBar from "../components/NavBar";
 import CarpenterPosts from "../components/CarpenterPosts";
@@ -7,15 +7,11 @@ import profile from "../assets/profile.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import Location from "../components/Location/Location";
-import Chat from "../components/ChatRoom/Chat";
-import io from "socket.io-client";
-const socket = io.connect("http://localhost:4050");
 
 const UserNavigateProfile = ({ userRole }) => {
   const { UserId } = useParams();
   const [userProfile, setUserProfile] = useState([]);
   const [chatRoomId, setChatRoomId] = useState(null);
-  const history = useNavigate();
 
   useEffect(() => {
     async function getUser() {
@@ -40,9 +36,6 @@ const UserNavigateProfile = ({ userRole }) => {
 
       if (status) {
         setChatRoomId(data.ChatRoomID);
-        console.log(data.ChatRoomID);
-        console.log(chatRoomId);
-        history.push(`/user/${UserId}/chat/${data.room}`);
       } else {
         console.error("Error creating chat room");
       }
@@ -116,15 +109,6 @@ const UserNavigateProfile = ({ userRole }) => {
           <h1 className="personal_posts">{userProfile.FullName} Posts</h1>
           <CarpenterPosts />
         </div>
-      )}
-
-      {/* Include your Chat component with appropriate props */}
-      {chatRoomId && (
-        <Chat
-          socket={socket}
-          userName={userProfile.FullName}
-          room={chatRoomId}
-        />
       )}
     </div>
   );
