@@ -2,7 +2,7 @@ import { useState } from "react";
 import Chat from "./Chat";
 import io from "socket.io-client";
 const socket = io.connect("http://localhost:4050");
-const Room = () => {
+const Room = ({ chatRoomId }) => {
   const [userName, setUserName] = useState("");
   const [room, setRoom] = useState("");
   const joinRoom = () => {
@@ -10,6 +10,7 @@ const Room = () => {
       socket.emit("join_room", room);
     }
   };
+  console.log(chatRoomId);
   return (
     <div>
       <h3>Join chat</h3>

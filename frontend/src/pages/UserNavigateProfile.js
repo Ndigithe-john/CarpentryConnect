@@ -8,10 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import Location from "../components/Location/Location";
 
-const UserNavigateProfile = ({ userRole }) => {
+const UserNavigateProfile = ({ userRole, setChatRoomId }) => {
   const { UserId } = useParams();
   const [userProfile, setUserProfile] = useState([]);
-  const [chatRoomId, setChatRoomId] = useState(null);
 
   useEffect(() => {
     async function getUser() {

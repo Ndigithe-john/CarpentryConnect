@@ -22,6 +22,7 @@ import Location from "./components/Location/Location";
 import Room from "./components/ChatRoom/Room";
 import Chat from "./components/ChatRoom/Chat";
 function App() {
+  const [chatRoomId, setChatRoomId] = useState(null);
   const updateUserRole = (role) => {
     localStorage.setItem("userRole", role);
     setUserRole(role);
@@ -44,12 +45,18 @@ function App() {
     },
     {
       path: "user/:UserId",
-      element: <UserNavigateProfile userRole={userRole} />,
+      element: (
+        <UserNavigateProfile
+          userRole={userRole}
+          chatRoomId={chatRoomId}
+          setChatRoomId={setChatRoomId}
+        />
+      ),
     },
 
     {
       path: "user/:UserId/chat",
-      element: <Room />,
+      element: <Room chatRoomId={chatRoomId} />,
     },
 
     {
