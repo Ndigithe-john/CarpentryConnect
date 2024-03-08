@@ -6,6 +6,7 @@ const loginUserValidator = require("../validators/loginValidator");
 
 const sendMail = require("../utils/email");
 const { updateProfileValidator } = require("../validators/getUserValidator");
+const { errorMonitor } = require("nodemailer/lib/xoauth2");
 
 async function signUp(req, res) {
   try {
@@ -329,11 +330,35 @@ async function sendMessage(req, res, next) {
 async function getChatRoomMessages(req, res, next) {
   try {
     const { pool } = req;
-    const { RoomID } = req.body;
+    const user = req.session.user;
+    const { Participant2ID } = req.body;
     if (pool.connected) {
-      const results = await pool.request().input("ChatRoomID");
+      const results = await pool
+        .request("Participant1ID", user.id)
+        .input("Participant2ID", Participant2ID)
+        .execute("GetMessagesForParticipants");
+      if (results.recordsets.length) {
+        res.status(200).json({
+          status: true,
+          message: "Messages for this Room fetched successfully",
+          data: results.recordset,
+        });
+      } else {
+        res.status(400).json({
+          status: false,
+          message: "Room Not found",
+        });
+      }
+    } else {
+      res.status(404).json({
+        status: false,
+        message: "Error connecting to the dataabase",
+      });
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    return next(new AppError("Internal Server Error", 500));
+  }
 }
 
 async function getUserByID(req, res, next) {
@@ -386,4 +411,5 @@ module.exports = {
   getUserByID,
   createChatRoom,
   sendMessage,
+  getChatRoomMessages,
 };
