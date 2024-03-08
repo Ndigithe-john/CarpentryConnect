@@ -33,7 +33,7 @@ const UserNavigateProfile = ({ userRole }) => {
             <img src={profile} alt="profilePhoto" className="prof_image" />
           </div>
           <div className="profile_name">
-            <p>name</p>
+            <p style={{ color: "wheat" }}>{userProfile.FullName}</p>
           </div>
         </div>
       </NavBar>
@@ -43,6 +43,7 @@ const UserNavigateProfile = ({ userRole }) => {
           <div className="prof_pic_div">
             <img src={profile} alt="profile_photo" />
           </div>
+          <button className="chat_button">Chat {userProfile.FullName}</button>
         </div>
         <div className="right_side_profile">
           <h1>Full Name</h1>
@@ -77,6 +78,7 @@ const UserNavigateProfile = ({ userRole }) => {
           </div>
         )}
       </div>
+
       {userRole === "WorkshopOwner" && (
         <div className="personal_posts_container">
           <h1 className="personal_posts">{userProfile.FullName} Posts</h1>
