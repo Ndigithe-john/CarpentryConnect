@@ -32,8 +32,28 @@ async function startServer() {
     redis_client.connect();
     redis_client.on("connect", () => console.log("Connected to Redis"));
     const redis_store = new RedisStore({ client: redis_client, prefix: "" });
+    const io = new Server(server, {
+      cors: {
+        origin: "http://localhost:3000",
+      },
+    });
+    io.on("connection", (socket) => {
+      console.log("Connected", socket.id);
+      socket.on("join_room", (data) => {
+        socket.join(data);
+        console.log(`user with id: ${socket.id} joined the room ${data}`);
+      });
+      socket.on("send_message", (data) => {
+        socket.to(data.room).emit("receive_message", data);
+      });
+      socket.on("disconnect", () => {
+        console.log("user disconnected", socket.id);
+      });
+    });
+
     app.use((req, res, next) => {
       req.pool = pool;
+      req.io = io;
       next();
     });
     app.use(
@@ -65,24 +85,7 @@ async function startServer() {
     });
     app.use(globalErrorHandlers);
     const port = process.env.PORT || 4000;
-    const io = new Server(server, {
-      cors: {
-        origin: "http://localhost:3000",
-      },
-    });
-    io.on("connection", (socket) => {
-      console.log("Connected", socket.id);
-      socket.on("join_room", (data) => {
-        socket.join(data);
-        console.log(`user with id: ${socket.id} joined the room ${data}`);
-      });
-      socket.on("send_message", (data) => {
-        socket.to(data.room).emit("receive_message", data);
-      });
-      socket.on("disconnect", () => {
-        console.log("user disconnected", socket.id);
-      });
-    });
+
     server.listen(port, () => console.log(`Server running on port ${port}`));
   } catch (error) {
     console.log(error);

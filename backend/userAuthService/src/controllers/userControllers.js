@@ -261,13 +261,17 @@ async function createChatRoom(req, res, next) {
   try {
     const { Participant2ID } = req.body;
     const user = req.session.user;
-    const { pool } = req;
+    const { pool, io } = req;
     if (pool.connected) {
       let results = await pool
         .request()
         .input("Participant1ID", user.id)
         .input("Participant2ID", Participant2ID)
         .execute("CreateChatRoom");
+      io.emit("chat_room_created", {
+        room: `chat_room_${user.id}_${Participant2ID}`,
+        participants: [user.id, Participant2ID],
+      });
       if (results.recordset.length > 0) {
         res.status(200).json({
           status: true,
@@ -294,7 +298,7 @@ async function createChatRoom(req, res, next) {
 }
 async function sendMessage(req, res, next) {
   try {
-    const { pool } = req;
+    const { pool, io } = req;
     const user = req.session.user;
     const { ChatRoomID, Content } = req.body;
     if (pool.connected) {
@@ -305,6 +309,11 @@ async function sendMessage(req, res, next) {
         .input("SenderID", user.id)
         .input("Content", Content)
         .execute("SendMessage");
+      io.to(`chat_room_${ChatRoomID}`).emit("receive_message", {
+        room: `chat_room_${ChatRoomID}`,
+        sender: user.id,
+        content: Content,
+      });
       if (results.recordsets.recordsets) {
         res.status(200).json({
           status: true,
@@ -329,7 +338,7 @@ async function sendMessage(req, res, next) {
 }
 async function getChatRoomMessages(req, res, next) {
   try {
-    const { pool } = req;
+    const { pool, io } = req;
     const user = req.session.user;
     const { Participant2ID } = req.body;
     if (pool.connected) {
@@ -338,6 +347,9 @@ async function getChatRoomMessages(req, res, next) {
         .input("Participant1ID", user.id)
         .input("Participant2ID", Participant2ID)
         .execute("GetMessagesForParticipants");
+      io.emit("fetching_messages", {
+        participants: [user.id, Participant2ID],
+      });
       if (results.recordsets.length) {
         res.status(200).json({
           status: true,
