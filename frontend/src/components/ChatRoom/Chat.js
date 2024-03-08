@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import sendIcon from "../../assets/sendIcon.jpg";
 const Chat = ({ socket, userName, room }) => {
   const [currentMessage, setCurrentMessage] = useState("");
   async function handleSendMessage() {
@@ -33,7 +33,9 @@ const Chat = ({ socket, userName, room }) => {
           placeholder="Type text here...."
           onChange={(e) => setCurrentMessage(e.target.value)}
         />
-        <button onClick={handleSendMessage}>&#9658;</button>
+        <button onClick={handleSendMessage} className="send_button">
+          <img src={sendIcon} alt="send" className="send_button_img" />
+        </button>
       </div>
     </div>
   );
