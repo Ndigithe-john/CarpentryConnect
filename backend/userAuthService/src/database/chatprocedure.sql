@@ -58,3 +58,46 @@ BEGIN
     ORDER BY
         Timestamp;
 END;
+
+--Porcedure to get chatroom messages depending on participants
+CREATE OR ALTER PROCEDURE GetMessagesForParticipants
+    @Participant1ID INT,
+    @Participant2ID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    
+    DECLARE @ChatRoomID INT;
+
+    
+    SELECT @ChatRoomID = ChatRoomID
+    FROM ChatRooms
+    WHERE
+        (Participant1ID = @Participant1ID AND Participant2ID = @Participant2ID)
+        OR
+        (Participant1ID = @Participant2ID AND Participant2ID = @Participant1ID);
+
+
+    IF @ChatRoomID IS NOT NULL
+    BEGIN
+        
+        SELECT
+            MessageID,
+            SenderID,
+            Content,
+            Timestamp
+        FROM
+            Messages
+        WHERE
+            ChatRoomID = @ChatRoomID
+        ORDER BY
+            Timestamp;
+    END;
+    ELSE
+    BEGIN
+        
+        SELECT NULL AS MessageID, NULL AS SenderID, NULL AS Content, NULL AS Timestamp WHERE 1 = 0;
+    END;
+END;
+

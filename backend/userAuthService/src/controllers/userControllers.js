@@ -326,6 +326,15 @@ async function sendMessage(req, res, next) {
     return next(new AppError("Cant send your message at the moment", 500));
   }
 }
+async function getChatRoomMessages(req, res, next) {
+  try {
+    const { pool } = req;
+    const { RoomID } = req.body;
+    if (pool.connected) {
+      const results = await pool.request().input("ChatRoomID");
+    }
+  } catch (error) {}
+}
 
 async function getUserByID(req, res, next) {
   try {
