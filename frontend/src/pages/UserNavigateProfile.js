@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import "./pages.css";
 import Location from "../components/Location/Location";
-import { useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import axios from "axios";
 import CarpenterPosts from "../components/CarpenterPosts";
@@ -37,13 +37,16 @@ const UserNavigateProfile = ({ userRole }) => {
           </div>
         </div>
       </NavBar>
+
       <div className="profile_page_user">
         <div className="profile_page_aside">
           <h3>{userProfile.FullName}</h3>
           <div className="prof_pic_div">
             <img src={profile} alt="profile_photo" />
           </div>
-          <button className="chat_button">Chat {userProfile.FullName}</button>
+          <Link to={`/user/${UserId}/chat`}>
+            <button className="chat_button">Chat {userProfile.FullName}</button>
+          </Link>
         </div>
         <div className="right_side_profile">
           <h1>Full Name</h1>

@@ -45,6 +45,12 @@ function App() {
       path: "user/:UserId",
       element: <UserNavigateProfile userRole={userRole} />,
     },
+
+    {
+      path: "user/:UserId/chat",
+      element: <Room />,
+    },
+
     {
       path: "/profile",
       element: <ProfilePage userRole={userRole} />,
@@ -97,7 +103,7 @@ function App() {
         },
       ],
     },
-    { path: "/chat", element: <Room /> },
+
     {
       path: "/login",
       element: <LoginPage updateUserRole={updateUserRole} />,
