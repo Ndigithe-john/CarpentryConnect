@@ -334,7 +334,8 @@ async function getChatRoomMessages(req, res, next) {
     const { Participant2ID } = req.body;
     if (pool.connected) {
       const results = await pool
-        .request("Participant1ID", user.id)
+        .request()
+        .input("Participant1ID", user.id)
         .input("Participant2ID", Participant2ID)
         .execute("GetMessagesForParticipants");
       if (results.recordsets.length) {
