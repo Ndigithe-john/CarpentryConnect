@@ -20,6 +20,7 @@ import LocationMap from "./components/Location/LocationMap";
 import UserNavigateProfile from "./pages/UserNavigateProfile";
 import Location from "./components/Location/Location";
 import Room from "./components/ChatRoom/Room";
+import Chat from "./components/ChatRoom/Chat";
 function App() {
   const updateUserRole = (role) => {
     localStorage.setItem("userRole", role);

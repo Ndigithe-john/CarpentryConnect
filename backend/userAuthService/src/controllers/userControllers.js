@@ -276,6 +276,7 @@ async function createChatRoom(req, res, next) {
         res.status(200).json({
           status: true,
           message: "Chat Room Created successfully",
+          data: results.recordset[0],
         });
       } else {
         res.status(400).json({

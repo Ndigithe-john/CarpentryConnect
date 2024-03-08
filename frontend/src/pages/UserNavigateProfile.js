@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import NavBar from "../components/NavBar";
+import CarpenterPosts from "../components/CarpenterPosts";
 import profile from "../assets/profile.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocation } from "@fortawesome/free-solid-svg-icons";
-import "./pages.css";
 import Location from "../components/Location/Location";
-import { Link, Outlet, useParams } from "react-router-dom";
-import NavBar from "../components/NavBar";
-import axios from "axios";
-import CarpenterPosts from "../components/CarpenterPosts";
+import Chat from "../components/ChatRoom/Chat";
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:4050");
+
 const UserNavigateProfile = ({ userRole }) => {
   const { UserId } = useParams();
   const [userProfile, setUserProfile] = useState([]);
+  const [chatRoomId, setChatRoomId] = useState(null);
+  const history = useNavigate();
+
   useEffect(() => {
     async function getUser() {
       try {
@@ -21,6 +27,29 @@ const UserNavigateProfile = ({ userRole }) => {
     }
     getUser();
   }, [UserId]);
+
+  const handleChatButtonClick = async () => {
+    try {
+      let apiURL = `http://localhost:4050/users/createChatRoom`;
+      const response = await axios.post(
+        apiURL,
+        { Participant2ID: UserId },
+        { withCredentials: true }
+      );
+      const { status, data } = response.data;
+
+      if (status) {
+        setChatRoomId(data.ChatRoomID);
+        console.log(data.ChatRoomID);
+        console.log(chatRoomId);
+        history.push(`/user/${UserId}/chat/${data.room}`);
+      } else {
+        console.error("Error creating chat room");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
@@ -44,7 +73,7 @@ const UserNavigateProfile = ({ userRole }) => {
           <div className="prof_pic_div">
             <img src={profile} alt="profile_photo" />
           </div>
-          <Link to={`/user/${UserId}/chat`}>
+          <Link to={`/user/${UserId}/chat`} onClick={handleChatButtonClick}>
             <button className="chat_button">Chat {userProfile.FullName}</button>
           </Link>
         </div>
@@ -57,9 +86,9 @@ const UserNavigateProfile = ({ userRole }) => {
           <h4>{userProfile.About}</h4>
           {userRole === "WorkshopOwner" && (
             <>
-              <h1>QualificationLevel</h1>
+              <h1>Qualification Level</h1>
               <h4>{userProfile.QualificationLevel}</h4>
-              <h1>qualificationDocument</h1>
+              <h1>Qualification Document</h1>
               <h4>{userProfile.QualificationDocument}</h4>
             </>
           )}
@@ -87,6 +116,15 @@ const UserNavigateProfile = ({ userRole }) => {
           <h1 className="personal_posts">{userProfile.FullName} Posts</h1>
           <CarpenterPosts />
         </div>
+      )}
+
+      {/* Include your Chat component with appropriate props */}
+      {chatRoomId && (
+        <Chat
+          socket={socket}
+          userName={userProfile.FullName}
+          room={chatRoomId}
+        />
       )}
     </div>
   );
