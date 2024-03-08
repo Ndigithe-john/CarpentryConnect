@@ -441,3 +441,12 @@ button:hover {
   font-size: 12px;
   cursor: pointer;
 }
+.chat_container {
+  border: 2px solid green;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 60vw;
+  height: 95vh;
+}
