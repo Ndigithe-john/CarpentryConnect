@@ -6,7 +6,7 @@ const Room = ({ chatRoomId }) => {
   const [userName, setUserName] = useState("");
   const [room, setRoom] = useState("");
   const joinRoom = () => {
-    if (userName !== "" && room !== "") {
+    if (userName !== "" && chatRoomId) {
       socket.emit("join_room", room);
     }
   };
@@ -20,13 +20,9 @@ const Room = ({ chatRoomId }) => {
         value={userName}
         onChange={(e) => setUserName(e.target.value)}
       />
-      <input
-        type="text"
-        placeholder="Room ID..."
-        onChange={(e) => setRoom(e.target.value)}
-      />
+      <input type="text" placeholder="Room ID..." onChange={(e) => setRoom()} />
       <button onClick={joinRoom}>Join A Room</button>
-      <Chat socket={socket} userName={userName} room={room} />
+      <Chat socket={socket} userName={userName} room={chatRoomId} />
     </div>
   );
 };
