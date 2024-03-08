@@ -297,13 +297,14 @@ async function sendMessage(req, res, next) {
     const user = req.session.user;
     const { ChatRoomID, Content } = req.body;
     if (pool.connected) {
+      console.log(user);
       const results = await pool
         .request()
         .input("ChatRoomID", ChatRoomID)
         .input("SenderID", user.id)
         .input("Content", Content)
         .execute("SendMessage");
-      if (results.recordsets.length) {
+      if (results.recordsets.recordsets) {
         res.status(200).json({
           status: true,
           message: "message sent successfully",

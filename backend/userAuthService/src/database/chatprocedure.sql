@@ -39,3 +39,22 @@ BEGIN
 END;
 
 EXEC SendMessage @ChatRoomID = 1, @SenderID = 1039, @Content = 'Hello, how are you?';
+--Procedure to get messages for a chat rooom
+CREATE OR ALTER PROCEDURE GetMessagesForChatRoom
+    @ChatRoomID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        MessageID,
+        SenderID,
+        Content,
+        Timestamp
+    FROM
+        Messages
+    WHERE
+        ChatRoomID = @ChatRoomID
+    ORDER BY
+        Timestamp;
+END;
