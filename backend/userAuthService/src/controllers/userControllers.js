@@ -315,7 +315,7 @@ async function sendMessage(req, res, next) {
         sender: user.id,
         content: Content,
       });
-      if (results.recordsets.recordsets) {
+      if (results.recordsets) {
         res.status(200).json({
           status: true,
           message: "message sent successfully",
