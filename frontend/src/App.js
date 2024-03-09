@@ -26,7 +26,9 @@ const socket = io.connect("http://localhost:4050");
 function App() {
   const [chatRoomId, setChatRoomId] = useState(null);
   const [userName, setUserName] = useState("");
-
+  useEffect(() => {
+    console.log("Updated chatRoomId:", chatRoomId);
+  }, [chatRoomId]);
   useEffect(() => {
     async function getUser() {
       try {
@@ -71,7 +73,6 @@ function App() {
         <UserNavigateProfile
           userRole={userRole}
           setChatRoomId={setChatRoomId}
-          chatRoomId={chatRoomId}
           joinRoom={joinRoom}
         />
       ),

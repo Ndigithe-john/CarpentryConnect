@@ -8,7 +8,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import Location from "../components/Location/Location";
 
-const UserNavigateProfile = ({ userRole, setChatRoomId, joinRoom }) => {
+const UserNavigateProfile = ({
+  userRole,
+  setChatRoomId,
+
+  joinRoom,
+}) => {
   const { UserId } = useParams();
   const [userProfile, setUserProfile] = useState([]);
 
@@ -22,7 +27,6 @@ const UserNavigateProfile = ({ userRole, setChatRoomId, joinRoom }) => {
     }
     getUser();
   }, [UserId]);
-
   const handleChatButtonClick = async () => {
     try {
       let apiURL = `http://localhost:4050/users/createChatRoom`;
