@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import ScrollToBottom from "react-scroll-to-bottom";
 import sendIcon from "../../assets/sendIcon.jpg";
+
 const Chat = ({ socket, userName, room }) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
-  async function handleSendMessage() {
-    console.log(userName);
+
+  const handleSendMessage = async () => {
     if (currentMessage !== "") {
       const messageData = {
         room: room,
@@ -16,15 +18,35 @@ const Chat = ({ socket, userName, room }) => {
           ":" +
           new Date(Date.now()).getMinutes(),
       };
+
       await socket.emit("send_message", messageData);
-      setMessageList((list) => [...list, messageData]);
+
+      try {
+        const response = await axios.post(
+          "http://localhost:4050/users/sendMessage",
+          {
+            ChatRoomID: room,
+            Content: currentMessage,
+          },
+          { withCredentials: true }
+        );
+
+        console.log(response.data);
+
+        setMessageList((list) => [...list, messageData]);
+        setCurrentMessage("");
+      } catch (error) {
+        console.error("Error sending message:", error);
+      }
     }
-  }
+  };
+
   useEffect(() => {
     socket.on("receive_message", (data) => {
       setMessageList((list) => [...list, data]);
     });
   }, [socket]);
+
   return (
     <div className="chat-window">
       <div className="chat-header">
@@ -37,6 +59,7 @@ const Chat = ({ socket, userName, room }) => {
               <div
                 className="message"
                 id={userName === messageContent.author ? "you" : "other"}
+                key={messageContent.time}
               >
                 <div>
                   <div className="message-content">
@@ -56,6 +79,7 @@ const Chat = ({ socket, userName, room }) => {
         <input
           type="text"
           placeholder="Type text here...."
+          value={currentMessage}
           onChange={(e) => setCurrentMessage(e.target.value)}
         />
         <button onClick={handleSendMessage} className="send_button">
