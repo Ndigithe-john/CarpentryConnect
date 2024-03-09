@@ -12,17 +12,39 @@ import Rejected from "./components/Items/Rejected";
 import CapenterList from "./components/Items/CapenterList";
 import Home from "./components/Home";
 import Dashboard from "./components/DashBoard/Dashboard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProfilePage from "./pages/ProfilePage";
 import ProductDetails from "./components/ProductDetails";
 import UpdateProfile from "./pages/UpdateProfile";
 import LocationMap from "./components/Location/LocationMap";
 import UserNavigateProfile from "./pages/UserNavigateProfile";
 import Location from "./components/Location/Location";
-import Room from "./components/ChatRoom/Room";
 import Chat from "./components/ChatRoom/Chat";
+import io from "socket.io-client";
+import axios from "axios";
+const socket = io.connect("http://localhost:4050");
 function App() {
   const [chatRoomId, setChatRoomId] = useState(null);
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    async function getUser() {
+      try {
+        let apiURL = "http://localhost:4050/users/userProfile";
+        const response = await axios.get(apiURL, { withCredentials: true });
+        setUserName(response.data.data[0]);
+        console.log(userName.FullName);
+      } catch (error) {
+        console.error("Error fetching userName", error.message);
+      }
+    }
+    getUser();
+  }, [userName.FullName]);
+  const joinRoom = () => {
+    if (userName !== "" && chatRoomId) {
+      socket.emit("join_room", chatRoomId);
+    }
+  };
   const updateUserRole = (role) => {
     localStorage.setItem("userRole", role);
     setUserRole(role);
@@ -48,15 +70,18 @@ function App() {
       element: (
         <UserNavigateProfile
           userRole={userRole}
-          chatRoomId={chatRoomId}
           setChatRoomId={setChatRoomId}
+          chatRoomId={chatRoomId}
+          joinRoom={joinRoom}
         />
       ),
     },
 
     {
       path: "user/:UserId/chat",
-      element: <Room chatRoomId={chatRoomId} />,
+      element: (
+        <Chat socket={socket} userName={userName.FullName} room={chatRoomId} />
+      ),
     },
 
     {

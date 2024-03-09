@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocation } from "@fortawesome/free-solid-svg-icons";
 import Location from "../components/Location/Location";
 
-const UserNavigateProfile = ({ userRole, setChatRoomId }) => {
+const UserNavigateProfile = ({ userRole, setChatRoomId, joinRoom }) => {
   const { UserId } = useParams();
   const [userProfile, setUserProfile] = useState([]);
 
@@ -32,7 +32,7 @@ const UserNavigateProfile = ({ userRole, setChatRoomId }) => {
         { withCredentials: true }
       );
       const { status, data } = response.data;
-
+      joinRoom();
       if (status) {
         setChatRoomId(data.ChatRoomID);
       } else {
