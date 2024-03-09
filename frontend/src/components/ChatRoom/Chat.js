@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ScrollToBottom from "react-scroll-to-bottom";
 import sendIcon from "../../assets/sendIcon.jpg";
+import { useParams } from "react-router-dom";
 
 const Chat = ({ socket, userName, room }) => {
+  const { UserId } = useParams();
+
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
@@ -41,11 +44,39 @@ const Chat = ({ socket, userName, room }) => {
     }
   };
 
+  const fetchRoomMessages = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4050/users/getRoomMessages`,
+        { withCredentials: true }
+      );
+      console.log(response);
+      const { data, message } = response.data;
+
+      if (data && data.length > 0) {
+        setMessageList(
+          data.map((message) => ({
+            message: message.Content,
+            author: message.SenderID.toString(),
+            time: new Date(message.Timestamp).toLocaleTimeString(),
+          }))
+        );
+      } else {
+        console.log("No messages found for this room.");
+      }
+
+      console.log(message);
+    } catch (error) {
+      console.error("Error fetching room messages:", error);
+    }
+  };
+
   useEffect(() => {
     socket.on("receive_message", (data) => {
       setMessageList((list) => [...list, data]);
     });
-  }, [socket]);
+    fetchRoomMessages();
+  }, [socket, room]);
 
   return (
     <div className="chat-window">
