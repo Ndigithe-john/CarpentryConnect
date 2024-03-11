@@ -58,7 +58,7 @@ const Chat = ({ socket, userName, room }) => {
         setMessageList(
           data.map((message) => ({
             message: message.Content,
-            author: message.SenderID.toString(),
+            author: message.SenderFullName,
             time: new Date(message.Timestamp).toLocaleTimeString(),
           }))
         );
@@ -78,7 +78,7 @@ const Chat = ({ socket, userName, room }) => {
     });
     fetchRoomMessages();
   }, [socket, room]);
-
+  console.log(userName);
   return (
     <div className="chat-window">
       <div className="chat-header">

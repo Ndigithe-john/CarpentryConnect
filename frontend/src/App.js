@@ -42,6 +42,7 @@ function App() {
     }
     getUser();
   }, [userName.FullName]);
+  console.log(userName.FullName);
   const joinRoom = () => {
     if (userName !== "" && chatRoomId) {
       socket.emit("join_room", chatRoomId);
