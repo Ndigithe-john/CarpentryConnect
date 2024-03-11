@@ -7,6 +7,7 @@ const loginUserValidator = require("../validators/loginValidator");
 const sendMail = require("../utils/email");
 const { updateProfileValidator } = require("../validators/getUserValidator");
 const { errorMonitor } = require("nodemailer/lib/xoauth2");
+const getChatValidator = require("../validators/getChatValidator");
 
 async function signUp(req, res) {
   try {
@@ -342,6 +343,8 @@ async function getChatRoomMessages(req, res, next) {
     const { pool, io } = req;
     const user = req.session.user;
     const { Participant2ID } = req.body;
+    const { value } = getChatValidator(body);
+    console.log(value);
     if (pool.connected) {
       const results = await pool
         .request()
@@ -370,7 +373,7 @@ async function getChatRoomMessages(req, res, next) {
       });
     }
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     return next(new AppError("Internal Server Error", 500));
   }
 }
