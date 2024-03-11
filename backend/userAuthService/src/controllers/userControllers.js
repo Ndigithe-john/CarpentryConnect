@@ -343,7 +343,7 @@ async function getChatRoomMessages(req, res, next) {
     const { pool, io } = req;
     const user = req.session.user;
     const { Participant2ID } = req.body;
-    const { value } = getChatValidator(body);
+    const { value } = getChatValidator(req.body);
     console.log(value);
     if (pool.connected) {
       const results = await pool
@@ -374,7 +374,7 @@ async function getChatRoomMessages(req, res, next) {
     }
   } catch (error) {
     console.log(error.message);
-    return next(new AppError("Internal Server Error", 500));
+    return next(new AppError(error.message, 500));
   }
 }
 
