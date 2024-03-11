@@ -27,5 +27,5 @@ userRoutes.get("/userProfile", getProfileDetails);
 userRoutes.get("/getUser/:user_id", getUserByID);
 userRoutes.post("/createChatRoom", manageSessions, createChatRoom);
 userRoutes.post("/sendMessage", manageSessions, sendMessage);
-userRoutes.get("/getRoomMessages", getChatRoomMessages);
+userRoutes.post("/getRoomMessages", getChatRoomMessages);
 module.exports = userRoutes;

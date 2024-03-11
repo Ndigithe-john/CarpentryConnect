@@ -36,3 +36,6 @@ CREATE TABLE Messages (
     Content NVARCHAR(MAX),
     Timestamp DATETIME
 );
+
+ALTER TABLE Messages
+ADD ReceiverID INT FOREIGN KEY REFERENCES Users(UserID);

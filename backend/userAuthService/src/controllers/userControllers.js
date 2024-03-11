@@ -343,8 +343,7 @@ async function getChatRoomMessages(req, res, next) {
     const { pool, io } = req;
     const user = req.session.user;
     const { Participant2ID } = req.body;
-    const { value } = getChatValidator(req.body);
-    console.log(value);
+
     if (pool.connected) {
       const results = await pool
         .request()
@@ -354,6 +353,7 @@ async function getChatRoomMessages(req, res, next) {
       io.emit("fetching_messages", {
         participants: [user.id, Participant2ID],
       });
+      console.log(user.id);
       if (results.recordsets.length) {
         res.status(200).json({
           status: true,

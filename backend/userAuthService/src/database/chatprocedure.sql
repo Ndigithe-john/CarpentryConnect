@@ -34,8 +34,26 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO Messages (ChatRoomID, SenderID, Content, Timestamp)
-    VALUES (@ChatRoomID, @SenderID, @Content, GETDATE());
+    DECLARE @ReceiverID INT;
+
+    SELECT @ReceiverID = CASE
+                            WHEN Participant1ID = @SenderID THEN Participant2ID
+                            WHEN Participant2ID = @SenderID THEN Participant1ID
+                            ELSE NULL
+                        END
+    FROM ChatRooms
+    WHERE ChatRoomID = @ChatRoomID;
+
+    IF @ReceiverID IS NOT NULL
+    BEGIN
+        INSERT INTO Messages (ChatRoomID, SenderID, ReceiverID, Content, Timestamp)
+        VALUES (@ChatRoomID, @SenderID, @ReceiverID, @Content, GETDATE());
+    END;
+    ELSE
+    BEGIN
+       
+        PRINT 'ReceiverID not found for the given ChatRoomID and SenderID';
+    END;
 END;
 
 EXEC SendMessage @ChatRoomID = 1, @SenderID = 1039, @Content = 'Hello, how are you?';
@@ -60,6 +78,7 @@ BEGIN
 END;
 
 --Porcedure to get chatroom messages depending on participants
+
 CREATE OR ALTER PROCEDURE GetMessagesForParticipants
     @Participant1ID INT,
     @Participant2ID INT

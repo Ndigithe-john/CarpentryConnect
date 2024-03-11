@@ -46,8 +46,9 @@ const Chat = ({ socket, userName, room }) => {
 
   const fetchRoomMessages = async () => {
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         `http://localhost:4050/users/getRoomMessages`,
+        { Participant2ID: UserId },
         { withCredentials: true }
       );
       console.log(response);
