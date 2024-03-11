@@ -86,10 +86,8 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    
     DECLARE @ChatRoomID INT;
 
-    
     SELECT @ChatRoomID = ChatRoomID
     FROM ChatRooms
     WHERE
@@ -97,26 +95,27 @@ BEGIN
         OR
         (Participant1ID = @Participant2ID AND Participant2ID = @Participant1ID);
 
-
     IF @ChatRoomID IS NOT NULL
     BEGIN
-        
         SELECT
-            MessageID,
-            SenderID,
-            Content,
-            Timestamp
+            M.MessageID,
+            M.SenderID,
+			M.ReceiverId,
+            U1.FirstName AS SenderFirstName,
+            U2.FirstName AS ReceiverFirstName,
+            M.Content,
+            M.Timestamp
         FROM
-            Messages
+            Messages M
+        INNER JOIN Users U1 ON M.SenderID = U1.UserID
+        INNER JOIN Users U2 ON M.ReceiverID = U2.UserID 
         WHERE
-            ChatRoomID = @ChatRoomID
+            M.ChatRoomID = @ChatRoomID
         ORDER BY
-            Timestamp;
-    END;
+            M.Timestamp;
+    END
     ELSE
     BEGIN
-        
-        SELECT NULL AS MessageID, NULL AS SenderID, NULL AS Content, NULL AS Timestamp WHERE 1 = 0;
+        SELECT NULL AS MessageID, NULL AS SenderID,Null As ReceiverID, NULL AS SenderFirstName, NULL AS ReceiverFirstName, NULL AS Content, NULL AS Timestamp WHERE 1 = 0;
     END;
 END;
-
