@@ -11,8 +11,11 @@ async function startMpesaServer() {
     app.get("/", (req, res) => {
       res.send("Changing the world");
     });
+    app.get("/access_token", accessToken, (req, res) => {
+      res.status(200).json({ access_token: req.access_token });
+    });
 
-    app.get("/access_token", (req, res) => {
+    function accessToken(req, res, next) {
       const url = `https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials`;
       const auth =
         "Basic " +
@@ -26,9 +29,10 @@ async function startMpesaServer() {
         })
         .then((response) => {
           let data = response.data;
-          res.send(data);
+          req.access_token = data;
+          next();
         });
-    });
+    }
 
     app.listen(port, (error, live) => {
       if (error) {
