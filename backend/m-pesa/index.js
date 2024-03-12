@@ -10,7 +10,11 @@ async function startMpesaServer() {
 
   const port = process.env.PORT || 8001;
 
-  app.listen(port, () => console.log(`App running on port ${port}`));
+  app.listen(port, (error, live) => {
+    if (error) {
+      console.log(error);
+    } else console.log(`App running on port ${port}`);
+  });
 }
 
 startMpesaServer();
