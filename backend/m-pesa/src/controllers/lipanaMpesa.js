@@ -15,9 +15,11 @@ function accessToken(req, res, next) {
     })
     .then((response) => {
       let data = response.data;
-      req.access_token = data;
+      res.status(200).json({ access_token: data.access_token });
+      req.access_token = data.access_token;
       next();
     });
 }
+function lipa_na_mpesa(req, res, next) {}
 
-module.exports = { accessToken };
+module.exports = { accessToken, lipa_na_mpesa };
