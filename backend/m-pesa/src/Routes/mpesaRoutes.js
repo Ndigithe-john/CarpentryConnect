@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { accessToken } = require("../controllers/lipanaMpesa");
+const { accessToken, lipa_na_mpesa } = require("../controllers/lipanaMpesa");
 
-router.get("/access_token", accessToken, (req, res) => {
-  res.status(200).json({ access_token: req.access_token });
-});
+router.get("/access_token", accessToken);
+router.post("/stk/push", accessToken, lipa_na_mpesa);
 
 module.exports = router;
