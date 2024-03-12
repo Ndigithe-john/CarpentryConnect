@@ -55,5 +55,17 @@ function lipa_na_mpesa(req, res, next) {
     .then((response) => res.send(response.data))
     .catch((error) => console.log(error));
 }
-
-module.exports = { accessToken, lipa_na_mpesa };
+const CallBack = (req, res) => {
+  let message = {
+    ResponseCode: "0",
+    ResponseDesc: "success",
+  };
+  if (req.body.Body.stkCallback.CallbackMetadata != undefined) {
+    console.log("Payment SuccessFully");
+  } else {
+    console.log("Payment not SuccessFully");
+  }
+  console.log(req.body);
+  res.json(message);
+};
+module.exports = { accessToken, lipa_na_mpesa, CallBack };
