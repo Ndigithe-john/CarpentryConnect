@@ -29,11 +29,13 @@ function accessToken(req, res, next) {
 function lipa_na_mpesa(req, res, next) {
   const stkUrl =
     "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
-  let amount_payable = req.query.amount;
-  console.log(req.body);
+  // let amount_payable = req.query.amount;
+  let amount_payable = 1;
   let account_reference = req.query.acc_ref;
-  let phoneNumber = req.query.phoneNumber;
-  let Token = req.accessToken;
+  // let phoneNumber = req.query.phoneNumber;
+  let phoneNumber = +254769968711;
+  let Token = req.access_token;
+  console.log(Token);
   let headerToken = `Bearer ${Token}`;
   let timestamp = getTimestamp();
   let password = getPassword(174379, passkey, timestamp);
